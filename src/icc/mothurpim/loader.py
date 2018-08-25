@@ -1,12 +1,43 @@
 from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef
 from rdflib.namespace import DC, DCTERMS, FOAF
+from pkg_resources import resource_dir
+import re
+import glob
+import os.path
+
+CPPEXT = ".cpp"
+HEXT = ".h"
 
 
 class Loader:
-    pass
+    """Loads Mothur commands from a directory of command
+    sources to a graph.
+    """
+
+    def __init__(self, sourcedir):
+        self.sourcedir = sourcedir
+        self.loaded = False
+        self.graph = Graph()
+
+    def load(self):
+        if self.loaded:
+            return self.graph
+        # Traverse all .h and .cpp files
+        # with searching command definitions.
+
+        findnames = self.sourcedir+"/*"+CPPEXT
+        files = glob.glob(findnames)
+        print(findnames)
+        for f in files:
+            name = f.replace(CPPEXT, "")
+            header = name+HEXT
+            print(f, header)
+
+        self.loaded = True
+        return self.graph
 
 
-def main_test():
+def rdflib_example():
     g = Graph()
 
     # Create an identifier to use as the subject for Donna.
