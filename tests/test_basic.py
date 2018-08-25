@@ -1,14 +1,17 @@
 from nose.plugins.skip import SkipTest
 from nose.tools import assert_raises, nottest
+from icc.mothurpim.loader import Loader, main_test
 
-#@SkipTest
+# @SkipTest
+
+
 class TestBasic:
 
     def setUp(self):
         pass
 
     def test_something(self):
-        assert 1 + 1 == 2
+        assert main_test()
 
     def tearDown(self):
         pass
