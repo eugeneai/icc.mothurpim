@@ -23,14 +23,15 @@ env:
 	[ -d $(V) ] || virtualenv  $(V)
 	$(VB)/easy_install --upgrade pip
 
-pre-dev:env #dev-....
-	$(VB)/easy_install pip setuptools
+pre-dev: #env #dev-....
+	# $(VB)/easy_install pip setuptools
+	pip install --upgrade pip
 
 setup:
-	$(PYTHON) setup.py build_ext # -L$(LG_LIB_DIR) -R$(LG_LIB_DIR) -I$(LG_HEADERS)
-	$(PYTHON) setup.py develop
+	python setup.py build_ext # -L$(LG_LIB_DIR) -R$(LG_LIB_DIR) -I$(LG_HEADERS)
+	python setup.py develop
 
-dev:	pre-dev setup-requs setup # upd-cat
+dev: pre-dev setup-requs setup # upd-cat
 
 develop: dev
 
@@ -40,8 +41,8 @@ install: env comp-cat
 edit:
 	cd src && emacs
 
-setup-requs: requirements.txt
-	pip install -r requirements.txt
+setup-requs: requirements-devel.txt
+	pip install -r requirements-devel.txt
 
 run-tests:
 	nosetests -w src/tests
