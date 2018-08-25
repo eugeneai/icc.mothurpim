@@ -70,7 +70,7 @@ setup(
     #     """.split('\n') if c.strip()],
     # ],
     keywords='MDA PIM Mothur Bioinformatics',
-    author='Ecgeny Cherkashin',
+    author='Evgeny Cherkashin',
     author_email='eugeneai@irnok.net',
     url='https://github.com/eugeneai/icc.mothurpim',
     license='GNU-v3.0',

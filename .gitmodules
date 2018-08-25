@@ -1,0 +1,3 @@
+[submodule "mothur-src"]
+	path = mothur-src
+	url = https://github.com/mothur/mothur.git
