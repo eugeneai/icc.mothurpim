@@ -52,6 +52,37 @@ RE_CITE = re_simple("Citation")
 RE_CAT = re_simple("CommandCategory")
 RE_DESCR = re_simple("Description")
 
+RE_COMPAR = re.compile(
+    r'CommandParameter\s+p(\w+)\s*\((.+?)\)\s*;')
+
+
+def COMPAR(name="",
+           type="",
+           options="",
+           optionsDefault="",
+           chooseOnlyOneGroup="",
+           chooseAtLeastOneGroup="",
+           linkedGroup="",
+           outputTypes="",
+           multipleSelectionAllowed=False,
+           required=False,
+           important=False):
+    d = {"name": name,
+         "type": type,
+         "options": options,
+         "optionsDefault": optionsDefault,
+         "chooseOnlyOneGroup": chooseOnlyOneGroup,
+         "chooseAtLeastOneGroup": chooseAtLeastOneGroup,
+         "linkedGroup": linkedGroup,
+         "outputTypes": outputTypes,
+         "multipleSelectionAllowed": multipleSelectionAllowed,
+         "required": required,
+         "important": important}
+    return d
+
+
+CTX = {"true": True, "false": False, "compar": COMPAR}
+
 
 class CommandLoader:
     def __init__(self, loader, cpp, header):
@@ -80,7 +111,18 @@ class CommandLoader:
         return value
 
     def loadcpp(self):
-        pass
+        del self.text
+        self.cpptext = open(self.cpp).read()
+        for m in RE_COMPAR.finditer(self.cpptext):
+            pname, params = m.groups()
+            self.processparams(pname, params)
+
+    def processparams(self, pname, defs):
+        s = "compar("+defs+")"
+        # print(s)
+        defs = eval(s, CTX)
+        print(defs["name"])
+
 
 # class CommandParameter {
 
