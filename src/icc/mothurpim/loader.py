@@ -30,7 +30,7 @@ class Loader:
         for f in files:
             name = f.replace(CPPEXT, "")
             header = glob.glob(name+HEXT+"*")[0]
-            # print(f, header)
+            print("Processing -----: ", f, header)
             fl = CommandLoader(self, f, header)
             fl.load()
 
@@ -54,6 +54,15 @@ RE_DESCR = re_simple("Description")
 
 RE_COMPAR = re.compile(
     r'CommandParameter\s+p(\w+)\s*\((.+?)\)\s*;')
+RE_HELP = re.compile(r'helpString\s*\+?=\s*"(.*?)"')
+
+RE_GOP = re.compile(
+    r'(getOutputPattern\s*\(\s*string.+?catch.+?\}.+?\})', re.DOTALL)
+
+RE_GOP_NAME = re.compile(r'getOutputPattern\s*\(\s*string\s+(\w+)\s*\)')
+# RE_GOP_NAME = re.compile(r'(getOutputPattern\s*\(\s*string\s+)')
+
+CP_TYPES = {'InputTypes', 'Boolean', 'Number', 'Multiple', 'String'}
 
 
 def COMPAR(name="",
@@ -67,6 +76,10 @@ def COMPAR(name="",
            multipleSelectionAllowed=False,
            required=False,
            important=False):
+
+    if type == "Multiple":
+        options = options.split("-")
+
     d = {"name": name,
          "type": type,
          "options": options,
@@ -78,6 +91,7 @@ def COMPAR(name="",
          "multipleSelectionAllowed": multipleSelectionAllowed,
          "required": required,
          "important": important}
+
     return d
 
 
@@ -113,49 +127,35 @@ class CommandLoader:
     def loadcpp(self):
         del self.text
         self.cpptext = open(self.cpp).read()
+        self.params = {}
         for m in RE_COMPAR.finditer(self.cpptext):
             pname, params = m.groups()
             self.processparams(pname, params)
+
+        help = ""
+        for m in RE_HELP.finditer(self.cpptext):
+            help += m.group(1)
+        self.help = help.replace(r"\n", "\n")
+        print("HELP->", self.help)
+        m = RE_GOP.search(self.cpptext)
+        self.gop = None
+        if m:
+            self.gop = m.group(1)
+            print(self.gop)
+            m = RE_GOP_NAME.search(self.gop)
+            if m:
+                self.gopparam = m.group(1)
+                print("---> ", self.gopparam)
+            else:
+                raise ValueError("cannot recodgnize parameter name")
+        else:
+            print("WARNING: getOutputPattern not found")
 
     def processparams(self, pname, defs):
         s = "compar("+defs+")"
         # print(s)
         defs = eval(s, CTX)
-        print(defs["name"])
-
-
-# class CommandParameter {
-
-# 	public:
-#     CommandParameter() { name = ""; type = ""; options = ""; optionsDefault = ""; chooseOnlyOneGroup = ""; chooseAtLeastOneGroup = ""; linkedGroup = ""; multipleSelectionAllowed = false; required = false; important = false; outputTypes = ""; }
-#     CommandParameter(string n, string t, string o, string d, string only, string atLeast, string linked, string opt, bool m, bool r, bool i) :
-#         name(n), type(t), options(o), optionsDefault(d), chooseOnlyOneGroup(only), chooseAtLeastOneGroup(atLeast), linkedGroup(linked), outputTypes(opt),multipleSelectionAllowed(m), required(r), important(i) {}
-#     CommandParameter(string n, string t, string o, string d, string only, string atLeast, string linked, string opt, bool m, bool r) : name(n), type(t), options(o), optionsDefault(d),
-#             chooseOnlyOneGroup(only), chooseAtLeastOneGroup(atLeast), linkedGroup(linked), outputTypes(opt), multipleSelectionAllowed(m), required(r)  { important = false; }
-
-# 		string name;		//something like fasta, processors, method
-# 		string type;  //must be set to "Boolean", "Multiple", "Number", "String", "InputTypes" - InputTypes is for file inputs
-# 		string options; //if the parameter has specific options allowed, used for parameters of type "Multiple", something like "furthest-nearest-average", or "sobs-chao...", leave blank for command that do not required specific options
-# 		string optionsDefault;   //the default for this parameter, could be something like "F" for a boolean or "100" for a number or "sobs-chao" for multiple
-
-
-# 		//for chooseOnlyOneGroup, chooseAtLeastOneGroup and linkedGroup if no group is needed set to "none".
-# 		string chooseOnlyOneGroup; //for file inputs: if a command has several options for input files but you can only choose one then put them in a group
-# 									//for instance in the read.dist command you can use a phylip or column file but not both so set chooseOnlyOneGroup for both parameters to something like "DistanceFileGroup"
-# 		string chooseAtLeastOneGroup; //for file inputs: if a command has several options for input files and you want to make sure one is choosen then put them in a group
-# 									//for instance in the read.dist command you must provide a phylip or column file so set chooseAtLeastOneGroup for both parameters to something like "DistanceFileGroup"
-# 		string linkedGroup; //for file inputs: if a command has a file option were if you provide one you must provide another you can put them in a group
-# 										//for instance in the cluster command if you provide a column file you must provide a name file so set linkedGroup for both parameters to something like "ColumnNameGroup"
-
-# 		bool multipleSelectionAllowed; //for "Multiple" type to say whether you can select multiple options, for instance for calc parameter set to true, but for method set to false
-# 		bool required; //is this parameter required
-
-#         bool important; //is this parameter important.  The gui will put "important" parameters first in the option panel.
-
-#         string outputTypes; //types on files created by the command if this parameter is given.  ie. get.seqs command fasta parameter makes a fasta file. can be multiple values split by dashes.
-
-# 	private:
-# };
+        self.params[defs["name"]] = defs
 
 
 def rdflib_example():
