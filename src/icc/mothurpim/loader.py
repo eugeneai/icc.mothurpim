@@ -60,7 +60,6 @@ RE_GOP = re.compile(
     r'(getOutputPattern\s*\(\s*string.+?catch.+?\}.+?\})', re.DOTALL)
 
 RE_GOP_NAME = re.compile(r'getOutputPattern\s*\(\s*string\s+(\w+)\s*\)')
-# RE_GOP_NAME = re.compile(r'(getOutputPattern\s*\(\s*string\s+)')
 
 CP_TYPES = {'InputTypes', 'Boolean', 'Number', 'Multiple', 'String'}
 
@@ -101,6 +100,7 @@ CTX = {"true": True, "false": False, "compar": COMPAR}
 class CommandLoader:
     def __init__(self, loader, cpp, header):
         self.loader = loader
+        self.graph = loader.graph
         self.cpp = cpp
         self.h = header
 
