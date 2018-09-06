@@ -24,6 +24,11 @@ class Loader:
         self.sourcedir = sourcedir
         self.loaded = False
         g = self.graph = Graph()
+
+        self.spec = NGSP.spec
+
+        g.add((self.spec, RDF.type, NGSP.Specification))
+
         g.bind('oslc', OSLC)
         g.bind('ngs', NGS)
         g.bind('ngsp', NGSP)
@@ -98,12 +103,14 @@ def COMPAR(name="",
            required=False,
            important=False):
 
+    opts = options
     if type == "Multiple":
         options = options.split("-")
 
     xsdbool = XSD.boolean
     d = {DC.title: Literal(name),
-         RDF.type: CUR[type],
+         NGSP.type: CUR[type],
+         "optionsOrig": opts,
          "options": options,
          "optionsDefault": optionsDefault,
          "chooseOnlyOneGroup": chooseOnlyOneGroup,
@@ -159,6 +166,7 @@ class CommandLoader:
         res = CUR[self.commandname]
         self.command = res = URIRef(res)
         g.add((res, RDF.type, NGSP["Module"]))
+        g.add((self.loader.spec, NGSP.module, res))
         g.add((res, DC.title, Literal(name)))
         g.add((res, DCTERMS.description, Literal(description)))
         g.add((res, SCHEMA.citation, Literal(citation)))
@@ -186,9 +194,9 @@ class CommandLoader:
 
         help = ""
         for m in RE_HELP.finditer(self.cpptext):
-            help += m.group(1)
-        self.help = help.replace(r"\n", r"|||")  # FIXME
-        # self.help = help
+            help += m.group(1)+"\n"
+        # self.help = help.replace(r"\n", r"|||")  # FIXME
+        self.help = help
         # print("HELP->", self.help)
         help = self.help = self.help.strip()
         if help:
@@ -223,9 +231,15 @@ class CommandLoader:
         g.add((p, RDF.type, NGSP["Parameter"]))
         g.add((self.command, NGSP.parameter, p))
         for k, v in defs.items():
+            ko = k
             if type(k) == str:
                 k = NGSP[k]
             if type(v) == str:
+                if v == "none":
+                    continue
+                if v == "":
+                    if ko != "optionsDefault":
+                        continue
                 v = Literal(v)
             if type(v) == list:
                 pl = BNode()
