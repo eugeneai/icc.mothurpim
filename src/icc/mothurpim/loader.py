@@ -1,9 +1,15 @@
 from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef
-from rdflib.namespace import DC, DCTERMS, FOAF
+from rdflib.namespace import DC, DCTERMS, FOAF, XSD
+from icc.ngs.namespace import NGS, NGSP, SCHEMA, V, OSLC
 from pkg_resources import resource_dir
 import re
 import glob
 import os.path
+
+CUR = Namespace("http://icc.ru/ontologies/NGS/mothur/")
+
+# URL: https://github.com/eugeneai/icc.mothurpim
+
 
 CPPEXT = ".cpp"
 HEXT = ".h"
@@ -17,7 +23,15 @@ class Loader:
     def __init__(self, sourcedir):
         self.sourcedir = sourcedir
         self.loaded = False
-        self.graph = Graph()
+        g = self.graph = Graph()
+        g.bind('oslc', OSLC)
+        g.bind('ngs', NGS)
+        g.bind('ngsp', NGSP)
+        g.bind('schema', SCHEMA)
+        g.bind('dc', DC)
+        g.bind('dcterms', DCTERMS)
+        g.bind('v', V)
+        g.bind('mothur', CUR)
 
     def load(self):
         if self.loaded:
@@ -36,6 +50,13 @@ class Loader:
 
         self.loaded = True
         return self.graph
+
+    def save(self, filename, format="rdf"):
+        g = self.graph
+        s = self.graph.serialize(format=format)
+        o = open(filename, "wb")
+        o.write(s)
+        o.close()
 
 
 # NAME = "[a-zA-Z.]+"
@@ -79,22 +100,26 @@ def COMPAR(name="",
     if type == "Multiple":
         options = options.split("-")
 
-    d = {"name": name,
-         "type": type,
+    xsdbool = XSD.boolean
+    d = {DC.title: Literal(name),
+         RDF.type: CUR[type],
          "options": options,
          "optionsDefault": optionsDefault,
          "chooseOnlyOneGroup": chooseOnlyOneGroup,
          "chooseAtLeastOneGroup": chooseAtLeastOneGroup,
          "linkedGroup": linkedGroup,
          "outputTypes": outputTypes,
-         "multipleSelectionAllowed": multipleSelectionAllowed,
-         "required": required,
-         "important": important}
+         "multipleSelectionAllowed": Literal(multipleSelectionAllowed, datatype=xsdbool),
+         "required": Literal(required, datatype=xsdbool),
+         "important": Literal(important, datatype=xsdbool)}
 
     return d
 
 
 CTX = {"true": True, "false": False, "compar": COMPAR}
+
+
+RE_COMMENT = re.compile("(.*?)\s+//")
 
 
 class CommandLoader:
@@ -106,15 +131,37 @@ class CommandLoader:
 
     def load(self):
         self.loadh()
+        assert (self.command)
         self.loadcpp()
 
+    def readfile(self, name, op="r"):
+        i = open(name, op)
+        s = []
+        for l in i:
+            m = RE_COMMENT.match(l)
+            if m:
+                l = m.group(1)
+            s.append(l)
+        return "".join(s)
+
     def loadh(self):
-        self.text = open(self.h).read()
+        self.text = self.readfile(self.h)
         name = self.find(RE_NAME, "name")
         category = self.find(RE_CAT, "category")
         citation = self.find(RE_CITE, "citation")
         description = self.find(RE_DESCR, "description")
         print(f"{name}:{category}\n {citation}\n {description}")
+        g = self.graph
+        #filename = os.path.split(self.h)[1].strip()
+        # assert(filename)
+        self.commandname = name
+        res = CUR[self.commandname]
+        self.command = res = URIRef(res)
+        g.add((res, RDF.type, NGSP["Module"]))
+        g.add((res, DC.title, Literal(name)))
+        g.add((res, DCTERMS.description, Literal(description)))
+        g.add((res, SCHEMA.citation, Literal(citation)))
+        g.add((res, V.category, Literal(category)))
 
     def find(self, re, ent):
         m = re.search(self.text)
@@ -126,7 +173,11 @@ class CommandLoader:
 
     def loadcpp(self):
         del self.text
-        self.cpptext = open(self.cpp).read()
+        self.cpptext = self.readfile(self.cpp)
+
+        g = self.loader.graph
+        res = self.command
+
         self.params = {}
         for m in RE_COMPAR.finditer(self.cpptext):
             pname, params = m.groups()
@@ -136,7 +187,10 @@ class CommandLoader:
         for m in RE_HELP.finditer(self.cpptext):
             help += m.group(1)
         self.help = help.replace(r"\n", "\n")
-        print("HELP->", self.help)
+        # print("HELP->", self.help)
+        help = self.help = self.help.strip()
+        if help:
+            g.add((res, SCHEMA.softwareHelp, Literal(help)))
         m = RE_GOP.search(self.cpptext)
         self.gop = None
         if m:
@@ -155,7 +209,26 @@ class CommandLoader:
         s = "compar("+defs+")"
         # print(s)
         defs = eval(s, CTX)
-        self.params[defs["name"]] = defs
+        g = self.graph
+        name = defs[DC.title]
+        self.params[name] = defs
+
+        p = CUR["{}-{}-parameter".format(self.commandname, name)]
+        g.add((p, RDF.type, NGSP["Parameter"]))
+        g.add((self.command, NGSP.parameter, p))
+        for k, v in defs.items():
+            if type(k) == str:
+                k = NGSP[k]
+            if type(v) == str:
+                v = Literal(v)
+            if type(v) == list:
+                pl = BNode()
+                g.add((pl, RDF.type, OSLC.AllowedValues))
+                g.add((p, OSLC.allowedValues, pl))
+                for val in v:
+                    g.add((pl, DC.identifier, Literal(val)))
+            else:
+                g.add((p, k, v))
 
 
 def rdflib_example():

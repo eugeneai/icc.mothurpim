@@ -26,3 +26,4 @@ class TestBasic:
     def test_loader(self):
         l = Loader(SRCDIR)
         l.load()
+        l.save("result.ttl", format="ttl")
