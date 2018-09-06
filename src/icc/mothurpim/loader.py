@@ -1,6 +1,6 @@
 from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef
 from rdflib.namespace import DC, DCTERMS, FOAF, XSD
-from icc.ngs.namespace import NGS, NGSP, SCHEMA, V, OSLC
+from icc.ngs.namespace import NGS, NGSP, SCHEMA, V, OSLC, CNT
 from pkg_resources import resource_dir
 import re
 import glob
@@ -31,6 +31,7 @@ class Loader:
         g.bind('dc', DC)
         g.bind('dcterms', DCTERMS)
         g.bind('v', V)
+        g.bind('cnt', CNT)
         g.bind('mothur', CUR)
 
     def load(self):
@@ -186,7 +187,8 @@ class CommandLoader:
         help = ""
         for m in RE_HELP.finditer(self.cpptext):
             help += m.group(1)
-        self.help = help.replace(r"\n", "\n")
+        self.help = help.replace(r"\n", r"|||")  # FIXME
+        # self.help = help
         # print("HELP->", self.help)
         help = self.help = self.help.strip()
         if help:
@@ -195,11 +197,15 @@ class CommandLoader:
         self.gop = None
         if m:
             self.gop = m.group(1)
-            print(self.gop)
+            # print(self.gop)
+            gopr = BNode()
+            g.add((gopr, RDF.type, CNT.Chars))
+            g.add((res, NGSP.outputPattern, gopr))
+            g.add((gopr, CNT.chars, Literal(self.gop)))
             m = RE_GOP_NAME.search(self.gop)
             if m:
                 self.gopparam = m.group(1)
-                print("---> ", self.gopparam)
+                g.add((gopr, NGSP.parameterName, Literal(self.gopparam)))
             else:
                 raise ValueError("cannot recodgnize parameter name")
         else:
