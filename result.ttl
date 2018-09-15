@@ -2,6 +2,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix mothur: <http://icc.ru/ontologies/NGS/mothur/> .
+@prefix nco: <http://www.semanticdesktop.org/ontologies/2007/03/22/nco#> .
 @prefix ngs: <http://icc.ru/ontologies/NGS/> .
 @prefix ngsp: <http://icc.ru/ontologies/NGS/processing/> .
 @prefix oslc: <http://open-services.net/ns/core#> .
@@ -200,6 +201,7 @@ It outputs a file containing the secondary structure matches in the .align.check
 The align.check command parameters are fasta and map, both are required.\\n
 The align.check command should be in the following format: align.check(fasta=yourFasta, map=yourMap).\\n
 Example align.check(map=silva.ss.map, fasta=amazon.fasta).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Align.check> ;
     v:category "Sequence Processing" .
 
 mothur:align.check-count-parameter a ngsp:Parameter ;
@@ -266,10 +268,10 @@ mothur:align.check-seed-parameter a ngsp:Parameter ;
 mothur:align.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],flip.accnos" ;
-                    dc:identifier "accnos" ],
-                [ ngsp:patternString "[filename],align" ;
+            ngsp:pattern [ ngsp:patternString "[filename],align" ;
                     dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],flip.accnos" ;
+                    dc:identifier "accnos" ],
                 [ ngsp:patternString "[filename],align.report" ;
                     dc:identifier "alignreport" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -322,6 +324,7 @@ The default for the threshold parameter is 0.50, meaning at least 50% of the bas
 The align.seqs command should be in the following format:
 align.seqs(reference=yourTemplateFile, fasta=yourCandidateFile, align=yourAlignmentMethod, search=yourSearchmethod, ksize=yourKmerSize, match=yourMatchBonus, mismatch=yourMismatchpenalty, gapopen=yourGapopenPenalty, gapextend=yourGapExtendPenalty)
 Example align.seqs(candidate=candidate.fasta, template=core.filtered, align=kmer, search=gotoh, ksize=8, match=2.0, mismatch=3.0, gapopen=-2.0, gapextend=-1.0)""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Align.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:align.seqs-align-parameter a ngsp:Parameter ;
@@ -497,6 +500,7 @@ The design file looks like the group file.  It is a 2 column tab delimited file,
 The sets parameter allows you to specify which of the sets in your designfile you would like to analyze. The set names are separated by dashes. THe default is all sets in the designfile.\\n
 The iters parameter allows you to set number of randomization for the P value.  The default is 1000.
 The amova command should be in the following format: amova(phylip=file.dist, design=file.design).""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Amova> ;
     v:category "Hypothesis Testing" .
 
 mothur:amova-alpha-parameter a ngsp:Parameter ;
@@ -604,6 +608,7 @@ The design parameter allows you to assign your samples to groups when you are ru
 The design file looks like the group file.  It is a 2 column tab delimited file, where the first column is the sample name and the second column is the group the sample belongs to.\\n
 The iters parameter allows you to set number of randomization for the P value.  The default is 1000. \\n
 The anosim command should be in the following format: anosim(phylip=file.dist, design=file.design).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Anosim> ;
     v:category "Hypothesis Testing" .
 
 mothur:anosim-alpha-parameter a ngsp:Parameter ;
@@ -705,6 +710,7 @@ Example bin.seqs(fasta=amazon.fasta, group=amazon.groups, name=amazon.names).\\n
 The default value for label is all lines in your inputfile.\\n
 The bin.seqs command outputs a .fasta file for each distance you specify appending the OTU number to each name.\\n
 If you provide a groupfile, then it also appends the sequences group to the name.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Bin.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:bin.seqs-count-parameter a ngsp:Parameter ;
@@ -788,12 +794,12 @@ mothur:bin.seqs-seed-parameter a ngsp:Parameter ;
 mothur:biom.info a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],taxonomy" ;
-                    dc:identifier "taxonomy" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],tax.summary" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],[tag2],tax.summary" ;
                     dc:identifier "taxsummary" ],
                 [ ngsp:patternString "[filename],[tag],shared" ;
                     dc:identifier "shared" ],
+                [ ngsp:patternString "[filename],[tag],taxonomy" ;
+                    dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],[tag],cons.taxonomy" ;
                     dc:identifier "constaxonomy" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -834,6 +840,7 @@ The printlevel parameter allows you to specify taxlevel of your summary file to 
 For example consider the following basis=sequence could give Clostridiales	3	105, where 105 is the total number of sequences whose otu classified to Clostridiales.\\n
 Now for basis=otu could give Clostridiales	3	7, where 7 is the number of otus that classified to Clostridiales.\\n
 The biom.info command should be in the following format: biom.info(biom=test.biom, label=0.03).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Biom.info> ;
     v:category "OTU-Based Approaches" .
 
 mothur:biom.info-basis-parameter a ngsp:Parameter ;
@@ -919,18 +926,18 @@ mothur:biom.info-seed-parameter a ngsp:Parameter ;
 mothur:catchall a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],_BubblePlot.csv" ;
-                    dc:identifier "bubble" ],
-                [ ngsp:patternString "[filename],[distance],csv" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[distance],csv" ;
                     dc:identifier "sabund" ],
-                [ ngsp:patternString "[filename],_BestModelsAnalysis.csv" ;
-                    dc:identifier "models" ],
-                [ ngsp:patternString "[filename],_BestModelsAnalysis.csv" ;
-                    dc:identifier "bestanalysis" ],
                 [ ngsp:patternString "[filename],_Analysis.csv" ;
                     dc:identifier "analysis" ],
                 [ ngsp:patternString "[filename],catchall.summary" ;
-                    dc:identifier "summary" ] ;
+                    dc:identifier "summary" ],
+                [ ngsp:patternString "[filename],_BubblePlot.csv" ;
+                    dc:identifier "bubble" ],
+                [ ngsp:patternString "[filename],_BestModelsAnalysis.csv" ;
+                    dc:identifier "models" ],
+                [ ngsp:patternString "[filename],_BestModelsAnalysis.csv" ;
+                    dc:identifier "bestanalysis" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -960,6 +967,7 @@ The label parameter is used to analyze specific labels in your input.\\n
 The catchall command should be in the following format: \\n
 catchall(sabund=yourSabundFile) \\n
 Example: catchall(sabund=abrecovery.fn.sabund) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Catchall> ;
     v:category "OTU-Based Approaches" .
 
 mothur:catchall-groups-parameter a ngsp:Parameter ;
@@ -1078,6 +1086,7 @@ The window parameter allows you to specify the window size for searching for chi
 The increment parameter allows you to specify how far you move each window while finding chimeric sequences, default is 25.\\n
 chimera.bellerophon(fasta=yourFastaFile, filter=yourFilter, correction=yourCorrection, processors=yourProcessors) \\n
 Example: chimera.bellerophon(fasta=AD.align, filter=True, correction=true, window=200) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.bellerophon> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.bellerophon-correction-parameter a ngsp:Parameter ;
@@ -1151,12 +1160,12 @@ mothur:chimera.bellerophon-window-parameter a ngsp:Parameter ;
 mothur:chimera.ccode a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],mapinfo" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],ccode.accnos-[filename],ccode.accnos" ;
+                    dc:identifier "accnos" ],
+                [ ngsp:patternString "[filename],mapinfo" ;
                     dc:identifier "mapinfo" ],
                 [ ngsp:patternString "[filename],[tag],ccode.chimeras-[filename],ccode.chimeras" ;
-                    dc:identifier "chimera" ],
-                [ ngsp:patternString "[filename],[tag],ccode.accnos-[filename],ccode.accnos" ;
-                    dc:identifier "accnos" ] ;
+                    dc:identifier "chimera" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -1198,6 +1207,7 @@ The numwanted parameter allows you to specify how many sequences you would each 
 The chimera.ccode command should be in the following format: \\n
 chimera.ccode(fasta=yourFastaFile, reference=yourTemplate) \\n
 Example: chimera.ccode(fasta=AD.align, reference=core_set_aligned.imputed.fasta) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.ccode> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.ccode-fasta-parameter a ngsp:Parameter ;
@@ -1322,6 +1332,7 @@ You may enter multiple name files by separating their names with dashes. ie. fas
 The chimera.check command should be in the following format: \\n
 chimera.check(fasta=yourFastaFile, reference=yourTemplateFile, processors=yourProcessors, ksize=yourKmerSize) \\n
 Example: chimera.check(fasta=AD.fasta, reference=core_set_aligned,imputed.fasta, processors=4, ksize=8) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.check> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.check-fasta-parameter a ngsp:Parameter ;
@@ -1404,10 +1415,10 @@ mothur:chimera.perseus a ngsp:Module ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],perseus.chimeras" ;
                     dc:identifier "chimera" ],
-                [ ngsp:patternString "[filename],perseus.pick.count_table" ;
-                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],perseus.accnos" ;
-                    dc:identifier "accnos" ] ;
+                    dc:identifier "accnos" ],
+                [ ngsp:patternString "[filename],perseus.pick.count_table" ;
+                    dc:identifier "count" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -1454,6 +1465,7 @@ The cutoff parameter ....  The default is 0.50. \\n
 The chimera.perseus command should be in the following format: \\n
 chimera.perseus(fasta=yourFastaFile, name=yourNameFile) \\n
 Example: chimera.perseus(fasta=AD.align, name=AD.names) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.perseus> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.perseus-alpha-parameter a ngsp:Parameter ;
@@ -1612,6 +1624,7 @@ The quantile parameter allows you to enter a file containing quantiles for a tem
 The chimera.pintail command should be in the following format: \\n
 chimera.pintail(fasta=yourFastaFile, reference=yourTemplate) \\n
 Example: chimera.pintail(fasta=AD.align, reference=silva.bacteria.fasta) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.pintail> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.pintail-conservation-parameter a ngsp:Parameter ;
@@ -1711,12 +1724,12 @@ mothur:chimera.slayer a ngsp:Module ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],slayer.chimeras" ;
                     dc:identifier "chimera" ],
+                [ ngsp:patternString "[filename],slayer.accnos" ;
+                    dc:identifier "accnos" ],
                 [ ngsp:patternString "[filename],slayer.pick.count_table" ;
                     dc:identifier "count" ],
                 [ ngsp:patternString "[filename],slayer.fasta" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],slayer.accnos" ;
-                    dc:identifier "accnos" ] ;
+                    dc:identifier "fasta" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -1795,6 +1808,7 @@ The blastlocation parameter allows you to specify the location of your blast exe
 The chimera.slayer command should be in the following format: \\n
 chimera.slayer(fasta=yourFastaFile, reference=yourTemplate, search=yourSearch) \\n
 Example: chimera.slayer(fasta=AD.align, reference=core_set_aligned.imputed.fasta, search=kmer) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.slayer> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.slayer-blastlocation-parameter a ngsp:Parameter ;
@@ -2030,10 +2044,10 @@ mothur:chimera.slayer-window-parameter a ngsp:Parameter ;
 mothur:chimera.uchime a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],uchime.alns" ;
-                    dc:identifier "alns" ],
-                [ ngsp:patternString "[filename],[tag],uchime.pick.count_table" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],uchime.pick.count_table" ;
                     dc:identifier "count" ],
+                [ ngsp:patternString "[filename],[tag],uchime.alns" ;
+                    dc:identifier "alns" ],
                 [ ngsp:patternString "[filename],[tag],uchime.chimeras" ;
                     dc:identifier "chimera" ],
                 [ ngsp:patternString "[filename],[tag],uchime.accnos" ;
@@ -2117,6 +2131,7 @@ The queryfract parameter - minimum fraction of the query sequence that must be c
 The chimera.uchime command should be in the following format: \\n
 chimera.uchime(fasta=yourFastaFile, reference=yourTemplate) \\n
 Example: chimera.uchime(fasta=AD.align, reference=silva.gold.align) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.uchime> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.uchime-abskew-parameter a ngsp:Parameter ;
@@ -2358,12 +2373,12 @@ mothur:chimera.vsearch a ngsp:Module ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],[tag],vsearch.pick.count_table" ;
                     dc:identifier "count" ],
-                [ ngsp:patternString "[filename],[tag],vsearch.accnos" ;
-                    dc:identifier "accnos" ],
+                [ ngsp:patternString "[filename],[tag],vsearch.chimeras" ;
+                    dc:identifier "chimera" ],
                 [ ngsp:patternString "[filename],[tag],vsearch.alns" ;
                     dc:identifier "alns" ],
-                [ ngsp:patternString "[filename],[tag],vsearch.chimeras" ;
-                    dc:identifier "chimera" ] ;
+                [ ngsp:patternString "[filename],[tag],vsearch.accnos" ;
+                    dc:identifier "accnos" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -2422,6 +2437,7 @@ The mindiffs parameter - minimum number of differences in segment Default = (3).
 The chimera.vsearch command should be in the following format: \\n
 chimera.vsearch(fasta=yourFastaFile, reference=yourTemplate) \\n
 Example: chimera.vsearch(fasta=AD.align, reference=silva.gold.align) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chimera.vsearch> ;
     v:category "Sequence Processing" .
 
 mothur:chimera.vsearch-abskew-parameter a ngsp:Parameter ;
@@ -2577,14 +2593,14 @@ mothur:chop.seqs a ngsp:Module ;
                     dc:identifier "group" ],
                 [ ngsp:patternString "[filename],chop.fasta" ;
                     dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],chop.accnos" ;
-                    dc:identifier "accnos" ],
                 [ ngsp:patternString "[filename],chop.count_table" ;
                     dc:identifier "count" ],
-                [ ngsp:patternString "[filename],chop.qual" ;
-                    dc:identifier "qfile" ],
+                [ ngsp:patternString "[filename],chop.accnos" ;
+                    dc:identifier "accnos" ],
                 [ ngsp:patternString "[filename],chop.names" ;
-                    dc:identifier "name" ] ;
+                    dc:identifier "name" ],
+                [ ngsp:patternString "[filename],chop.qual" ;
+                    dc:identifier "qfile" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -2634,6 +2650,7 @@ The keepn parameter allows you to specify you want to keep ambigous bases, defau
 The processors parameter allows you to specify how many processors you would like to use.  The default is 1. \\n
 For example, if you ran chop.seqs with numbases=200 and short=t, if a sequence had 100 bases mothur would keep the sequence rather than eliminate it.\\n
 Example chop.seqs(fasta=amazon.fasta, numbases=200, keep=front).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Chops.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:chop.seqs-count-parameter a ngsp:Parameter ;
@@ -2832,6 +2849,7 @@ The probs parameter shuts off the outputting of the consensus confidence results
 The threshold parameter allows you to specify a cutoff for the taxonomy file that is being inputted. Once the classification falls below the threshold the mothur will refer to it as unclassified when calculating the concensus.  This feature is similar to adjusting the cutoff in classify.seqs. Default=0.\\n
 The classify.otu command should be in the following format: classify.otu(taxonomy=yourTaxonomyFile, list=yourListFile, name=yourNamesFile, label=yourLabels).\\n
 Example classify.otu(taxonomy=abrecovery.silva.full.taxonomy, list=abrecovery.fn.list, label=0.10).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Classify.otu> ;
     v:category "Phylotype Analysis" .
 
 mothur:classify.otu-basis-parameter a ngsp:Parameter ;
@@ -3026,6 +3044,7 @@ The label parameter is used to analyze specific labels in your input.\\n
 The groups parameter allows you to specify which of the groups in your designfile you would like analyzed.\\n
 The classify.rf should be in the following format: \\n
 classify.rf(shared=yourSharedFile, design=yourDesignFile)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Classify.rf> ;
     v:category "OTU-Based Approaches" .
 
 mothur:classify.rf-design-parameter a ngsp:Parameter ;
@@ -3162,14 +3181,14 @@ mothur:classify.rf-stdthreshold-parameter a ngsp:Parameter ;
 mothur:classify.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],[tag2],flip.accnos" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],[tag2],tax.summary" ;
+                    dc:identifier "taxsummary" ],
+                [ ngsp:patternString "[filename],[tag],[tag2],flip.accnos" ;
                     dc:identifier "accnos" ],
                 [ ngsp:patternString "[filename],[tag],[tag2],taxonomy" ;
                     dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],[tag],[tag2],match.dist" ;
-                    dc:identifier "matchdist" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],tax.summary" ;
-                    dc:identifier "taxsummary" ] ;
+                    dc:identifier "matchdist" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -3241,6 +3260,7 @@ classify.seqs(reference=yourTemplateFile, fasta=yourFastaFile, method=yourClassi
 Example classify.seqs(fasta=amazon.fasta, reference=core.filtered, method=knn, search=gotoh, ksize=8, processors=2)\\n
 The .taxonomy file consists of 2 columns: 1 = your sequence name, 2 = the taxonomy for your sequence. \\n
 The .tax.summary is a summary of the different taxonomies represented in your fasta file. \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Classify.seqs> ;
     v:category "Phylotype Analysis" .
 
 mothur:classify.seqs-count-parameter a ngsp:Parameter ;
@@ -3504,6 +3524,7 @@ The label parameter is used to analyze specific labels in your input.\\n
 The groups parameter allows you to specify which of the groups in your designfile you would like analyzed.\\n
 The classifysvm.shared should be in the following format: \\n
 classifysvm.shared(shared=yourSharedFile, design=yourDesignFile)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Classify.svm> ;
     v:category "OTU-Based Approaches" .
 
 mothur:classify.svm-design-parameter a ngsp:Parameter ;
@@ -3568,10 +3589,10 @@ mothur:classify.svm-stdthreshold-parameter a ngsp:Parameter ;
 mothur:classify.tree a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],taxonomy.tre" ;
-                    dc:identifier "tree" ],
-                [ ngsp:patternString "[filename],taxonomy.summary" ;
-                    dc:identifier "summary" ] ;
+            ngsp:pattern [ ngsp:patternString "[filename],taxonomy.summary" ;
+                    dc:identifier "summary" ],
+                [ ngsp:patternString "[filename],taxonomy.tre" ;
+                    dc:identifier "tree" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -3608,6 +3629,7 @@ The classify.tree command parameters are tree, group, name, count and taxonomy. 
 The cutoff parameter allows you to specify a consensus confidence threshold for your taxonomy.  The default is 51, meaning 51%. Cutoff cannot be below 51.\\n
 The output parameter allows you to specify whether you want the tree node number displayed on the tree, or the taxonomy displayed. Default=node. Options are node or taxon.\\n
 The classify.tree command should be used in the following format: classify.tree(tree=test.tre, group=test.group, taxonomy=test.taxonomy)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Classify.tree> ;
     v:category "Phylotype Analysis" .
 
 mothur:classify.tree-count-parameter a ngsp:Parameter ;
@@ -3769,6 +3791,7 @@ The expdist parameter allows you to use exponential notation for distance output
 The clearcut command should be in the following format: \\n
 clearcut(phylip=yourDistanceFile) \\n
 Example: clearcut(phylip=abrecovery.phylip.dist) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Clearcut> ;
     v:category "Hypothesis Testing" .
 
 mothur:clearcut-DNA-parameter a ngsp:Parameter ;
@@ -3955,12 +3978,12 @@ mothur:cluster a ngsp:Module ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],[clustertag],rabund" ;
                     dc:identifier "rabund" ],
+                [ ngsp:patternString "[filename],[clustertag],steps" ;
+                    dc:identifier "steps" ],
                 [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
                     dc:identifier "list" ],
                 [ ngsp:patternString "[filename],[clustertag],sabund" ;
                     dc:identifier "sabund" ],
-                [ ngsp:patternString "[filename],[clustertag],steps" ;
-                    dc:identifier "steps" ],
                 [ ngsp:patternString "[filename],[clustertag],sensspec" ;
                     dc:identifier "sensspec" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -4016,6 +4039,7 @@ The method parameter allows you to enter your clustering mothod. Options are fur
 The processors parameter allows you to specify the number of processors to use. The default is 1.\\n
 The cluster command should be in the following format: \\n
 cluster(method=yourMethod, cutoff=yourCutoff, precision=yourPrecision) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Cluster> ;
     v:category "Clustering" .
 
 mothur:cluster-column-parameter a ngsp:Parameter ;
@@ -4227,12 +4251,12 @@ mothur:cluster-timing-parameter a ngsp:Parameter ;
 mothur:cluster.classic a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[clustertag],sabund" ;
+                    dc:identifier "sabund" ],
+                [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
                     dc:identifier "list" ],
                 [ ngsp:patternString "[filename],[clustertag],rabund" ;
-                    dc:identifier "rabund" ],
-                [ ngsp:patternString "[filename],[clustertag],sabund" ;
-                    dc:identifier "sabund" ] ;
+                    dc:identifier "rabund" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -4267,6 +4291,7 @@ The cluster.classic command parameter options are phylip, name, count, method, c
 The cluster.classic command should be in the following format: \\n
 cluster.classic(phylip=yourDistanceMatrix, method=yourMethod, cutoff=yourCutoff, precision=yourPrecision) \\n
 The acceptable cluster methods are furthest, nearest, weighted and average.  If no method is provided then average is assumed.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Cluster.classic> ;
     v:category "Clustering" .
 
 mothur:cluster.classic-count-parameter a ngsp:Parameter ;
@@ -4427,6 +4452,7 @@ The delta parameter allows to set the stable value for the metric in the opticlu
 The method parameter allows you to enter your clustering mothod. Options are opti. Default=opti.\\n
 The cluster.fit command should be in the following format: \\n
 cluster.fit(list=yourreflist, reffasta=yourReferenceFasta, fasta=yourFastaFile, count=yourCountFile) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Cluster.fit> ;
     v:category "Clustering" .
 
 mothur:cluster.fit-count-parameter a ngsp:Parameter ;
@@ -4615,12 +4641,12 @@ mothur:cluster.fit-seed-parameter a ngsp:Parameter ;
 mothur:cluster.fragments a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],fragclust.names" ;
-                    dc:identifier "name" ],
+            ngsp:pattern [ ngsp:patternString "[filename],fragclust.fasta" ;
+                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],fragclust.count_table" ;
                     dc:identifier "count" ],
-                [ ngsp:patternString "[filename],fragclust.fasta" ;
-                    dc:identifier "fasta" ] ;
+                [ ngsp:patternString "[filename],fragclust.names" ;
+                    dc:identifier "name" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -4658,6 +4684,7 @@ You may use diffs and percent at the same time to say something like: If the num
 The cluster.fragments command should be in the following format: \\n
 cluster.fragments(fasta=yourFastaFile, names=yourNamesFile) \\n
 Example cluster.fragments(fasta=amazon.fasta).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Cluster.fragments> ;
     v:category "Sequence Processing" .
 
 mothur:cluster.fragments-count-parameter a ngsp:Parameter ;
@@ -4739,18 +4766,18 @@ mothur:cluster.fragments-seed-parameter a ngsp:Parameter ;
 mothur:cluster.split a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],file" ;
+            ngsp:pattern [ ngsp:patternString "[filename],dist" ;
+                    dc:identifier "column" ],
+                [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
+                    dc:identifier "list" ],
+                [ ngsp:patternString "[filename],file" ;
                     dc:identifier "file" ],
                 [ ngsp:patternString "[filename],[clustertag],rabund" ;
                     dc:identifier "rabund" ],
-                [ ngsp:patternString "[filename],dist" ;
-                    dc:identifier "column" ],
-                [ ngsp:patternString "[filename],[clustertag],sensspec" ;
-                    dc:identifier "sensspec" ],
                 [ ngsp:patternString "[filename],[clustertag],sabund" ;
                     dc:identifier "sabund" ],
-                [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
-                    dc:identifier "list" ] ;
+                [ ngsp:patternString "[filename],[clustertag],sensspec" ;
+                    dc:identifier "sensspec" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -4832,6 +4859,7 @@ The processors parameter allows you to specify the number of processors to use. 
 The cluster.split command should be in the following format: \\n
 cluster.split(column=youDistanceFile, name=yourNameFile, method=yourMethod, cutoff=yourCutoff, precision=yourPrecision, splitmethod=yourSplitmethod, taxonomy=yourTaxonomyfile, taxlevel=yourtaxlevel) \\n
 Example: cluster.split(column=abrecovery.dist, name=abrecovery.names, method=opti, cutoff=0.10, precision=1000, splitmethod=classify, taxonomy=abrecovery.silva.slv.taxonomy, taxlevel=5) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Cluster.split> ;
     v:category "Clustering" .
 
 mothur:cluster.split-classic-parameter a ngsp:Parameter ;
@@ -5122,88 +5150,88 @@ mothur:cluster.split-timing-parameter a ngsp:Parameter ;
 mothur:collect.shared a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],kulczynski" ;
-                    dc:identifier "kulczynski" ],
-                [ ngsp:patternString "[filename],structchord" ;
-                    dc:identifier "structchord" ],
-                [ ngsp:patternString "[filename],shared.sobs" ;
-                    dc:identifier "sharedsobs" ],
-                [ ngsp:patternString "[filename],whittaker" ;
-                    dc:identifier "whittaker" ],
-                [ ngsp:patternString "[filename],thetan" ;
-                    dc:identifier "thetan" ],
-                [ ngsp:patternString "[filename],kulczynskicody" ;
-                    dc:identifier "kulczynskicody" ],
-                [ ngsp:patternString "[filename],shared.nseqs" ;
-                    dc:identifier "sharednseqs" ],
-                [ ngsp:patternString "[filename],rjsd" ;
-                    dc:identifier "rjsd" ],
-                [ ngsp:patternString "[filename],memchi2" ;
-                    dc:identifier "memchi2" ],
-                [ ngsp:patternString "[filename],ochiai" ;
-                    dc:identifier "ochiai" ],
-                [ ngsp:patternString "[filename],structpearson" ;
-                    dc:identifier "structpearson" ],
-                [ ngsp:patternString "[filename],spearman" ;
-                    dc:identifier "spearman" ],
-                [ ngsp:patternString "[filename],mempearson" ;
-                    dc:identifier "mempearson" ],
-                [ ngsp:patternString "[filename],shared.ace" ;
-                    dc:identifier "sharedace" ],
-                [ ngsp:patternString "[filename],sorest" ;
-                    dc:identifier "sorest" ],
-                [ ngsp:patternString "[filename],odum" ;
-                    dc:identifier "odum" ],
-                [ ngsp:patternString "[filename],jest" ;
-                    dc:identifier "jest" ],
-                [ ngsp:patternString "[filename],canberra" ;
-                    dc:identifier "canberra" ],
-                [ ngsp:patternString "[filename],manhattan" ;
-                    dc:identifier "manhattan" ],
-                [ ngsp:patternString "[filename],jclass" ;
-                    dc:identifier "jclass" ],
-                [ ngsp:patternString "[filename],speciesprofile" ;
-                    dc:identifier "speciesprofile" ],
-                [ ngsp:patternString "[filename],anderberg" ;
-                    dc:identifier "anderberg" ],
-                [ ngsp:patternString "[filename],morisitahorn" ;
-                    dc:identifier "morisitahorn" ],
-                [ ngsp:patternString "[filename],structeuclidean" ;
-                    dc:identifier "structeuclidean" ],
-                [ ngsp:patternString "[filename],hellinger" ;
-                    dc:identifier "hellinger" ],
-                [ ngsp:patternString "[filename],jabund" ;
-                    dc:identifier "jabund" ],
-                [ ngsp:patternString "[filename],shared.chao" ;
-                    dc:identifier "sharedchao" ],
-                [ ngsp:patternString "[filename],braycurtis" ;
-                    dc:identifier "braycurtis" ],
+            ngsp:pattern [ ngsp:patternString "[filename],gower" ;
+                    dc:identifier "gower" ],
                 [ ngsp:patternString "[filename],memchord" ;
                     dc:identifier "memchord" ],
-                [ ngsp:patternString "[filename],lennon" ;
-                    dc:identifier "lennon" ],
-                [ ngsp:patternString "[filename],soergel" ;
-                    dc:identifier "soergel" ],
-                [ ngsp:patternString "[filename],thetayc" ;
-                    dc:identifier "thetayc" ],
-                [ ngsp:patternString "[filename],jsd" ;
-                    dc:identifier "jsd" ],
-                [ ngsp:patternString "[filename],sorclass" ;
-                    dc:identifier "sorclass" ],
-                [ ngsp:patternString "[filename],gower" ;
-                    dc:identifier "gower" ],
-                [ ngsp:patternString "[filename],kstest" ;
-                    dc:identifier "kstest" ],
-                [ ngsp:patternString "[filename],sorabund" ;
-                    dc:identifier "sorabund" ],
-                [ ngsp:patternString "[filename],memeuclidean" ;
-                    dc:identifier "memeuclidean" ],
+                [ ngsp:patternString "[filename],anderberg" ;
+                    dc:identifier "anderberg" ],
                 [ ngsp:patternString "[filename],structkulczynski" ;
                     dc:identifier "structkulczynski" ],
+                [ ngsp:patternString "[filename],shared.sobs" ;
+                    dc:identifier "sharedsobs" ],
+                [ ngsp:patternString "[filename],structeuclidean" ;
+                    dc:identifier "structeuclidean" ],
+                [ ngsp:patternString "[filename],sorabund" ;
+                    dc:identifier "sorabund" ],
+                [ ngsp:patternString "[filename],thetayc" ;
+                    dc:identifier "thetayc" ],
+                [ ngsp:patternString "[filename],memeuclidean" ;
+                    dc:identifier "memeuclidean" ],
+                [ ngsp:patternString "[filename],thetan" ;
+                    dc:identifier "thetan" ],
+                [ ngsp:patternString "[filename],braycurtis" ;
+                    dc:identifier "braycurtis" ],
+                [ ngsp:patternString "[filename],kulczynski" ;
+                    dc:identifier "kulczynski" ],
+                [ ngsp:patternString "[filename],sorest" ;
+                    dc:identifier "sorest" ],
+                [ ngsp:patternString "[filename],spearman" ;
+                    dc:identifier "spearman" ],
+                [ ngsp:patternString "[filename],structpearson" ;
+                    dc:identifier "structpearson" ],
+                [ ngsp:patternString "[filename],lennon" ;
+                    dc:identifier "lennon" ],
+                [ ngsp:patternString "[filename],sorclass" ;
+                    dc:identifier "sorclass" ],
+                [ ngsp:patternString "[filename],memchi2" ;
+                    dc:identifier "memchi2" ],
+                [ ngsp:patternString "[filename],jsd" ;
+                    dc:identifier "jsd" ],
+                [ ngsp:patternString "[filename],speciesprofile" ;
+                    dc:identifier "speciesprofile" ],
+                [ ngsp:patternString "[filename],shared.chao" ;
+                    dc:identifier "sharedchao" ],
+                [ ngsp:patternString "[filename],jabund" ;
+                    dc:identifier "jabund" ],
                 [ ngsp:patternString "[filename],hamming" ;
                     dc:identifier "hamming" ],
+                [ ngsp:patternString "[filename],odum" ;
+                    dc:identifier "odum" ],
+                [ ngsp:patternString "[filename],jclass" ;
+                    dc:identifier "jclass" ],
+                [ ngsp:patternString "[filename],whittaker" ;
+                    dc:identifier "whittaker" ],
                 [ ngsp:patternString "[filename],structchi2" ;
-                    dc:identifier "structchi2" ] ;
+                    dc:identifier "structchi2" ],
+                [ ngsp:patternString "[filename],canberra" ;
+                    dc:identifier "canberra" ],
+                [ ngsp:patternString "[filename],mempearson" ;
+                    dc:identifier "mempearson" ],
+                [ ngsp:patternString "[filename],jest" ;
+                    dc:identifier "jest" ],
+                [ ngsp:patternString "[filename],manhattan" ;
+                    dc:identifier "manhattan" ],
+                [ ngsp:patternString "[filename],structchord" ;
+                    dc:identifier "structchord" ],
+                [ ngsp:patternString "[filename],kulczynskicody" ;
+                    dc:identifier "kulczynskicody" ],
+                [ ngsp:patternString "[filename],rjsd" ;
+                    dc:identifier "rjsd" ],
+                [ ngsp:patternString "[filename],kstest" ;
+                    dc:identifier "kstest" ],
+                [ ngsp:patternString "[filename],morisitahorn" ;
+                    dc:identifier "morisitahorn" ],
+                [ ngsp:patternString "[filename],ochiai" ;
+                    dc:identifier "ochiai" ],
+                [ ngsp:patternString "[filename],shared.nseqs" ;
+                    dc:identifier "sharednseqs" ],
+                [ ngsp:patternString "[filename],hellinger" ;
+                    dc:identifier "hellinger" ],
+                [ ngsp:patternString "[filename],shared.ace" ;
+                    dc:identifier "sharedace" ],
+                [ ngsp:patternString "[filename],soergel" ;
+                    dc:identifier "soergel" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -5281,6 +5309,7 @@ The label parameter is used to analyze specific labels in your input.\\n
 The all parameter is used to specify if you want the estimate of all your groups together.  This estimate can only be made for sharedsobs and sharedchao calculators. The default is false.\\n
 If you use sharedchao and run into memory issues, set all to false. \\n
 The groups parameter allows you to specify which of the groups in your groupfile you would like analyzed.  You must enter at least 2 valid groups.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Collect.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:collect.shared-all-parameter a ngsp:Parameter ;
@@ -5401,56 +5430,56 @@ mothur:collect.shared-shared-parameter a ngsp:Parameter ;
 mothur:collect.single a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],logseries" ;
-                    dc:identifier "logseries" ],
-                [ ngsp:patternString "[filename],bootstrap" ;
-                    dc:identifier "bootstrap" ],
-                [ ngsp:patternString "[filename],shen" ;
-                    dc:identifier "shen" ],
-                [ ngsp:patternString "[filename],chao" ;
-                    dc:identifier "chao" ],
-                [ ngsp:patternString "[filename],heip" ;
-                    dc:identifier "heip" ],
-                [ ngsp:patternString "[filename],nseqs" ;
-                    dc:identifier "nseqs" ],
-                [ ngsp:patternString "[filename],shannoneven" ;
-                    dc:identifier "shannoneven" ],
-                [ ngsp:patternString "[filename],shannonrange" ;
-                    dc:identifier "shannonrange" ],
-                [ ngsp:patternString "[filename],simpsoneven" ;
-                    dc:identifier "simpsoneven" ],
-                [ ngsp:patternString "[filename],invsimpson" ;
-                    dc:identifier "invsimpson" ],
-                [ ngsp:patternString "[filename],solow" ;
-                    dc:identifier "solow" ],
-                [ ngsp:patternString "[filename],qstat" ;
-                    dc:identifier "qstat" ],
-                [ ngsp:patternString "[filename],shannon" ;
-                    dc:identifier "shannon" ],
-                [ ngsp:patternString "[filename],geometric" ;
-                    dc:identifier "geometric" ],
-                [ ngsp:patternString "[filename],npshannon" ;
-                    dc:identifier "npshannon" ],
-                [ ngsp:patternString "[filename],ace" ;
-                    dc:identifier "ace" ],
-                [ ngsp:patternString "[filename],coverage" ;
-                    dc:identifier "coverage" ],
-                [ ngsp:patternString "[filename],efron" ;
-                    dc:identifier "efron" ],
-                [ ngsp:patternString "[filename],simpson" ;
-                    dc:identifier "simpson" ],
+            ngsp:pattern [ ngsp:patternString "[filename],boneh" ;
+                    dc:identifier "boneh" ],
                 [ ngsp:patternString "[filename],bstick" ;
                     dc:identifier "bstick" ],
-                [ ngsp:patternString "[filename],jack" ;
-                    dc:identifier "jack" ],
-                [ ngsp:patternString "[filename],smithwilson" ;
-                    dc:identifier "smithwilson" ],
-                [ ngsp:patternString "[filename],boneh" ;
-                    dc:identifier "boneh" ],
-                [ ngsp:patternString "[filename],bergerparker" ;
-                    dc:identifier "bergerparker" ],
+                [ ngsp:patternString "[filename],ace" ;
+                    dc:identifier "ace" ],
+                [ ngsp:patternString "[filename],logseries" ;
+                    dc:identifier "logseries" ],
+                [ ngsp:patternString "[filename],coverage" ;
+                    dc:identifier "coverage" ],
                 [ ngsp:patternString "[filename],goodscoverage" ;
                     dc:identifier "goodscoverage" ],
+                [ ngsp:patternString "[filename],shannonrange" ;
+                    dc:identifier "shannonrange" ],
+                [ ngsp:patternString "[filename],qstat" ;
+                    dc:identifier "qstat" ],
+                [ ngsp:patternString "[filename],efron" ;
+                    dc:identifier "efron" ],
+                [ ngsp:patternString "[filename],shannon" ;
+                    dc:identifier "shannon" ],
+                [ ngsp:patternString "[filename],solow" ;
+                    dc:identifier "solow" ],
+                [ ngsp:patternString "[filename],simpsoneven" ;
+                    dc:identifier "simpsoneven" ],
+                [ ngsp:patternString "[filename],geometric" ;
+                    dc:identifier "geometric" ],
+                [ ngsp:patternString "[filename],shen" ;
+                    dc:identifier "shen" ],
+                [ ngsp:patternString "[filename],bergerparker" ;
+                    dc:identifier "bergerparker" ],
+                [ ngsp:patternString "[filename],nseqs" ;
+                    dc:identifier "nseqs" ],
+                [ ngsp:patternString "[filename],jack" ;
+                    dc:identifier "jack" ],
+                [ ngsp:patternString "[filename],npshannon" ;
+                    dc:identifier "npshannon" ],
+                [ ngsp:patternString "[filename],chao" ;
+                    dc:identifier "chao" ],
+                [ ngsp:patternString "[filename],bootstrap" ;
+                    dc:identifier "bootstrap" ],
+                [ ngsp:patternString "[filename],smithwilson" ;
+                    dc:identifier "smithwilson" ],
+                [ ngsp:patternString "[filename],simpson" ;
+                    dc:identifier "simpson" ],
+                [ ngsp:patternString "[filename],heip" ;
+                    dc:identifier "heip" ],
+                [ ngsp:patternString "[filename],shannoneven" ;
+                    dc:identifier "shannoneven" ],
+                [ ngsp:patternString "[filename],invsimpson" ;
+                    dc:identifier "invsimpson" ],
                 [ ngsp:patternString "[filename],sobs" ;
                     dc:identifier "sobs" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -5516,6 +5545,7 @@ Example collect(label=unique-.01-.03, freq=10, calc=sobs-chao-ace-jack).\\n
 The default values for freq is 100, and calc are sobs-chao-ace-jack-shannon-npshannon-simpson.\\n
 The alpha parameter is used to set the alpha value for the shannonrange calculator.\\n
 The label parameter is used to analyze specific labels in your input.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Collect.single> ;
     v:category "OTU-Based Approaches" .
 
 mothur:collect.single-abund-parameter a ngsp:Parameter ;
@@ -5665,12 +5695,12 @@ mothur:collect.single-size-parameter a ngsp:Parameter ;
 mothur:consensus.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],cons.fasta-[filename],[tag],cons.fasta" ;
+            ngsp:pattern [ ngsp:patternString "[filename],cons.count_table-[filename],[tag],cons.count_table" ;
+                    dc:identifier "count" ],
+                [ ngsp:patternString "[filename],cons.fasta-[filename],[tag],cons.fasta" ;
                     dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],cons.summary-[filename],[tag],cons.summary" ;
                     dc:identifier "summary" ],
-                [ ngsp:patternString "[filename],cons.count_table-[filename],[tag],cons.count_table" ;
-                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],cons.names-[filename],[tag],cons.names" ;
                     dc:identifier "name" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -5712,6 +5742,7 @@ The cutoff parameter allows you set a percentage of sequences that support the b
 The consensus.seqs command should be in the following format: \\n
 consensus.seqs(fasta=yourFastaFile, list=yourListFile) \\n
 Example: consensus.seqs(fasta=abrecovery.align, list=abrecovery.fn.list) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Consensus.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:consensus.seqs-count-parameter a ngsp:Parameter ;
@@ -5842,6 +5873,7 @@ The groups parameter allows you to specify which of the groups you would like an
 The cooccurrence command should be in the following format: \\n
 cooccurrence(shared=yourSharedFile) \\n
 Example cooccurrence(shared=final.an.shared).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Cooccurrence> ;
     v:category "Hypothesis Testing" .
 
 mothur:cooccurrence-groups-parameter a ngsp:Parameter ;
@@ -5978,6 +6010,7 @@ The numaxes parameter allows you to select the number of axes you would like to 
 The corr.axes command should be in the following format: corr.axes(axes=yourPcoaFile, shared=yourSharedFile, method=yourMethod).\\n
 Example corr.axes(axes=genus.pool.thetayc.genus.lt.pcoa, shared=genus.pool.shared, method=kendall).\\n
 The corr.axes command outputs a .corr.axes file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Corr.axes> ;
     v:category "Hypothesis Testing" .
 
 mothur:corr.axes-axes-parameter a ngsp:Parameter ;
@@ -6119,6 +6152,7 @@ The groups parameter allows you to specify which of the groups in your groupfile
 The count.groups command should be in the following format: count.groups(accnos=yourAccnos, group=yourGroupFile).\\n
 Example count.groups(accnos=amazon.accnos, group=amazon.groups).\\n
 or count.groups(groups=pasture, group=amazon.groups).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Count.groups> ;
     v:category "Sequence Processing" .
 
 mothur:count.groups-accnos-parameter a ngsp:Parameter ;
@@ -6233,6 +6267,7 @@ The groups parameter allows you to indicate which groups you want to include in 
 When you use the groups parameter and a sequence does not represent any sequences from the groups you specify it is not included in the .count.summary file.\\n
 The count.seqs command should be in the following format: count.seqs(name=yourNameFile).\\n
 Example count.seqs(name=amazon.names) or make.table(name=amazon.names).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Count.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:count.seqs-group-parameter a ngsp:Parameter ;
@@ -6347,6 +6382,7 @@ NOTE: Make SURE the repfasta, repnames and contaxonomy are for the same label as
 The create.database command should be in the following format: \\n
 create.database(repfasta=yourFastaFileFromGetOTURep, repname=yourNameFileFromGetOTURep, contaxonomy=yourConTaxFileFromClassifyOTU, list=yourListFile) \\n
 Example: create.database(repfasta=final.an.0.03.rep.fasta, repname=final.an.0.03.rep.names, list=final.an.list, label=0.03, contaxonomy=final.an.0.03.cons.taxonomy) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Create.database> ;
     v:category "OTU-Based Approaches" .
 
 mothur:create.database-constaxonomy-parameter a ngsp:Parameter ;
@@ -6481,6 +6517,7 @@ The processors parameter allows you to enter the number of processors you would 
 The degap.seqs command should be in the following format: \\n
 degap.seqs(fasta=yourFastaFile) \\n
 Example: degap.seqs(fasta=abrecovery.align) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Degap.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:degap.seqs-fasta-parameter a ngsp:Parameter ;
@@ -6562,6 +6599,7 @@ The deunique.seqs command parameters are fasta, name and count. Fasta is require
 The deunique.seqs command should be in the following format: \\n
 deunique.seqs(fasta=yourFastaFile, name=yourNameFile) \\n
 Example deunique.seqs(fasta=abrecovery.unique.fasta, name=abrecovery.names).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Deunique.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:deunique.seqs-count-parameter a ngsp:Parameter ;
@@ -6655,6 +6693,7 @@ mothur:deunique.tree a ngsp:Module ;
     schema:softwareHelp """The deunique.tree command parameters are tree and name.  Both parameters are required unless you have valid current files.\\n
 The deunique.tree command should be in the following format: deunique.tree(tree=yourTreeFile, name=yourNameFile).\\n
 Example deunique.tree(tree=abrecovery.tree, name=abrecovery.names).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Deunique.tree> ;
     v:category "Hypothesis Testing" .
 
 mothur:deunique.tree-inputdir-parameter a ngsp:Parameter ;
@@ -6703,10 +6742,10 @@ mothur:deunique.tree-tree-parameter a ngsp:Parameter ;
 mothur:dist.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[outputtag],dist" ;
-                    dc:identifier "phylip" ],
-                [ ngsp:patternString "[filename],dist" ;
-                    dc:identifier "column" ] ;
+            ngsp:pattern [ ngsp:patternString "[filename],dist" ;
+                    dc:identifier "column" ],
+                [ ngsp:patternString "[filename],[outputtag],dist" ;
+                    dc:identifier "phylip" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -6751,6 +6790,7 @@ The compress parameter allows you to indicate that you want the resulting distan
 The dist.seqs command should be in the following format: \\n
 dist.seqs(fasta=yourFastaFile, calc=yourCalc, countends=yourEnds, cutoff= yourCutOff, processors=yourProcessors) \\n
 Example dist.seqs(fasta=amazon.fasta, calc=eachgap, countends=F, cutoff= 2.0, processors=3).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Dist.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:dist.seqs-calc-parameter a ngsp:Parameter ;
@@ -6927,6 +6967,7 @@ Example dist.shared(groups=A-B-C, calc=jabund-sorabund).\\n
 The default value for groups is all the groups in your groupfile.\\n
 The default value for calc is jclass and thetayc.\\n
 The dist.shared command outputs a .dist file for each calculator you specify at each distance you choose.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Dist.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:dist.shared-calc-parameter a ngsp:Parameter ;
@@ -7083,12 +7124,12 @@ mothur:dist.shared-subsample-parameter a ngsp:Parameter ;
 mothur:fastq.info a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],fasta-[filename],[group],[tag],fasta-[filename],[group],fasta" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[group],fastq-[filename],[group],[tag],fastq" ;
+                    dc:identifier "fastq" ],
+                [ ngsp:patternString "[filename],fasta-[filename],[group],[tag],fasta-[filename],[group],fasta" ;
                     dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],qual-[filename],[group],[tag],qual-[filename],[group],qual" ;
-                    dc:identifier "qfile" ],
-                [ ngsp:patternString "[filename],[group],fastq-[filename],[group],[tag],fastq" ;
-                    dc:identifier "fastq" ] ;
+                    dc:identifier "qfile" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -7140,6 +7181,7 @@ The fasta parameter allows you to indicate whether you want a fasta file generat
 The qfile parameter allows you to indicate whether you want a quality file generated. Default=T.\\n
 The pacbio parameter allows you to indicate .... When set to true, quality scores of 0 will results in a corresponding base of N. Default=F.\\n
 Example fastq.info(fastaq=test.fastaq).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Parse.fastq> ;
     v:category "Sequence Processing" .
 
 mothur:fastq.info-bdiffs-parameter a ngsp:Parameter ;
@@ -7342,6 +7384,7 @@ The processors parameter allows you to specify the number of processors to use. 
 The filter.seqs command should be in the following format: \\n
 filter.seqs(fasta=yourFastaFile, trump=yourTrump) \\n
 Example filter.seqs(fasta=abrecovery.fasta, trump=.).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Filter.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:filter.seqs-fasta-parameter a ngsp:Parameter ;
@@ -7472,6 +7515,7 @@ The filter.shared command should be in the following format: filter.shared(share
 Example filter.shared(shared=final.an.shared, minabund=10).\\n
 The default value for groups is all the groups in your sharedfile, and all labels in your inputfile will be used.\\n
 The filter.shared command outputs a .filter.shared file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Filter.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:filter.shared-groups-parameter a ngsp:Parameter ;
@@ -7635,18 +7679,18 @@ mothur:get.commandinfo-seed-parameter a ngsp:Parameter ;
 mothur:get.communitytype a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[distance],[method],mix.parameters" ;
-                    dc:identifier "parameters" ],
-                [ ngsp:patternString "[filename],[distance],[method],mix.design" ;
-                    dc:identifier "design" ],
-                [ ngsp:patternString "[filename],[distance],[method],[tag],mix.relabund" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[distance],[method],[tag],mix.relabund" ;
                     dc:identifier "relabund" ],
-                [ ngsp:patternString "[filename],[distance],[method],mix.fit" ;
-                    dc:identifier "fit" ],
                 [ ngsp:patternString "[filename],[distance],[method],[tag],mix.posterior" ;
                     dc:identifier "matrix" ],
                 [ ngsp:patternString "[filename],[distance],[method],mix.summary" ;
-                    dc:identifier "summary" ] ;
+                    dc:identifier "summary" ],
+                [ ngsp:patternString "[filename],[distance],[method],mix.parameters" ;
+                    dc:identifier "parameters" ],
+                [ ngsp:patternString "[filename],[distance],[method],mix.design" ;
+                    dc:identifier "design" ],
+                [ ngsp:patternString "[filename],[distance],[method],mix.fit" ;
+                    dc:identifier "fit" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -7693,6 +7737,7 @@ The minpartitions parameter is used to .... Default=5.\\n
 The maxpartitions parameter is used to .... Default=10.\\n
 The optimizegap parameter is used to .... Default=3.\\n
 The get.communitytype command should be in the following format: get.communitytype(shared=yourSharedFile).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/get.communitytype> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.communitytype-calc-parameter a ngsp:Parameter ;
@@ -7891,6 +7936,7 @@ The abundance parameter allows you to specify an abundance you would like the OT
 The samples parameter allows you to specify the minimum number of samples you would like the OTU names outputted for. Must be an interger between 1 and number of samples in your file.\\n
 The new command should be in the following format: get.coremicrobiome(shared=yourSharedFile)\\n
 get.coremicrobiom(shared=final.an.shared, abund=30)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.coremicrobiome> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.coremicrobiome-abundance-parameter a ngsp:Parameter ;
@@ -8018,6 +8064,7 @@ The get.current command has one parameter: clear.\\n
 The clear parameter is used to indicate which file types you would like to clear values for, multiple types can be separated by dashes.\\n
 The get.current command should be in the following format: \\n
 get.current() or get.current(clear=fasta-name-accnos)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.current> ;
     v:category "General" .
 
 mothur:get.current-clear-parameter a ngsp:Parameter ;
@@ -8087,6 +8134,7 @@ mothur:get.dists a ngsp:Module ;
 The get.dists command parameters are accnos, phylip and column.\\n
 The get.dists command should be in the following format: get.dists(accnos=yourAccnos, phylip=yourPhylip).\\n
 Example get.dists(accnos=final.accnos, phylip=final.an.thetayc.0.03.lt.ave.dist).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.dists> ;
     v:category "General" .
 
 mothur:get.dists-accnos-parameter a ngsp:Parameter ;
@@ -8158,6 +8206,7 @@ You may not use any parameters with the get.group command.\\n
 The get.group command should be in the following format: \\n
 get.group()\\n
 Example get.group().\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.group> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.group-inputdir-parameter a ngsp:Parameter ;
@@ -8196,25 +8245,25 @@ mothur:get.groups a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "fasta" ],
+                    dc:identifier "design" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],[tag],pick,[extension]" ;
                     dc:identifier "shared" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "count" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "group" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "phylip" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "name" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "design" ],
                 [ ngsp:patternString "[filename],[tag],pick,[extension]" ;
                     dc:identifier "list" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "column" ] ;
+                    dc:identifier "column" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "phylip" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "group" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -8264,6 +8313,7 @@ The groups parameter allows you to specify which of the groups in your groupfile
 The get.groups command should be in the following format: get.groups(accnos=yourAccnos, fasta=yourFasta, group=yourGroupFile).\\n
 Example get.groups(accnos=amazon.accnos, fasta=amazon.fasta, group=amazon.groups).\\n
 or get.groups(groups=pasture, fasta=amazon.fasta, group=amazon.groups).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.groups> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.groups-accnos-parameter a ngsp:Parameter ;
@@ -8443,6 +8493,7 @@ mothur:get.label a ngsp:Module ;
 The get.label command should be in the following format: \\n
 get.label()\\n
 Example get.label().\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.label> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.label-inputdir-parameter a ngsp:Parameter ;
@@ -8503,21 +8554,21 @@ mothur:get.lineage a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "constaxonomy" ],
+                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "count" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
                     dc:identifier "shared" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "name" ],
                 [ ngsp:patternString "[filename],pick.align.report" ;
                     dc:identifier "alignreport" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "name" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
                     dc:identifier "list" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "constaxonomy" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "group" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -8572,6 +8623,7 @@ The get.lineage command should be in the following format: get.lineage(taxonomy=
 Example get.lineage(taxonomy=amazon.silva.taxonomy, taxon=Bacteria;Firmicutes;Bacilli;Lactobacillales;).\\n
 Note: If you are running mothur in script mode you must wrap the taxon in ' characters so mothur will ignore the ; in the taxon.\\n
 Example get.lineage(taxonomy=amazon.silva.taxonomy, taxon='Bacteria;Firmicutes;Bacilli;Lactobacillales;').\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.lineage> ;
     v:category "Phylotype Analysis" .
 
 mothur:get.lineage-alignreport-parameter a ngsp:Parameter ;
@@ -8774,6 +8826,7 @@ The package parameter is used to select the mimarks package you would like to us
 The requiredonly parameter is used to indicate you only want the required mimarks feilds printed. Default=F.\\n
 The get.mimarkspackage command should be in the following format: get.mimarkspackage(oligos=yourOligosFile, package=yourPackage)\\n
 get.mimarkspackage(oligos=GQY1XT001.oligos, package=human_gut)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/get.mimarkspackage> ;
     v:category "Sequence Processing" .
 
 mothur:get.mimarkspackage-file-parameter a ngsp:Parameter ;
@@ -8896,6 +8949,7 @@ The get.otulist command should be in the following format: get.otulist(list=your
 Example get.otulist(list=amazon.fn.list, label=0.10).\\n
 The default value for label is all lines in your inputfile.\\n
 The get.otulist command outputs a .otu file for each distance you specify listing the bin number and the names of the sequences in that bin.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.otulist> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.otulist-inputdir-parameter a ngsp:Parameter ;
@@ -8956,12 +9010,12 @@ mothur:get.otulist-sort-parameter a ngsp:Parameter ;
 mothur:get.oturep a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],rep.fasta-[filename],[tag],[group],rep.fasta" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],[tag],rep.count_table-[filename],[tag],[group],rep.count_table" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],rep.count_table-[filename],[tag],[group],rep.count_table" ;
                     dc:identifier "count" ],
                 [ ngsp:patternString "[filename],[tag],rep.names-[filename],[tag],[group],rep.names" ;
-                    dc:identifier "name" ] ;
+                    dc:identifier "name" ],
+                [ ngsp:patternString "[filename],[tag],rep.fasta-[filename],[tag],[group],rep.fasta" ;
+                    dc:identifier "fasta" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -9018,6 +9072,7 @@ The group parameter allows you provide a group file.\\n
 The groups parameter allows you to indicate that you want representative sequences for each group specified for each OTU, group name should be separated by dashes. ex. groups=A-B-C.\\n
 The get.oturep command outputs a .fastarep and .rep.names file for each distance you specify, selecting one OTU representative for each bin.\\n
 If you provide a groupfile, then it also appends the names of the groups present in that bin.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.oturep> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.oturep-column-parameter a ngsp:Parameter ;
@@ -9197,15 +9252,15 @@ mothur:get.otus a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "constaxonomy" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "corraxes" ],
-                [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
-                    dc:identifier "list" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "otucorr" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
                     dc:identifier "shared" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "constaxonomy" ] ;
+                [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
+                    dc:identifier "list" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -9245,6 +9300,7 @@ The corraxes parameter is used to input the results of the corr.axes command.\\n
 The label parameter is used to analyze specific labels in your input. \\n
 The get.otus commmand should be in the following format: \\n
 get.otus(accnos=yourListOfOTULabels, corraxes=yourCorrAxesFile)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.otus> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.otus-accnos-parameter a ngsp:Parameter ;
@@ -9385,6 +9441,7 @@ The get.rabund command should be in the following format: get.rabund(label=yourL
 Example get.rabund(sorted=F).\\n
 The default value for label is all labels in your inputfile.\\n
 The get.rabund command outputs a .rabund file containing the lines you selected.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.rabund> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.rabund-count-parameter a ngsp:Parameter ;
@@ -9498,6 +9555,7 @@ The get.relabund command should be in the following format: get.relabund(groups=
 Example get.relabund(groups=A-B-C, scale=averagegroup).\\n
 The default value for groups is all the groups in your groupfile, and all labels in your inputfile will be used.\\n
 The get.relabund command outputs a .relabund file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.relabund> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.relabund-groups-parameter a ngsp:Parameter ;
@@ -9601,6 +9659,7 @@ The get.sabund command should be in the following format: get.sabund(label=yourL
 Example get.sabund().\\n
 The default value for label is all labels in your inputfile.\\n
 The get.sabund command outputs a .sabund file containing the labels you selected.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.sabund> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.sabund-count-parameter a ngsp:Parameter ;
@@ -9672,26 +9731,26 @@ mothur:get.sabund-seed-parameter a ngsp:Parameter ;
 mothur:get.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "count" ],
+            ngsp:pattern [ ngsp:patternString "[filename],pick.accnos.report" ;
+                    dc:identifier "accnosreport" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "name" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
                     dc:identifier "list" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "group" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "fastq" ],
                 [ ngsp:patternString "[filename],pick.align.report" ;
                     dc:identifier "alignreport" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "fastq" ],
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "group" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],pick.accnos.report" ;
-                    dc:identifier "accnosreport" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "qfile" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "name" ] ;
+                    dc:identifier "qfile" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -9741,6 +9800,7 @@ The dups parameter allows you to add the entire line from a name file if you add
 The format parameter is used to indicate whether your sequences are sanger, solexa, illumina1.8+ or illumina, default=illumina1.8+.\\n
 The get.seqs command should be in the following format: get.seqs(accnos=yourAccnos, fasta=yourFasta).\\n
 Example get.seqs(accnos=amazon.accnos, fasta=amazon.fasta).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:get.seqs-accnos-parameter a ngsp:Parameter ;
@@ -9919,12 +9979,12 @@ mothur:get.seqs-taxonomy-parameter a ngsp:Parameter ;
 mothur:get.sharedseqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[distance],[group],shared.fasta" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],[distance],[group],accnos" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[distance],[group],accnos" ;
                     dc:identifier "accnos" ],
                 [ ngsp:patternString "[filename],[distance],[group],shared.seqs" ;
-                    dc:identifier "sharedseqs" ] ;
+                    dc:identifier "sharedseqs" ],
+                [ ngsp:patternString "[filename],[distance],[group],shared.fasta" ;
+                    dc:identifier "fasta" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -9971,6 +10031,7 @@ The get.sharedseqs command should be in the following format: get.sharedseqs(lis
 Example get.sharedseqs(list=amazon.fn.list, label=unique-0.01, group=amazon.groups, uniquegroups=forest-pasture, fasta=amazon.fasta, output=accnos).\\n
 The output to the screen is the distance and the number of otus at that distance for the groups you specified.\\n
 The default value for label is all labels in your inputfile. The default for groups is all groups in your file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.sharedseqs> ;
     v:category "OTU-Based Approaches" .
 
 mothur:get.sharedseqs-count-parameter a ngsp:Parameter ;
@@ -10140,6 +10201,7 @@ Example heatmap.bin(groups=A-B-C, sorted=none, scale=log10).\\n
 The default value for groups is all the groups in your groupfile, and all labels in your inputfile will be used.\\n
 The default value for scale is log10; your other options are log2 and linear.\\n
 The heatmap.bin command outputs a .svg file for each label you specify.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Heatmap.bin> ;
     v:category "OTU-Based Approaches" .
 
 mothur:heatmap.bin-fontsize-parameter a ngsp:Parameter ;
@@ -10338,6 +10400,7 @@ The second way to use the heatmap.sim command is with a distance file representi
 Using the command this way, the phylip or column parameter are required, and only one may be used.  If you use a column file the name filename is required. \\n
 The heatmap.sim command should be in the following format: heatmap.sim(phylip=yourDistanceFile).\\n
 Example heatmap.sim(phylip=amazonGroups.dist).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Heatmap.sim> ;
     v:category "OTU-Based Approaches" .
 
 mothur:heatmap.sim-calc-parameter a ngsp:Parameter ;
@@ -10510,6 +10573,7 @@ The design file looks like the group file.  It is a 2 column tab delimited file,
 The sets parameter allows you to specify which of the sets in your designfile you would like to analyze. The set names are separated by dashes. THe default is all sets in the designfile.\\n
 The iters parameter allows you to set number of randomization for the P value.  The default is 1000. \\n
 The homova command should be in the following format: homova(phylip=file.dist, design=file.design).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Homova> ;
     v:category "Hypothesis Testing" .
 
 mothur:homova-alpha-parameter a ngsp:Parameter ;
@@ -10629,6 +10693,7 @@ The label parameter indicates at what distance your tree relates to the shared o
 The processors parameter allows you to specify how many processors you would like to use.  The default is 1. \\n
 The iters parameter allows you to set number of randomization for the P value.  The default is 1000.
 The indicator command should be used in the following format: indicator(tree=test.tre, shared=test.shared, label=0.03)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Indicator> ;
     v:category "Hypothesis Testing" .
 
 mothur:indicator-design-parameter a ngsp:Parameter ;
@@ -10774,6 +10839,7 @@ The kruskal.wallis command parameters are: shared, design, class, label and clas
 The class parameter is used to indicate the which category you would like used for the Kruskal Wallis analysis. If none is provided first category is used.\\n
 The label parameter is used to indicate which distances in the shared file you would like to use. labels are separated by dashes.\\n
 The kruskal.wallis command should be in the following format: kruskal.wallis(shared=final.an.shared, design=final.design, class=treatment).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Kruskal.wallis> ;
     v:category "Hypothesis Testing" .
 
 mothur:kruskal.wallis-class-parameter a ngsp:Parameter ;
@@ -10895,6 +10961,7 @@ The minc parameter is used to minimum number of samples per subclass for perform
 The multiclass parameter is used to (for multiclass tasks) set whether the test is performed in a one-against-one ( onevone - more strict!) or in a one-against-all setting ( onevall - less strict). Default=onevall. \\n
 The label parameter is used to indicate which distances in the shared file you would like to use. labels are separated by dashes.\\n
 The lefse command should be in the following format: lefse(shared=final.an.shared, design=final.design, class=treatment, subclass=age).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Lefse> ;
     v:category "OTU-Based Approaches" .
 
 mothur:lefse-aalpha-parameter a ngsp:Parameter ;
@@ -11114,6 +11181,7 @@ The libshuff command should be in the following format: libshuff(groups=yourGrou
 Example libshuff(groups=A-B-C, iters=500, form=discrete, step=0.01, cutOff=2.0).\\n
 The default value for groups is all the groups in your groupfile, iters is 10000, cutoff is 1.0, form is integral and step is 0.01.\\n
 The libshuff command output two files: .coverage and .slsummary their descriptions are in the manual.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Libshuff> ;
     v:category "Hypothesis Testing" .
 
 mothur:libshuff-cutoff-parameter a ngsp:Parameter ;
@@ -11248,6 +11316,7 @@ The label parameter is used to analyze specific labels in your input.\\n
 The groups parameter allows you to specify which of the groups you would like analyzed.\\n
 The list.otulabels commmand should be in the following format: \\n
 list.otulabels(shared=yourSharedFile, groups=yourGroup1-yourGroup2)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/List.otulabels> ;
     v:category "OTU-Based Approaches" .
 
 mothur:list.otulabels-groups-parameter a ngsp:Parameter ;
@@ -11368,6 +11437,7 @@ The list.seqs command parameters are fasta, name, group, count, list, taxonomy, 
 The format parameter is used to indicate whether your sequences are sanger, solexa, illumina1.8+ or illumina, default=illumina1.8+.\\n
 The list.seqs command should be in the following format: list.seqs(fasta=yourFasta).\\n
 Example list.seqs(fasta=amazon.fasta).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/List.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:list.seqs-alignreport-parameter a ngsp:Parameter ;
@@ -11564,6 +11634,7 @@ The make.biom command should be in the following format: make.biom(shared=yourSh
 Example make.biom(shared=abrecovery.an.shared, groups=A-B-C).\\n
 The default value for groups is all the groups in your groupfile, and all labels in your inputfile will be used.\\n
 The make.biom command outputs a .biom file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.biom> ;
     v:category "General" .
 
 mothur:make.biom-constaxonomy-parameter a ngsp:Parameter ;
@@ -11684,14 +11755,14 @@ mothur:make.biom-shared-parameter a ngsp:Parameter ;
 mothur:make.contigs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],contigs.fasta" ;
-                    dc:identifier "fasta" ],
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],contigs.qual" ;
+                    dc:identifier "qfile" ],
                 [ ngsp:patternString "[filename],[tag],contigs.groups" ;
                     dc:identifier "group" ],
+                [ ngsp:patternString "[filename],[tag],contigs.fasta" ;
+                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],[tag],contigs.report" ;
-                    dc:identifier "report" ],
-                [ ngsp:patternString "[filename],[tag],contigs.qual" ;
-                    dc:identifier "qfile" ] ;
+                    dc:identifier "report" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -11769,6 +11840,7 @@ The allfiles parameter will create separate group and fasta file for each groupi
 The trimoverlap parameter allows you to trim the sequences to only the overlapping section. The default is F.\\n
 The make.contigs command should be in the following format: \\n
 make.contigs(ffastq=yourForwardFastqFile, rfastq=yourReverseFastqFile, align=yourAlignmentMethod) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.contigs> ;
     v:category "Sequence Processing" .
 
 mothur:make.contigs-align-parameter a ngsp:Parameter ;
@@ -12079,6 +12151,7 @@ The make.fastq command parameters are fasta, qfile and format.  fasta and qfile 
 The format parameter is used to indicate whether your sequences are sanger, solexa, illumina1.8+ or illumina, default=illumina1.8+.\\n
 The make.fastq command should be in the following format: make.fastq(qfile=yourQualityFile, fasta=yourFasta).\\n
 Example make.fastq(fasta=amazon.fasta, qfile=amazon.qual).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.fastq> ;
     v:category "Sequence Processing" .
 
 mothur:make.fastq-fasta-parameter a ngsp:Parameter ;
@@ -12180,6 +12253,7 @@ The delim parameter allow you to enter the character you would like to use to cr
 The make.file command should be in the following format: \\n
 make.file(inputdir=yourInputDirectory). \\n
 Example make.group(inputdir=fastqFiles)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.file> ;
     v:category "General" .
 
 mothur:make.file-delim-parameter a ngsp:Parameter ;
@@ -12280,6 +12354,7 @@ The output parameter allows you to specify the name of groupfile created. \\n
 The make.group command should be in the following format: \\n
 make.group(fasta=yourFastaFiles, groups=yourGroups). \\n
 Example make.group(fasta=seqs1.fasta-seq2.fasta-seqs3.fasta, groups=A-B-C)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.group> ;
     v:category "General" .
 
 mothur:make.group-fasta-parameter a ngsp:Parameter ;
@@ -12375,6 +12450,7 @@ The scale parameter allows you to select what scale you would like to use to con
 The label parameter allows you to select what distance level you would like used, if none is given the first distance is used.\\n
 The make.lefse command should be in the following format: make.lefse(shared=yourSharedFile)\\n
 make.lefse(shared=final.an.shared)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.lefse> ;
     v:category "General" .
 
 mothur:make.lefse-constaxonomy-parameter a ngsp:Parameter ;
@@ -12516,6 +12592,7 @@ The threshold parameter is ....Default=10000.\\n
 The order parameter options are A, B or I.  Default=A. A = TACG and B = TACGTACGTACGATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGC and I = TACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGC.\\n
 The make.lookup should be in the following format: make.lookup(reference=HMP_MOCK.v53.fasta, flow=H3YD4Z101.mock3.flow_450.flow, error=H3YD4Z101.mock3.flow_450.error.summary, barcode=AACCTGGC)\\n
 new(...)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.lookup> ;
     v:category "Sequence Processing" .
 
 mothur:make.lookup-barcode-parameter a ngsp:Parameter ;
@@ -12650,6 +12727,7 @@ The make.shared command parameters are list, group, biom, groups, count and labe
 The count parameter allows you to provide a count file containing the group info for the list file.\\n
 The groups parameter allows you to indicate which groups you want to include, group names should be separated by dashes. ex. groups=A-B-C. Default is all groups in your groupfile.\\n
 The label parameter is only valid with the list and group option and allows you to indicate which labels you want to include, label names should be separated by dashes. Default is all labels in your list file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:make.shared-biom-parameter a ngsp:Parameter ;
@@ -12811,6 +12889,7 @@ The libselection parameter is used to specify library selection. Default=PCR. Ch
 The datatype parameter is used to specify datatype. Default=METAGENOME. Choices are METAGENOME,GENOME_SEQUENCING,METAGENOMIC_ASSEMBLY,ASSEMBLY,TRANSCRIPTOME,PROTEOMIC,MAP,CLONE_ENDS,TARGETED_LOCI,RANDOM_SURVEY,EXOME,VARIATION,EPIGENOMICS,PHENOTYPE,GENOTYPE,OTHER. This is a controlled vocabulary section in the XML file that will be generated. \\n
 The trim parameter allows you to indicate if you would like a sequences and quality scores trimmed to the clipQualLeft and clipQualRight values.  Default=True. \\n
 make.sra(sff=sff=GHL4YHV01.sff, GHL4YHV01.oligos, project=test.project, mimark=MIMarksData.txt)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Make.sra> ;
     v:category "Sequence Processing" .
 
 mothur:make.sra-bdiffs-parameter a ngsp:Parameter ;
@@ -13097,6 +13176,7 @@ The method parameter allows you to select what method you would like to use. Opt
 The iters parameter allows you to set number of randomization for the P value.  The default is 1000. \\n
 The mantel command should be in the following format: mantel(phylip1=veg.dist, phylip2=env.dist).\\n
 The mantel command outputs a .mantel file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Mantel> ;
     v:category "Hypothesis Testing" .
 
 mothur:mantel-inputdir-parameter a ngsp:Parameter ;
@@ -13178,6 +13258,7 @@ mothur:merge.count a ngsp:Module ;
     schema:softwareHelp """The merge.count command takes a list of count files separated by dashes and merges them into one file.
 The merge.count command parameters are count and output.
 Example merge.count(count=final.count_table-new.count_table, output=complete.count_table).""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Merge.count> ;
     v:category "General" .
 
 mothur:merge.count-count-parameter a ngsp:Parameter ;
@@ -13235,6 +13316,7 @@ mothur:merge.files a ngsp:Module ;
     schema:softwareHelp """The merge.file command takes a list of files separated by dashes and merges them into one file.
 The merge.file command parameters are input and output.
 Example merge.file(input=small.fasta-large.fasta, output=all.fasta).""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Merge.files> ;
     v:category "General" .
 
 mothur:merge.files-input-parameter a ngsp:Parameter ;
@@ -13281,13 +13363,13 @@ mothur:merge.groups a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],merge,[extension]" ;
-                    dc:identifier "group" ],
-                [ ngsp:patternString "[filename],merge,[extension]" ;
                     dc:identifier "count" ],
+                [ ngsp:patternString "[filename],merge,[extension]" ;
+                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],merge,[extension]" ;
                     dc:identifier "shared" ],
                 [ ngsp:patternString "[filename],merge,[extension]" ;
-                    dc:identifier "fasta" ] ;
+                    dc:identifier "group" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -13329,6 +13411,7 @@ The method parameter allows you to select method you would like to use to merge 
 The merge.groups command should be in the following format: merge.groups(design=yourDesignFile, shared=yourSharedFile).\\n
 Example merge.groups(design=temp.design, groups=A-B-C, shared=temp.shared).\\n
 The default value for groups is all the groups in your sharedfile, and all labels in your inputfile will be used.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Merge.groups> ;
     v:category "General" .
 
 mothur:merge.groups-count-parameter a ngsp:Parameter ;
@@ -13479,6 +13562,7 @@ The file parameter allows you to provide a file containing a list of sff files t
 The keytrim parameter allows you to mergesff files with different keysequence by trimming them to the first 4 characters. Provided the first 4 match.  \\n
 The output parameter allows you to provide an output filename.  \\n
 Example sffinfo(sff=mySffFile.sff-mySecond.sff).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/merge.sfffiles> ;
     v:category "Sequence Processing" .
 
 mothur:merge.sfffiles-file-parameter a ngsp:Parameter ;
@@ -13559,6 +13643,7 @@ mothur:merge.taxsummary a ngsp:Module ;
     schema:softwareHelp """The merge.taxsummary command takes a list of tax.summary files separated by dashes and merges them into one file.
 The merge.taxsummary command parameters are input and output.
 Example merge.taxsummary(input=small.tax.summary-large.tax.summary, output=all.tax.summary).""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Merge.taxsummary> ;
     v:category "Phylotype Analysis" .
 
 mothur:merge.taxsummary-input-parameter a ngsp:Parameter ;
@@ -13648,6 +13733,7 @@ The processors parameter allows you to specify how many processors you would lik
 The metastats command should be in the following format: metastats(design=yourDesignFile).\\n
 Example metastats(design=temp.design, groups=A-B-C).\\n
 The default value for groups is all the groups in your groupfile, and all labels in your inputfile will be used.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Metastats> ;
     v:category "OTU-Based Approaches" .
 
 mothur:metastats-design-parameter a ngsp:Parameter ;
@@ -13744,16 +13830,16 @@ mothur:metastats-threshold-parameter a ngsp:Parameter ;
 mothur:mgcluster a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
-                    dc:identifier "list" ],
+            ngsp:pattern [ ngsp:patternString "[filename],[clustertag],steps" ;
+                    dc:identifier "steps" ],
                 [ ngsp:patternString "[filename],[clustertag],rabund" ;
                     dc:identifier "rabund" ],
-                [ ngsp:patternString "[filename],[clustertag],steps" ;
-                    dc:identifier "steps" ],
                 [ ngsp:patternString "[filename],[clustertag],sensspec" ;
                     dc:identifier "sensspec" ],
                 [ ngsp:patternString "[filename],[clustertag],sabund" ;
-                    dc:identifier "sabund" ] ;
+                    dc:identifier "sabund" ],
+                [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
+                    dc:identifier "list" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -13811,6 +13897,7 @@ The penalty parameter is used to adjust the error rate.  The default is 0.10.\\n
 The merge parameter allows you to shut off merging based on overlaps and just cluster.  By default merge is true, meaning you want to merge.\\n
 The mgcluster command should be in the following format: \\n
 mgcluster(blast=yourBlastfile, name=yourNameFile, cutoff=yourCutOff).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Mgcluster> ;
     v:category "Clustering" .
 
 mothur:mgcluster-adjust-parameter a ngsp:Parameter ;
@@ -14030,6 +14117,7 @@ mothur:mimarks.attributes a ngsp:Module ;
     schema:citation "http://www.mothur.org/wiki/Mimarks.attributes" ;
     schema:softwareHelp """Reads bioSample Attributes xml and generates source for get.mimarkspackage command. Only parameter required is xml.\\n
 The package parameter allows you to set the package you want. Default MIMARKS.survey.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Mimarks.attributes> ;
     v:category "Hidden" .
 
 mothur:mimarks.attributes-inputdir-parameter a ngsp:Parameter ;
@@ -14122,6 +14210,7 @@ The new command parameters are: ....\\n
 The whatever parameter is used to ....\\n
 The new command should be in the following format: \\n
 new(...)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/newCommandNameToBeSeenByUser> ;
     v:category "commandCategory" .
 
 mothur:newCommandNameToBeSeenByUser-calc-parameter a ngsp:Parameter ;
@@ -14277,12 +14366,12 @@ mothur:newCommandNameToBeSeenByUser-timing-parameter a ngsp:Parameter ;
 mothur:nmds a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],nmds.iters" ;
-                    dc:identifier "iters" ],
+            ngsp:pattern [ ngsp:patternString "[filename],nmds.axes" ;
+                    dc:identifier "nmds" ],
                 [ ngsp:patternString "[filename],nmds.stress" ;
                     dc:identifier "stress" ],
-                [ ngsp:patternString "[filename],nmds.axes" ;
-                    dc:identifier "nmds" ] ;
+                [ ngsp:patternString "[filename],nmds.iters" ;
+                    dc:identifier "iters" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -14322,6 +14411,7 @@ The maxiters parameter allows you to select the maximum number of iters to try w
 The iters parameter allows you to select the number of random configuration to try. Default=10\\n
 The epsilon parameter allows you to select set an acceptable stopping point. Default=1e-12.\\n
 Example nmds(phylip=yourDistanceFile).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Nmds> ;
     v:category "Hypothesis Testing" .
 
 mothur:nmds-axes-parameter a ngsp:Parameter ;
@@ -14450,6 +14540,7 @@ The normalize.shared command should be in the following format: normalize.shared
 Example normalize.shared(groups=A-B-C, scale=totalgroup).\\n
 The default value for groups is all the groups in your groupfile, and all labels in your inputfile will be used.\\n
 The normalize.shared command outputs a .norm.shared file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Normalize.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:normalize.shared-groups-parameter a ngsp:Parameter ;
@@ -14588,6 +14679,7 @@ The method parameter allows you to select what method you would like to use. Opt
 The otu.association command should be in the following format: otu.association(shared=yourSharedFile, method=yourMethod).\\n
 Example otu.association(shared=genus.pool.shared, method=kendall).\\n
 The otu.association command outputs a .otu.corr file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Otu.association> ;
     v:category "Hypothesis Testing" .
 
 mothur:otu.association-cutoff-parameter a ngsp:Parameter ;
@@ -14720,6 +14812,7 @@ The otu.hierarchy command should be in the following format: \\n
 otu.hierarchy(list=yourListFile, label=yourLabels).\\n
 Example otu.hierarchy(list=amazon.fn.list, label=0.01-0.03).\\n
 The otu.hierarchy command outputs a .otu.hierarchy file which is described on the wiki.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Otu.hierarchy> ;
     v:category "OTU-Based Approaches" .
 
 mothur:otu.hierarchy-inputdir-parameter a ngsp:Parameter ;
@@ -14833,6 +14926,7 @@ The compress parameter allows you to indicate that you want the resulting distan
 The pairwise.seqs command should be in the following format: \\n
 pairwise.seqs(fasta=yourfastaFile, align=yourAlignmentMethod) \\n
 Example pairwise.seqs(fasta=candidate.fasta, align=blast)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Pairwise.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:pairwise.seqs-align-parameter a ngsp:Parameter ;
@@ -15017,6 +15111,7 @@ If a group file is provided, mothur assumes the list file contains all names.\\n
 The label parameter is used to read specific labels in your input you want to use.\\n
 The parse.list command should be used in the following format: parse.list(list=yourListFile, group=yourGroupFile, label=yourLabels).\\n
 Example: parse.list(list=abrecovery.fn.list, group=abrecovery.groups, label=0.03).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Parse.list> ;
     v:category "OTU-Based Approaches" .
 
 mothur:parse.list-count-parameter a ngsp:Parameter ;
@@ -15085,10 +15180,10 @@ mothur:parse.list-seed-parameter a ngsp:Parameter ;
 mothur:parsimony a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],psummary" ;
-                    dc:identifier "psummary" ],
-                [ ngsp:patternString "[filename],parsimony" ;
-                    dc:identifier "parsimony" ] ;
+            ngsp:pattern [ ngsp:patternString "[filename],parsimony" ;
+                    dc:identifier "parsimony" ],
+                [ ngsp:patternString "[filename],psummary" ;
+                    dc:identifier "psummary" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -15126,6 +15221,7 @@ The processors parameter allows you to specify the number of processors to use. 
 Example parsimony(random=out, iters=500).\\n
 The default value for random is 
 and iters is 1000.  The parsimony command output two files: .parsimony and .psummary their descriptions are in the manual.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Parsimony> ;
     v:category "Hypothesis Testing" .
 
 mothur:parsimony-count-parameter a ngsp:Parameter ;
@@ -15262,6 +15358,7 @@ The groups parameter allows you to specify which groups you would like analyzed.
 The metric parameter allows you to indicate if would like the pearson correlation coefficient calculated. Default=True
 Example pca(groups=yourGroups).\\n
 Example pca(groups=A-B-C).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Pca> ;
     v:category "Hypothesis Testing" .
 
 mothur:pca-groups-parameter a ngsp:Parameter ;
@@ -15374,6 +15471,7 @@ mothur:pcoa a ngsp:Module ;
 The phylip parameter allows you to enter your distance file.
 The metric parameter allows indicate you if would like the pearson correlation coefficient calculated. Default=True
 Example pcoa(phylip=yourDistanceFile).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Pcoa> ;
     v:category "Hypothesis Testing" .
 
 mothur:pcoa-inputdir-parameter a ngsp:Parameter ;
@@ -15423,16 +15521,16 @@ mothur:pcoa-seed-parameter a ngsp:Parameter ;
 mothur:pcr.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],pcr,[extension]-[filename],[tag],pcr,[extension]" ;
+            ngsp:pattern [ ngsp:patternString "[filename],pcr,[extension]" ;
+                    dc:identifier "taxonomy" ],
+                [ ngsp:patternString "[filename],pcr,[extension]-[filename],[tag],pcr,[extension]" ;
                     dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],pcr,[extension]" ;
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],pcr,[extension]" ;
                     dc:identifier "name" ],
                 [ ngsp:patternString "[filename],pcr,[extension]" ;
-                    dc:identifier "taxonomy" ],
-                [ ngsp:patternString "[filename],pcr,[extension]" ;
                     dc:identifier "group" ],
-                [ ngsp:patternString "[filename],pcr,[extension]" ;
-                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],bad.accnos" ;
                     dc:identifier "accnos" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -15487,6 +15585,7 @@ The keepdots parameter allows you to keep the leading and trailing .'s, default=
 The pdiffs parameter is used to specify the number of differences allowed in the forward primer. The default is 0.\\n
 The rdiffs parameter is used to specify the number of differences allowed in the reverse primer. The default is 0.\\n
 For more details please check out the wiki http://www.mothur.org/wiki/Pcr.seqs .\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Pcr.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:pcr.seqs-count-parameter a ngsp:Parameter ;
@@ -15660,12 +15759,12 @@ mothur:pcr.seqs-taxonomy-parameter a ngsp:Parameter ;
 mothur:phylo.diversity a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],phylodiv.summary" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],phylodiv.rarefaction" ;
+                    dc:identifier "rarefy" ],
+                [ ngsp:patternString "[filename],[tag],phylodiv.summary" ;
                     dc:identifier "summary" ],
                 [ ngsp:patternString "[filename],[tag],phylodiv" ;
-                    dc:identifier "phylodiv" ],
-                [ ngsp:patternString "[filename],[tag],phylodiv.rarefaction" ;
-                    dc:identifier "rarefy" ] ;
+                    dc:identifier "phylodiv" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -15714,6 +15813,7 @@ The processors parameter allows you to specify the number of processors to use. 
 The phylo.diversity command should be in the following format: phylo.diversity(groups=yourGroups, rarefy=yourRarefy, iters=yourIters).\\n
 Example phylo.diversity(groups=A-B-C, rarefy=T, iters=500).\\n
 The phylo.diversity command output two files: .phylo.diversity and if rarefy=T, .rarefaction.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Phylo.diversity> ;
     v:category "Hypothesis Testing" .
 
 mothur:phylo.diversity-collect-parameter a ngsp:Parameter ;
@@ -15859,10 +15959,10 @@ mothur:phylo.diversity-tree-parameter a ngsp:Parameter ;
 mothur:phylotype a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[clustertag],sabund" ;
-                    dc:identifier "sabund" ],
-                [ ngsp:patternString "[filename],[clustertag],rabund" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[clustertag],rabund" ;
                     dc:identifier "rabund" ],
+                [ ngsp:patternString "[filename],[clustertag],sabund" ;
+                    dc:identifier "sabund" ],
                 [ ngsp:patternString "[filename],[clustertag],list-[filename],[clustertag],[tag2],list" ;
                     dc:identifier "list" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -15902,6 +16002,7 @@ For the label parameter, levels count down from the root to keep the output simi
 The phylotype command should be in the following format: \\n
 phylotype(taxonomy=yourTaxonomyFile, cutoff=yourCutoff, label=yourLabels) \\n
 Eaxample: phylotype(taxonomy=amazon.taxonomy, cutoff=5, label=1-3-5).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Phylotype> ;
     v:category "Clustering" .
 
 mothur:phylotype-count-parameter a ngsp:Parameter ;
@@ -15983,14 +16084,14 @@ mothur:phylotype-taxonomy-parameter a ngsp:Parameter ;
 mothur:pre.cluster a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],precluster.names" ;
-                    dc:identifier "name" ],
-                [ ngsp:patternString "[filename],precluster.count_table" ;
+            ngsp:pattern [ ngsp:patternString "[filename],precluster.count_table" ;
                     dc:identifier "count" ],
                 [ ngsp:patternString "[filename],precluster.map" ;
                     dc:identifier "map" ],
                 [ ngsp:patternString "[filename],precluster,[extension]" ;
-                    dc:identifier "fasta" ] ;
+                    dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],precluster.names" ;
+                    dc:identifier "name" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -16042,6 +16143,7 @@ The gapextend parameter allows you to specify the penalty for extending a gap in
 The pre.cluster command should be in the following format: \\n
 pre.cluster(fasta=yourFastaFile, names=yourNamesFile, diffs=yourMaxDiffs) \\n
 Example pre.cluster(fasta=amazon.fasta, diffs=2).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Pre.cluster> ;
     v:category "Sequence Processing" .
 
 mothur:pre.cluster-align-parameter a ngsp:Parameter ;
@@ -16188,10 +16290,10 @@ mothur:primer.design a ngsp:Module ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "list" ],
-                [ ngsp:patternString "[filename],[distance],primer.summary" ;
-                    dc:identifier "summary" ],
                 [ ngsp:patternString "[filename],[distance],otu.cons.fasta" ;
-                    dc:identifier "fasta" ] ;
+                    dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],[distance],primer.summary" ;
+                    dc:identifier "summary" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -16242,6 +16344,7 @@ The processors parameter allows you to indicate the number of processors you wan
 The cutoff parameter allows you set a percentage of sequences that support the base. For example: cutoff=97 would only return a sequence that only showed ambiguities for bases that were not supported by at least 97% of sequences.\\n
 The primer.desing command should be in the following format: primer.design(list=yourListFile, fasta=yourFastaFile, name=yourNameFile)\\n
 primer.design(list=final.an.list, fasta=final.fasta, name=final.names, label=0.03)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Primer.design> ;
     v:category "OTU-Based Approaches" .
 
 mothur:primer.design-count-parameter a ngsp:Parameter ;
@@ -16379,10 +16482,10 @@ mothur:quit a ngsp:Module ;
 mothur:rarefaction.shared a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],shared.r_nseqs" ;
-                    dc:identifier "sharedr_nseqs" ],
-                [ ngsp:patternString "[filename],shared.rarefaction" ;
-                    dc:identifier "sharedrarefaction" ] ;
+            ngsp:pattern [ ngsp:patternString "[filename],shared.rarefaction" ;
+                    dc:identifier "sharedrarefaction" ],
+                [ ngsp:patternString "[filename],shared.r_nseqs" ;
+                    dc:identifier "sharedr_nseqs" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -16429,6 +16532,7 @@ The subsample parameter allows you to enter the size pergroup of the sample or y
 The default value for groups is all the groups in your groupfile, and jumble is true.\\n
 The label parameter is used to analyze specific labels in your input.\\n
 The groups parameter allows you to specify which of the groups in your groupfile you would like analyzed.  You must enter at least 2 valid groups.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Rarefaction.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:rarefaction.shared-calc-parameter a ngsp:Parameter ;
@@ -16558,38 +16662,38 @@ mothur:rarefaction.shared-subsampleiters-parameter a ngsp:Parameter ;
 mothur:rarefaction.single a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],r_shannoneven" ;
-                    dc:identifier "r_shannoneven" ],
-                [ ngsp:patternString "[filename],r_nseqs" ;
+            ngsp:pattern [ ngsp:patternString "[filename],r_nseqs" ;
                     dc:identifier "r_nseqs" ],
-                [ ngsp:patternString "[filename],r_invsimpson" ;
-                    dc:identifier "r_invsimpson" ],
-                [ ngsp:patternString "[filename],r_simpson" ;
-                    dc:identifier "r_simpson" ],
-                [ ngsp:patternString "[filename],r_coverage" ;
-                    dc:identifier "r_coverage" ],
-                [ ngsp:patternString "[filename],r_shannon" ;
-                    dc:identifier "r_shannon" ],
                 [ ngsp:patternString "[filename],r_ace" ;
                     dc:identifier "r_ace" ],
-                [ ngsp:patternString "[filename],r_heip" ;
-                    dc:identifier "r_heip" ],
-                [ ngsp:patternString "[filename],r_jack" ;
-                    dc:identifier "r_jack" ],
-                [ ngsp:patternString "[filename],rarefaction" ;
-                    dc:identifier "rarefaction" ],
-                [ ngsp:patternString "[filename],r_bootstrap" ;
-                    dc:identifier "r_bootstrap" ],
+                [ ngsp:patternString "[filename],r_simpsoneven" ;
+                    dc:identifier "r_simpsoneven" ],
                 [ ngsp:patternString "[filename],r_smithwilson" ;
                     dc:identifier "r_smithwilson" ],
                 [ ngsp:patternString "[filename],r_chao" ;
                     dc:identifier "r_chao" ],
+                [ ngsp:patternString "[filename],r_simpson" ;
+                    dc:identifier "r_simpson" ],
+                [ ngsp:patternString "[filename],r_invsimpson" ;
+                    dc:identifier "r_invsimpson" ],
                 [ ngsp:patternString "[filename],r_shannonrange" ;
                     dc:identifier "r_shannonrange" ],
-                [ ngsp:patternString "[filename],r_simpsoneven" ;
-                    dc:identifier "r_simpsoneven" ],
+                [ ngsp:patternString "[filename],r_bootstrap" ;
+                    dc:identifier "r_bootstrap" ],
+                [ ngsp:patternString "[filename],r_jack" ;
+                    dc:identifier "r_jack" ],
                 [ ngsp:patternString "[filename],r_npshannon" ;
-                    dc:identifier "r_npshannon" ] ;
+                    dc:identifier "r_npshannon" ],
+                [ ngsp:patternString "[filename],rarefaction" ;
+                    dc:identifier "rarefaction" ],
+                [ ngsp:patternString "[filename],r_heip" ;
+                    dc:identifier "r_heip" ],
+                [ ngsp:patternString "[filename],r_coverage" ;
+                    dc:identifier "r_coverage" ],
+                [ ngsp:patternString "[filename],r_shannoneven" ;
+                    dc:identifier "r_shannoneven" ],
+                [ ngsp:patternString "[filename],r_shannon" ;
+                    dc:identifier "r_shannon" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -16645,6 +16749,7 @@ The default values for iters is 1000, freq is 100, and calc is rarefaction which
 The alpha parameter is used to set the alpha value for the shannonrange calculator.\\n
 If you are running rarefaction.single with a shared file and would like your results collated in one file, set groupmode=t. (Default=true).\\n
 The label parameter is used to analyze specific labels in your input.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Rarefaction.single> ;
     v:category "OTU-Based Approaches" .
 
 mothur:rarefaction.single-abund-parameter a ngsp:Parameter ;
@@ -16833,6 +16938,7 @@ mothur:remove.dists a ngsp:Module ;
 The remove.dists command parameters are accnos, phylip and column.\\n
 The remove.dists command should be in the following format: get.dists(accnos=yourAccnos, phylip=yourPhylip).\\n
 Example remove.dists(accnos=final.accnos, phylip=final.an.thetayc.0.03.lt.ave.dist).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Remove.dists> ;
     v:category "General" .
 
 mothur:remove.dists-accnos-parameter a ngsp:Parameter ;
@@ -16895,25 +17001,25 @@ mothur:remove.groups a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "phylip" ],
-                [ ngsp:patternString "[filename],[tag],pick,[extension]-[filename],pick,[extension]" ;
-                    dc:identifier "design" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "name" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "group" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "column" ],
                 [ ngsp:patternString "[filename],[tag],pick,[extension]" ;
-                    dc:identifier "shared" ],
+                    dc:identifier "list" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "column" ],
+                [ ngsp:patternString "[filename],[tag],pick,[extension]-[filename],pick,[extension]" ;
+                    dc:identifier "design" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "group" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "name" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "count" ],
                 [ ngsp:patternString "[filename],[tag],pick,[extension]" ;
-                    dc:identifier "list" ] ;
+                    dc:identifier "shared" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "phylip" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -16963,6 +17069,7 @@ The groups parameter allows you to specify which of the groups in your groupfile
 The remove.groups command should be in the following format: remove.groups(accnos=yourAccnos, fasta=yourFasta, group=yourGroupFile).\\n
 Example remove.groups(accnos=amazon.accnos, fasta=amazon.fasta, group=amazon.groups).\\n
 or remove.groups(groups=pasture, fasta=amazon.fasta, amazon.groups).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Remove.groups> ;
     v:category "OTU-Based Approaches" .
 
 mothur:remove.groups-accnos-parameter a ngsp:Parameter ;
@@ -17132,19 +17239,19 @@ mothur:remove.lineage a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "taxonomy" ],
+                    dc:identifier "group" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "count" ],
-                [ ngsp:patternString "[filename],pick.align.report" ;
-                    dc:identifier "alignreport" ],
+                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
                     dc:identifier "shared" ],
+                [ ngsp:patternString "[filename],pick.align.report" ;
+                    dc:identifier "alignreport" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
                     dc:identifier "list" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "group" ],
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "constaxonomy" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
@@ -17201,6 +17308,7 @@ The remove.lineage command should be in the following format: remove.lineage(tax
 Example remove.lineage(taxonomy=amazon.silva.taxonomy, taxon=Bacteria;Firmicutes;Bacilli;Lactobacillales;).\\n
 Note: If you are running mothur in script mode you must wrap the taxon in ' characters so mothur will ignore the ; in the taxon.\\n
 Example remove.lineage(taxonomy=amazon.silva.taxonomy, taxon='Bacteria;Firmicutes;Bacilli;Lactobacillales;').\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Remove.lineage> ;
     v:category "Phylotype Analysis" .
 
 mothur:remove.lineage-alignreport-parameter a ngsp:Parameter ;
@@ -17368,15 +17476,15 @@ mothur:remove.otus a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "otucorr" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "constaxonomy" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "corraxes" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
-                    dc:identifier "list" ],
+                    dc:identifier "shared" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
-                    dc:identifier "shared" ] ;
+                    dc:identifier "list" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "otucorr" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "constaxonomy" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -17416,6 +17524,7 @@ The corraxes parameter is input the results of the corr.axes command.\\n
 The label parameter is used to analyze specific labels in your input. \\n
 The remove.otus commmand should be in the following format: \\n
 remove.otus(accnos=yourListOfOTULabels, corraxes=yourCorrAxesFile)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Get.otus> ;
     v:category "OTU-Based Approaches" .
 
 mothur:remove.otus-accnos-parameter a ngsp:Parameter ;
@@ -17521,16 +17630,16 @@ mothur:remove.otus-shared-parameter a ngsp:Parameter ;
 mothur:remove.rare a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],pick,[extension]" ;
+                    dc:identifier "shared" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "count" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "sabund" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "rabund" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "sabund" ],
                 [ ngsp:patternString "[filename],[tag],pick,[extension]" ;
                     dc:identifier "list" ],
-                [ ngsp:patternString "[filename],[tag],pick,[extension]" ;
-                    dc:identifier "shared" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "group" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -17577,6 +17686,7 @@ bygroups=T means remove any OTU that has nseqs or fewer sequences in each group 
 The nseqs parameter allows you to set the cutoff for an otu to be deemed rare. It is required.\\n
 The remove.rare command should be in the following format: remove.rare(shared=yourSharedFile, nseqs=yourRareCutoff).\\n
 Example remove.rare(shared=amazon.fn.shared, nseqs=2).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Remove.rare> ;
     v:category "OTU-Based Approaches" .
 
 mothur:remove.rare-bygroup-parameter a ngsp:Parameter ;
@@ -17713,21 +17823,21 @@ mothur:remove.seqs a ngsp:Module ;
             ngsp:pattern [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "group" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "taxonomy" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "qfile" ],
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],[distance],pick,[extension]" ;
                     dc:identifier "list" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "name" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "fastq" ],
-                [ ngsp:patternString "[filename],pick.align.report" ;
-                    dc:identifier "alignreport" ],
-                [ ngsp:patternString "[filename],pick,[extension]" ;
                     dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],pick,[extension]" ;
-                    dc:identifier "count" ] ;
+                    dc:identifier "qfile" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "fastq" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "name" ],
+                [ ngsp:patternString "[filename],pick,[extension]" ;
+                    dc:identifier "taxonomy" ],
+                [ ngsp:patternString "[filename],pick.align.report" ;
+                    dc:identifier "alignreport" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -17775,6 +17885,7 @@ The format parameter is used to indicate whether your sequences are sanger, sole
 The dups parameter allows you to remove the entire line from a name file if you remove any name from the line. default=true. \\n
 The remove.seqs command should be in the following format: remove.seqs(accnos=yourAccnos, fasta=yourFasta).\\n
 Example remove.seqs(accnos=amazon.accnos, fasta=amazon.fasta).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Remove.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:remove.seqs-accnos-parameter a ngsp:Parameter ;
@@ -17999,6 +18110,7 @@ The prefix parameter allows you to enter your own prefix for shortened names.
 The deleteold parameter indicates whether you want to delete the old file.  Default=true.
 The rename.file command should be in the following format: \\n
 rename.file(fasta=current, name=current, group=current, taxonomy=current, shorten=t)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/rename.file> ;
     v:category "General" .
 
 mothur:rename.file-accnos-parameter a ngsp:Parameter ;
@@ -18261,19 +18373,19 @@ mothur:rename.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],renamed,[extension]" ;
-                    dc:identifier "qfile" ],
+                    dc:identifier "group" ],
+                [ ngsp:patternString "[filename],renamed,[extension]" ;
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],renamed,[extension]" ;
                     dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],renamed_map" ;
                     dc:identifier "map" ],
                 [ ngsp:patternString "[filename],renamed,[extension]" ;
-                    dc:identifier "name" ],
+                    dc:identifier "qfile" ],
                 [ ngsp:patternString "[filename],renamed,[extension]" ;
                     dc:identifier "contigsreport" ],
                 [ ngsp:patternString "[filename],renamed,[extension]" ;
-                    dc:identifier "group" ],
-                [ ngsp:patternString "[filename],renamed,[extension]" ;
-                    dc:identifier "count" ] ;
+                    dc:identifier "name" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -18321,6 +18433,7 @@ The rename.seqs command should be in the following format: \\n
 The rename.seqs command should be in the following format: \\n
 rename.seqs(fasta=yourFastaFile, group=yourGroupFile) \\n
 Example rename.seqs(fasta=abrecovery.unique.fasta, group=abrecovery.group).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Rename.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:rename.seqs-contigsreport-parameter a ngsp:Parameter ;
@@ -18498,6 +18611,7 @@ mothur:reverse.seqs a ngsp:Module ;
 The reverse.seqs command parameters fasta or qfile are required.\\n
 The reverse.seqs command should be in the following format: \\n
 reverse.seqs(fasta=yourFastaFile) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Reverse.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:reverse.seqs-fasta-parameter a ngsp:Parameter ;
@@ -18551,26 +18665,26 @@ mothur:reverse.seqs-seed-parameter a ngsp:Parameter ;
 mothur:screen.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],bad.accnos" ;
-                    dc:identifier "accnos" ],
-                [ ngsp:patternString "[filename],good.summary" ;
+            ngsp:pattern [ ngsp:patternString "[filename],good.summary" ;
                     dc:identifier "summary" ],
-                [ ngsp:patternString "[filename],good.contigs.report" ;
-                    dc:identifier "contigsreport" ],
                 [ ngsp:patternString "[filename],good,[extension]" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],good,[extension]" ;
-                    dc:identifier "group" ],
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],good.align.report" ;
                     dc:identifier "alignreport" ],
                 [ ngsp:patternString "[filename],good,[extension]" ;
-                    dc:identifier "count" ],
-                [ ngsp:patternString "[filename],good,[extension]" ;
-                    dc:identifier "qfile" ],
+                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],good,[extension]" ;
                     dc:identifier "name" ],
+                [ ngsp:patternString "[filename],good.contigs.report" ;
+                    dc:identifier "contigsreport" ],
+                [ ngsp:patternString "[filename],bad.accnos" ;
+                    dc:identifier "accnos" ],
                 [ ngsp:patternString "[filename],good,[extension]" ;
-                    dc:identifier "taxonomy" ] ;
+                    dc:identifier "group" ],
+                [ ngsp:patternString "[filename],good,[extension]" ;
+                    dc:identifier "taxonomy" ],
+                [ ngsp:patternString "[filename],good,[extension]" ;
+                    dc:identifier "qfile" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -18654,6 +18768,7 @@ The screen.seqs command should be in the following format: \\n
 screen.seqs(fasta=yourFastaFile, name=youNameFile, group=yourGroupFIle, start=yourStart, end=yourEnd, maxambig=yourMaxambig,  \\n
 maxhomop=yourMaxhomop, minlength=youMinlength, maxlength=yourMaxlength)  \\n
 Example screen.seqs(fasta=abrecovery.fasta, name=abrecovery.names, group=abrecovery.groups, start=..., end=..., maxambig=..., maxhomop=..., minlength=..., maxlength=...).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Screen.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:screen.seqs-alignreport-parameter a ngsp:Parameter ;
@@ -18963,6 +19078,7 @@ mothur:sens.spec a ngsp:Module ;
     dcterms:description "sens.spec" ;
     schema:citation "Schloss PD, Westcott SL (2011). Assessing and improving methods used in OTU-based approaches for 16S rRNA gene sequence analysis. Appl Environ Microbiol 77:3219.\\nhttp://www.mothur.org/wiki/Sens.spec" ;
     schema:softwareHelp "The sens.spec command determines the quality of the clusters.\\n" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Sens.spec> ;
     v:category "OTU-Based Approaches" .
 
 mothur:sens.spec-column-parameter a ngsp:Parameter ;
@@ -19071,28 +19187,28 @@ mothur:sens.spec-seed-parameter a ngsp:Parameter ;
 mothur:seq.error a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],error.seq" ;
-                    dc:identifier "errorseq" ],
+            ngsp:pattern [ ngsp:patternString "[filename],error.count" ;
+                    dc:identifier "errorcount" ],
                 [ ngsp:patternString "[filename],error.seq.reverse" ;
                     dc:identifier "errorreverse" ],
+                [ ngsp:patternString "[filename],error.ref-query" ;
+                    dc:identifier "errorref-query" ],
                 [ ngsp:patternString "[filename],error.seq.forward" ;
                     dc:identifier "errorforward" ],
-                [ ngsp:patternString "[filename],error.chimera" ;
-                    dc:identifier "errorchimera" ],
-                [ ngsp:patternString "[filename],error.matrix" ;
-                    dc:identifier "errormatrix" ],
+                [ ngsp:patternString "[filename],error.seq" ;
+                    dc:identifier "errorseq" ],
                 [ ngsp:patternString "[filename],error.quality" ;
                     dc:identifier "errorquality" ],
+                [ ngsp:patternString "[filename],error.matrix" ;
+                    dc:identifier "errormatrix" ],
                 [ ngsp:patternString "[filename],error.qual.reverse" ;
                     dc:identifier "errorqualreverse" ],
-                [ ngsp:patternString "[filename],error.summary" ;
-                    dc:identifier "errorsummary" ],
                 [ ngsp:patternString "[filename],error.qual.forward" ;
                     dc:identifier "errorqualforward" ],
-                [ ngsp:patternString "[filename],error.count" ;
-                    dc:identifier "errorcount" ],
-                [ ngsp:patternString "[filename],error.ref-query" ;
-                    dc:identifier "errorref-query" ] ;
+                [ ngsp:patternString "[filename],error.summary" ;
+                    dc:identifier "errorsummary" ],
+                [ ngsp:patternString "[filename],error.chimera" ;
+                    dc:identifier "errorchimera" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -19143,6 +19259,7 @@ The ignorechimeras parameter...\\n
 The threshold parameter...\\n
 Example seq.error(...).\\n
 For more details please check out the wiki http://www.mothur.org/wiki/seq.error .\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Seq.error> ;
     v:category "Sequence Processing" .
 
 mothur:seq.error-aligned-parameter a ngsp:Parameter ;
@@ -19308,6 +19425,7 @@ The current parameter is used to input the output file from get.current.  This f
 The clear parameter is used to indicate which file types you would like to clear values for, multiple types can be separated by dashes.\\n
 The set.current command should be in the following format: \\n
 set.current(fasta=yourFastaFile) or set.current(fasta=amazon.fasta, clear=name-accnos)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Set.current> ;
     v:category "General" .
 
 mothur:set.current-accnos-parameter a ngsp:Parameter ;
@@ -19598,6 +19716,7 @@ To return the tempdefault to the default you provided at compile time you may en
 To set the tempdefault to the directory where mothur.exe is located you may enter: tempdefault=default.\\n
 The set.dir command should be in the following format: set.dir(output=yourOutputDirectory, input=yourInputDirectory, tempdefault=yourTempDefault).\\n
 Example set.outdir(output=/Users/lab/desktop/outputs, input=/Users/lab/desktop/inputs).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Set.dir> ;
     v:category "General" .
 
 mothur:set.dir-blastdir-parameter a ngsp:Parameter ;
@@ -19685,6 +19804,7 @@ mothur:set.logfile a ngsp:Module ;
 The set.logfile command parameters are name and append, name is required. Append is set to false by default.\\n
 The set.logfile command should be in the following format: set.logfile(name=yourLogFileName, append=T).\\n
 Example set.logfile(name=/Users/lab/desktop/output.txt, append=T).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Set.logfile> ;
     v:category "General" .
 
 mothur:set.logfile-append-parameter a ngsp:Parameter ;
@@ -19738,6 +19858,7 @@ mothur:set.seed a ngsp:Module ;
 The set.seed command parameter is seed, and it is required.\\n
 To seed random set seed=yourRandomValue. By default mothur seeds random with the start time.\\n
 Example set.seed(seed=12345).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Set.seed> ;
     v:category "General" .
 
 mothur:set.seed-inputdir-parameter a ngsp:Parameter ;
@@ -19767,12 +19888,12 @@ mothur:set.seed-seed-parameter a ngsp:Parameter ;
 mothur:sff.multiple a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],fasta" ;
+            ngsp:pattern [ ngsp:patternString "[filename],groups" ;
+                    dc:identifier "group" ],
+                [ ngsp:patternString "[filename],fasta" ;
                     dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],names" ;
-                    dc:identifier "name" ],
-                [ ngsp:patternString "[filename],groups" ;
-                    dc:identifier "group" ] ;
+                    dc:identifier "name" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -19842,6 +19963,7 @@ The keepfirst parameter trims the sequence to the first keepfirst number of base
 The removelast removes the last removelast number of bases after the barcode or primers are removed, before the sequence is checked to see if it meets the other requirements.\\n
 The order parameter options are A, B or I.  Default=A. A = TACG and B = TACGTACGTACGATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGC and I = TACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGC.\\n
 Example sff.multiple(file=mySffOligosFile.txt, trim=F).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Sff.multiple> ;
     v:category "Sequence Processing" .
 
 mothur:sff.multiple-allfiles-parameter a ngsp:Parameter ;
@@ -20106,14 +20228,14 @@ mothur:sffinfo a ngsp:Module ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],flow" ;
                     dc:identifier "flow" ],
+                [ ngsp:patternString "[filename],qual-[filename],[tag],qual" ;
+                    dc:identifier "qfile" ],
                 [ ngsp:patternString "[filename],sff.txt" ;
                     dc:identifier "sfftxt" ],
-                [ ngsp:patternString "[filename],fasta-[filename],[tag],fasta" ;
-                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],[group],sff" ;
                     dc:identifier "sff" ],
-                [ ngsp:patternString "[filename],qual-[filename],[tag],qual" ;
-                    dc:identifier "qfile" ] ;
+                [ ngsp:patternString "[filename],fasta-[filename],[tag],fasta" ;
+                    dc:identifier "fasta" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -20172,6 +20294,7 @@ If you want to parse an existing sfftxt file into flow, fasta and quality file, 
 The trim parameter allows you to indicate if you would like a sequences and quality scores trimmed to the clipQualLeft and clipQualRight values.  Default=True. \\n
 The accnos parameter allows you to provide a accnos file containing the names of the sequences you would like extracted. You may enter multiple files by separating them by -'s. \\n
 Example sffinfo(sff=mySffFile.sff, trim=F).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Sffinfo> ;
     v:category "Sequence Processing" .
 
 mothur:sffinfo-accnos-parameter a ngsp:Parameter ;
@@ -20332,16 +20455,16 @@ mothur:sffinfo-trim-parameter a ngsp:Parameter ;
 mothur:shhh.flows a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],shhh.fasta" ;
-                    dc:identifier "fasta" ],
+            ngsp:pattern [ ngsp:patternString "[filename],shhh.qual" ;
+                    dc:identifier "qfile" ],
                 [ ngsp:patternString "[filename],shhh.counts" ;
                     dc:identifier "counts" ],
+                [ ngsp:patternString "[filename],shhh.names" ;
+                    dc:identifier "name" ],
                 [ ngsp:patternString "[filename],shhh.groups" ;
                     dc:identifier "group" ],
-                [ ngsp:patternString "[filename],shhh.qual" ;
-                    dc:identifier "qfile" ],
-                [ ngsp:patternString "[filename],shhh.names" ;
-                    dc:identifier "name" ] ;
+                [ ngsp:patternString "[filename],shhh.fasta" ;
+                    dc:identifier "fasta" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -20381,6 +20504,7 @@ The flow parameter is used to input your flow file.\\n
 The file parameter is used to input the *flow.files file created by trim.flows.\\n
 The lookup parameter is used specify the lookup file you would like to use. http://www.mothur.org/wiki/Lookup_files.\\n
 The order parameter options are A, B or I.  Default=A. A = TACG and B = TACGTACGTACGATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGC and I = TACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGC.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Shhh.flows> ;
     v:category "Sequence Processing" .
 
 mothur:shhh.flows-cutoff-parameter a ngsp:Parameter ;
@@ -20546,6 +20670,7 @@ The sigma parameter ....  The default is 0.01. \\n
 The shhh.seqs command should be in the following format: \\n
 shhh.seqs(fasta=yourFastaFile, name=yourNameFile) \\n
 Example: shhh.seqs(fasta=AD.align, name=AD.names) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Shhh.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:shhh.seqs-fasta-parameter a ngsp:Parameter ;
@@ -20623,19 +20748,19 @@ mothur:sort.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],sorted,[extension]" ;
-                    dc:identifier "count" ],
+                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],sorted,[extension]" ;
                     dc:identifier "group" ],
                 [ ngsp:patternString "[filename],sorted,[extension]" ;
-                    dc:identifier "fasta" ],
-                [ ngsp:patternString "[filename],sorted,[extension]" ;
                     dc:identifier "name" ],
+                [ ngsp:patternString "[filename],sorted,[extension]" ;
+                    dc:identifier "count" ],
+                [ ngsp:patternString "[filename],sorted,[extension]" ;
+                    dc:identifier "qfile" ],
                 [ ngsp:patternString "[filename],sorted,[extension]" ;
                     dc:identifier "flow" ],
                 [ ngsp:patternString "[filename],sorted,[extension]" ;
-                    dc:identifier "taxonomy" ],
-                [ ngsp:patternString "[filename],sorted,[extension]" ;
-                    dc:identifier "qfile" ] ;
+                    dc:identifier "taxonomy" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -20677,6 +20802,7 @@ The accnos file allows you to specify the order you want the files in.  If none 
 The large parameters is used to indicate your files are too large to fit in RAM.\\n
 The sort.seqs command should be in the following format: sort.seqs(fasta=yourFasta).\\n
 Example sort.seqs(fasta=amazon.fasta).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Sort.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:sort.seqs-accnos-parameter a ngsp:Parameter ;
@@ -20809,12 +20935,12 @@ mothur:sort.seqs-taxonomy-parameter a ngsp:Parameter ;
 mothur:sparcc a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[distance],sparcc_pvalue" ;
-                    dc:identifier "pvalue" ],
+            ngsp:pattern [ ngsp:patternString "[filename],[distance],sparcc_relabund" ;
+                    dc:identifier "sparccrelabund" ],
                 [ ngsp:patternString "[filename],[distance],sparcc_correlation" ;
                     dc:identifier "corr" ],
-                [ ngsp:patternString "[filename],[distance],sparcc_relabund" ;
-                    dc:identifier "sparccrelabund" ] ;
+                [ ngsp:patternString "[filename],[distance],sparcc_pvalue" ;
+                    dc:identifier "pvalue" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -20855,6 +20981,7 @@ The default value for groups is all the groups in your sharedfile.\\n
 The label parameter is used to analyze specific labels in your shared file.\\n
 The sparcc command should be in the following format: sparcc(shared=yourSharedFile)\\n
 sparcc(shared=final.an.shared)\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Sparcc> ;
     v:category "OTU-Based Approaches" .
 
 mothur:sparcc-groups-parameter a ngsp:Parameter ;
@@ -20955,16 +21082,16 @@ mothur:sparcc-shared-parameter a ngsp:Parameter ;
 mothur:split.abund a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],[tag2],count_table-[filename],[tag],count_table" ;
-                    dc:identifier "count" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],list-[filename],[group],[tag],[tag2],list" ;
-                    dc:identifier "list" ],
-                [ ngsp:patternString "[filename],[tag],names-[filename],[group],[tag],names" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],names-[filename],[group],[tag],names" ;
                     dc:identifier "name" ],
                 [ ngsp:patternString "[filename],[tag],[tag2],groups-[filename],[tag],[group],[tag2],groups" ;
                     dc:identifier "group" ],
+                [ ngsp:patternString "[filename],[tag],[tag2],count_table-[filename],[tag],count_table" ;
+                    dc:identifier "count" ],
                 [ ngsp:patternString "[filename],[tag],[tag2],fasta-[filename],[tag],[group],[tag2],fasta" ;
                     dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],[tag],[tag2],list-[filename],[group],[tag],[tag2],list" ;
+                    dc:identifier "list" ],
                 [ ngsp:patternString "[filename],[tag],[tag2],accnos-[filename],[tag],[group],[tag2],accnos" ;
                     dc:identifier "accnos" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -21013,6 +21140,7 @@ For example if you set groups=A-B-C, you will get a .A.abund, .A.rare, .B.abund,
 If you want .abund and .rare files for all groups, set groups=all.  \\n
 The split.abund command should be used in the following format: split.abund(fasta=yourFasta, list=yourListFile, group=yourGroupFile, label=yourLabels, cutoff=yourCutoff).\\n
 Example: split.abund(fasta=abrecovery.fasta, list=abrecovery.fn.list, group=abrecovery.groups, label=0.03, cutoff=2).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Split.abund> ;
     v:category "OTU-Based Approaches" .
 
 mothur:split.abund-accnos-parameter a ngsp:Parameter ;
@@ -21134,10 +21262,10 @@ mothur:split.abund-seed-parameter a ngsp:Parameter ;
 mothur:split.groups a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[group],flow" ;
-                    dc:identifier "flow" ],
-                [ ngsp:patternString "[filename],[group],fasta" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[group],fasta" ;
                     dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],[group],flow" ;
+                    dc:identifier "flow" ],
                 [ ngsp:patternString "[filename],[group],names" ;
                     dc:identifier "name" ],
                 [ ngsp:patternString "[filename],[group],count_table" ;
@@ -21179,6 +21307,7 @@ For example if you set groups=A-B-C, you will get a .A.fasta, .A.names, .B.fasta
 If you want .fasta and .names files for all groups, set groups=all.  \\n
 The split.groups command should be used in the following format: split.group(fasta=yourFasta, group=yourGroupFile).\\n
 Example: split.groups(fasta=abrecovery.fasta, group=abrecovery.groups).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Split.group> ;
     v:category "Sequence Processing" .
 
 mothur:split.groups-count-parameter a ngsp:Parameter ;
@@ -21277,23 +21406,23 @@ mothur:sub.sample a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],subsample,[extension]" ;
+                    dc:identifier "count" ],
+                [ ngsp:patternString "[filename],subsample,[extension]" ;
                     dc:identifier "taxonomy" ],
                 [ ngsp:patternString "[filename],subsample,[extension]" ;
-                    dc:identifier "rabund" ],
-                [ ngsp:patternString "[filename],[distance],subsample,[extension]" ;
-                    dc:identifier "shared" ],
-                [ ngsp:patternString "[filename],subsample,[extension]" ;
-                    dc:identifier "count" ],
+                    dc:identifier "sabund" ],
                 [ ngsp:patternString "[filename],subsample,[extension]" ;
                     dc:identifier "name" ],
                 [ ngsp:patternString "[filename],subsample,[extension]" ;
                     dc:identifier "group" ],
+                [ ngsp:patternString "[filename],subsample,[extension]" ;
+                    dc:identifier "rabund" ],
                 [ ngsp:patternString "[filename],[distance],subsample,[extension]" ;
                     dc:identifier "list" ],
                 [ ngsp:patternString "[filename],subsample,[extension]" ;
-                    dc:identifier "sabund" ],
-                [ ngsp:patternString "[filename],subsample,[extension]" ;
-                    dc:identifier "fasta" ] ;
+                    dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],[distance],subsample,[extension]" ;
+                    dc:identifier "shared" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -21348,6 +21477,7 @@ The sub.sample command should be in the following format: sub.sample(list=yourLi
 Example sub.sample(list=abrecovery.fn.list, group=abrecovery.groups, groups=B-C, size=20).\\n
 The default value for groups is all the groups in your groupfile, and all labels in your inputfile will be used.\\n
 The sub.sample command outputs a .subsample file.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Sub.sample> ;
     v:category "Sequence Processing" .
 
 mothur:sub.sample-count-parameter a ngsp:Parameter ;
@@ -21548,6 +21678,7 @@ The name parameter allows you to enter a name file associated with your quality 
 The count parameter allows you to enter a count file associated with your quality file. \\n
 The summary.qual command should be in the following format: \\n
 summary.qual(qfile=yourQualityFile) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Summary.qual> ;
     v:category "Sequence Processing" .
 
 mothur:summary.qual-count-parameter a ngsp:Parameter ;
@@ -21649,6 +21780,7 @@ The name parameter allows you to enter a name file associated with your fasta fi
 The count parameter allows you to enter a count file associated with your fasta file. \\n
 The summary.seqs command should be in the following format: \\n
 summary.seqs(fasta=yourFastaFile, processors=2) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Summary.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:summary.seqs-alignreport-parameter a ngsp:Parameter ;
@@ -21743,10 +21875,10 @@ mothur:summary.seqs-summary-parameter a ngsp:Parameter ;
 mothur:summary.shared a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[calc],[distance],[outputtag],[tag2],dist" ;
-                    dc:identifier "phylip" ],
-                [ ngsp:patternString "[filename],summary-[filename],[tag],summary" ;
-                    dc:identifier "summary" ] ;
+            ngsp:pattern [ ngsp:patternString "[filename],summary-[filename],[tag],summary" ;
+                    dc:identifier "summary" ],
+                [ ngsp:patternString "[filename],[calc],[distance],[outputtag],[tag2],dist" ;
+                    dc:identifier "phylip" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -21792,6 +21924,7 @@ The label parameter is used to analyze specific labels in your input.\\n
 The all parameter is used to specify if you want the estimate of all your groups together.  This estimate can only be made for sharedsobs and sharedchao calculators. The default is false.\\n
 If you use sharedchao and run into memory issues, set all to false. \\n
 The groups parameter allows you to specify which of the groups in your groupfile you would like analyzed.  You must enter at least 2 valid groups.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Summary.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:summary.shared-all-parameter a ngsp:Parameter ;
@@ -22001,6 +22134,7 @@ The default value calc is sobs-chao-ace-jack-shannon-npshannon-simpson\\n
 If you are running summary.single with a shared file and would like your summary results collated in one file, set groupmode=t. (Default=true).\\n
 The alpha parameter is used to set the alpha value for the shannonrange calculator.\\n
 The label parameter is used to analyze specific labels in your input.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Summary.single> ;
     v:category "OTU-Based Approaches" .
 
 mothur:summary.single-abund-parameter a ngsp:Parameter ;
@@ -22219,6 +22353,7 @@ The printlevel parameter allows you to specify taxlevel of your summary file to 
 The relabund parameter allows you to indicate you want the summary file values to be relative abundances rather than raw abundances. Default=F. \\n
 The summary.tax command should be in the following format: \\n
 summary.tax(taxonomy=yourTaxonomyFile) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Summary.tax> ;
     v:category "Phylotype Analysis" .
 
 mothur:summary.tax-count-parameter a ngsp:Parameter ;
@@ -22328,6 +22463,7 @@ mothur:system a ngsp:Module ;
 The system has no parameters.\\n
 The system command should be in the following format: system(yourCommand).\\n
 Example system(clear).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/System> ;
     v:category "General" .
 
 mothur:system-command-parameter a ngsp:Parameter ;
@@ -22391,6 +22527,7 @@ The default value for calc is jclass-thetayc.\\n
 The tree.shared command outputs a .tre file for each calculator you specify at each distance you choose.\\n
 Or the tree.shared command can be in the following format: tree.shared(phylip=yourPhylipFile).\\n
 Example tree.shared(phylip=abrecovery.dist).\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Tree.shared> ;
     v:category "OTU-Based Approaches" .
 
 mothur:tree.shared-calc-parameter a ngsp:Parameter ;
@@ -22587,14 +22724,14 @@ mothur:tree.shared-subsample-parameter a ngsp:Parameter ;
 mothur:trim.flows a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],flow.files" ;
-                    dc:identifier "file" ],
-                [ ngsp:patternString "[filename],flow.fasta" ;
-                    dc:identifier "fasta" ],
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],flow" ;
+                    dc:identifier "flow" ],
                 [ ngsp:patternString "[filename],flow.groups" ;
                     dc:identifier "group" ],
-                [ ngsp:patternString "[filename],[tag],flow" ;
-                    dc:identifier "flow" ] ;
+                [ ngsp:patternString "[filename],flow.files" ;
+                    dc:identifier "file" ],
+                [ ngsp:patternString "[filename],flow.fasta" ;
+                    dc:identifier "fasta" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -22646,6 +22783,7 @@ The ldiffs parameter is used to specify the number of differences allowed in the
 The sdiffs parameter is used to specify the number of differences allowed in the spacer. The default is 0.\\n
 The order parameter options are A, B or I.  Default=A. A = TACG and B = TACGTACGTACGATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATAGATCGCATGACGATCGCATATCGTCAGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGTAGTCGAGCATCATCTGACGCAGTACGTGCATGATCTCAGTCAGCAGCTATGTCAGTGCATGCATAGATCGCATGACGATCGCATATCGTCAGTGCAGTGACTGATCGTCATCAGCTAGCATCGACTGCATGATCTCAGTCAGCAGC and I = TACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGCTACGTACGTCTGAGCATCGATCGATGTACAGC.\\n
 For more details please check out the wiki http://www.mothur.org/wiki/Trim.flows.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Trim.flows> ;
     v:category "Sequence Processing" .
 
 mothur:trim.flows-allfiles-parameter a ngsp:Parameter ;
@@ -22822,14 +22960,14 @@ mothur:trim.seqs a ngsp:Module ;
             ngsp:parameterName "type" ;
             ngsp:pattern [ ngsp:patternString "[filename],[tag],count_table-[filename],count_table" ;
                     dc:identifier "count" ],
+                [ ngsp:patternString "[filename],groups" ;
+                    dc:identifier "group" ],
                 [ ngsp:patternString "[filename],[tag],names" ;
                     dc:identifier "name" ],
-                [ ngsp:patternString "[filename],[tag],fasta" ;
-                    dc:identifier "fasta" ],
                 [ ngsp:patternString "[filename],[tag],qual" ;
                     dc:identifier "qfile" ],
-                [ ngsp:patternString "[filename],groups" ;
-                    dc:identifier "group" ] ;
+                [ ngsp:patternString "[filename],[tag],fasta" ;
+                    dc:identifier "fasta" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -22919,6 +23057,7 @@ trim.seqs(fasta=yourFastaFile, flip=yourFlip, oligos=yourOligos, maxambig=yourMa
 maxhomop=yourMaxhomop, minlength=youMinlength, maxlength=yourMaxlength)  \\n
 Example trim.seqs(fasta=abrecovery.fasta, flip=..., oligos=..., maxambig=..., maxhomop=..., minlength=..., maxlength=...).\\n
 For more details please check out the wiki http://www.mothur.org/wiki/Trim.seqs .\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Trim.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:trim.seqs-allfiles-parameter a ngsp:Parameter ;
@@ -23197,16 +23336,16 @@ mothur:trim.seqs-tdiffs-parameter a ngsp:Parameter ;
 mothur:unifrac.unweighted a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],uwsummary" ;
-                    dc:identifier "uwsummary" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],dist" ;
-                    dc:identifier "phylip" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],dist" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],[tag2],dist" ;
                     dc:identifier "column" ],
+                [ ngsp:patternString "[filename],uwsummary" ;
+                    dc:identifier "uwsummary" ],
+                [ ngsp:patternString "[filename],[tag],[tag2],tre" ;
+                    dc:identifier "tree" ],
                 [ ngsp:patternString "[filename],unweighted-[filename],[tag],unweighted" ;
                     dc:identifier "unweighted" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],tre" ;
-                    dc:identifier "tree" ] ;
+                [ ngsp:patternString "[filename],[tag],[tag2],dist" ;
+                    dc:identifier "phylip" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -23255,6 +23394,7 @@ The consensus parameter allows you to indicate you would like trees built from d
 Example unifrac.unweighted(groups=A-B-C, iters=500).\\n
 The default value for groups is all the groups in your groupfile, and iters is 1000.\\n
 The unifrac.unweighted command output two files: .unweighted and .uwsummary their descriptions are in the manual.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Unifrac.unweighted> ;
     v:category "Hypothesis Testing" .
 
 mothur:unifrac.unweighted-consensus-parameter a ngsp:Parameter ;
@@ -23402,16 +23542,16 @@ mothur:unifrac.unweighted-tree-parameter a ngsp:Parameter ;
 mothur:unifrac.weighted a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],[tag],wsummary" ;
+            ngsp:pattern [ ngsp:patternString "[filename],[tag],[tag2],tre" ;
+                    dc:identifier "tree" ],
+                [ ngsp:patternString "[filename],[tag],wsummary" ;
                     dc:identifier "wsummary" ],
                 [ ngsp:patternString "[filename],[tag],[tag2],dist" ;
                     dc:identifier "phylip" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],tre" ;
-                    dc:identifier "tree" ],
-                [ ngsp:patternString "[filename],[tag],[tag2],dist" ;
-                    dc:identifier "column" ],
                 [ ngsp:patternString "[filename],weighted-[filename],[tag],weighted" ;
-                    dc:identifier "weighted" ] ;
+                    dc:identifier "weighted" ],
+                [ ngsp:patternString "[filename],[tag],[tag2],dist" ;
+                    dc:identifier "column" ] ;
             cnt:chars """getOutputPattern(string type) {
     try {
         string pattern = "";
@@ -23460,6 +23600,7 @@ The unifrac.weighted command should be in the following format: unifrac.weighted
 Example unifrac.weighted(groups=A-B-C, iters=500).\\n
 The default value for groups is all the groups in your groupfile, and iters is 1000.\\n
 The unifrac.weighted command output two files: .weighted and .wsummary their descriptions are in the manual.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Unifrac.weighted> ;
     v:category "Hypothesis Testing" .
 
 mothur:unifrac.weighted-consensus-parameter a ngsp:Parameter ;
@@ -23607,10 +23748,10 @@ mothur:unifrac.weighted-tree-parameter a ngsp:Parameter ;
 mothur:unique.seqs a ngsp:Module ;
     ngsp:outputPattern [ a cnt:Chars ;
             ngsp:parameterName "type" ;
-            ngsp:pattern [ ngsp:patternString "[filename],names-[filename],[tag],names" ;
-                    dc:identifier "name" ],
-                [ ngsp:patternString "[filename],unique,[extension]" ;
+            ngsp:pattern [ ngsp:patternString "[filename],unique,[extension]" ;
                     dc:identifier "fasta" ],
+                [ ngsp:patternString "[filename],names-[filename],[tag],names" ;
+                    dc:identifier "name" ],
                 [ ngsp:patternString "[filename],count_table-[filename],[tag],count_table" ;
                     dc:identifier "count" ] ;
             cnt:chars """getOutputPattern(string type) {
@@ -23646,6 +23787,7 @@ The count parameter is used to provide an existing count file associated with th
 The format parameter is used to indicate what type of file you want outputted.  Choices are name and count, default=name unless count file used then default=count.\\n
 The unique.seqs command should be in the following format: \\n
 unique.seqs(fasta=yourFastaFile) \\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Unique.seqs> ;
     v:category "Sequence Processing" .
 
 mothur:unique.seqs-count-parameter a ngsp:Parameter ;
@@ -23769,6 +23911,7 @@ If you have more than 4 groups, you can use the permute parameter to set the num
 The only estimators available four 4 groups are sharedsobs and sharedchao.\\n
 The sharedotus parameter can be used with the sharedsobs calculator to get the names of the OTUs in each section of the venn diagram. Default=t.\\n
 The venn command outputs a .svg file for each calculator you specify at each distance you choose.\\n""" ;
+    nco:websiteURL <http://www.mothur.org/wiki/Venn> ;
     v:category "OTU-Based Approaches" .
 
 mothur:venn-abund-parameter a ngsp:Parameter ;

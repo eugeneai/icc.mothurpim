@@ -1,6 +1,6 @@
-from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef
+from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS
 from rdflib.namespace import DC, DCTERMS, FOAF, XSD
-from icc.ngs.namespace import NGS, NGSP, SCHEMA, V, OSLC, CNT
+from icc.ngs.namespace import NGS, NGSP, SCHEMA, V, OSLC, CNT, NCO
 from pkg_resources import resource_dir
 import re
 import glob
@@ -38,6 +38,7 @@ class Loader:
         g.bind('v', V)
         g.bind('cnt', CNT)
         g.bind('mothur', CUR)
+        g.bind('nco', NCO)
 
     def load(self):
         if self.loaded:
@@ -90,6 +91,9 @@ RE_GOP_NAME = re.compile(
     r'getOutputPattern\s*\(\s*string\s+(\w+)\s*\)')
 RE_GOP_RECORD = re.compile(
     r'if.+?==\s+"((\w|-)+)".+?pattern\s*=\s*"(.+?)"', re.MULTILINE | re.DOTALL)
+
+RE_MOTUR_WIKI = re.compile(
+    r'((https?|ftp)://www\.mothur\.org/wiki/(\w|\.|-)*)')
 
 CP_TYPES = {'InputTypes', 'Boolean', 'Number', 'Multiple', 'String'}
 
@@ -181,6 +185,12 @@ class CommandLoader:
         g.add((res, DCTERMS.description, Literal(description)))
         g.add((res, SCHEMA.citation, Literal(citation)))
         g.add((res, V.category, Literal(category)))
+        if citation:
+            m = RE_MOTUR_WIKI.search(citation)
+            if m:
+                g.add((res, NCO.websiteURL, URIRef(m.group(1))))
+            else:
+                print("WARNING: Wiki page not found")
 
     def find(self, re, ent):
         m = re.search(self.text)
@@ -211,6 +221,7 @@ class CommandLoader:
         help = self.help = self.help.strip()
         if help:
             g.add((res, SCHEMA.softwareHelp, Literal(help)))
+
         m = RE_GOP.search(self.cpptext)
         self.gop = None
         if m:
