@@ -86,7 +86,10 @@ RE_HELP = re.compile(r'helpString\s*\+?=\s*"(.*?)"')
 RE_GOP = re.compile(
     r'(getOutputPattern\s*\(\s*string.+?catch.+?\}.+?\})', re.DOTALL)
 
-RE_GOP_NAME = re.compile(r'getOutputPattern\s*\(\s*string\s+(\w+)\s*\)')
+RE_GOP_NAME = re.compile(
+    r'getOutputPattern\s*\(\s*string\s+(\w+)\s*\)')
+RE_GOP_RECORD = re.compile(
+    r'if.+?==\s+"((\w|-)+)".+?pattern\s*=\s*"(.+?)"', re.MULTILINE | re.DOTALL)
 
 CP_TYPES = {'InputTypes', 'Boolean', 'Number', 'Multiple', 'String'}
 
@@ -107,6 +110,10 @@ def COMPAR(name="",
     if type == "Multiple":
         options = options.split("-")
 
+    outputTypes = outputTypes.strip()
+    if outputTypes:
+        types = outputTypes.split("-")
+
     xsdbool = XSD.boolean
     d = {DC.title: Literal(name),
          NGSP.type: CUR[type],
@@ -116,10 +123,13 @@ def COMPAR(name="",
          "chooseOnlyOneGroup": chooseOnlyOneGroup,
          "chooseAtLeastOneGroup": chooseAtLeastOneGroup,
          "linkedGroup": linkedGroup,
-         "outputTypes": outputTypes,
+         "outputTypesOrig": outputTypes,
          "multipleSelectionAllowed": Literal(multipleSelectionAllowed, datatype=xsdbool),
          "required": Literal(required, datatype=xsdbool),
          "important": Literal(important, datatype=xsdbool)}
+
+    if outputTypes:
+        d["outputTypes"] = types
 
     return d
 
@@ -216,6 +226,7 @@ class CommandLoader:
                 g.add((gopr, NGSP.parameterName, Literal(self.gopparam)))
             else:
                 raise ValueError("cannot recodgnize parameter name")
+            self.process_gop(gopr)
         else:
             print("WARNING: getOutputPattern not found")
 
@@ -243,12 +254,33 @@ class CommandLoader:
                 v = Literal(v)
             if type(v) == list:
                 pl = BNode()
+                n = BNode()
                 g.add((pl, RDF.type, OSLC.AllowedValues))
-                g.add((p, OSLC.allowedValues, pl))
+                g.add((p, k, pl))
+                # g.add((p, OSLC.allowedValues, pl))
                 for val in v:
                     g.add((pl, DC.identifier, Literal(val)))
             else:
                 g.add((p, k, v))
+
+    def process_gop(self, gopr):
+        gop = self.gop
+        patterns = []
+        g = self.graph
+        for m in RE_GOP_RECORD.finditer(gop):
+            t, _, p = m.groups()
+            patterns.append((t, p))
+        if not patterns:
+            print(gop)
+            print("WARNING: there should be patterns of file names")
+
+        print("GOPR:", gopr)
+        for t, p in patterns:
+            print("PATTERN:{}->{}".format(t, p))
+            ptr = BNode()
+            g.add((gopr, NGSP.pattern, ptr))
+            g.add((ptr, DC.identifier, Literal(t)))
+            g.add((ptr, NGSP.patternString, Literal(p)))
 
 
 def rdflib_example():
