@@ -170,7 +170,7 @@ class CommandLoader:
         self.text = self.readfile(self.h)
         name = self.find(RE_NAME, "name")
         category = self.find(RE_CAT, "category")
-        citation = self.find(RE_CITE, "citation")
+        citation = self.find(RE_CITE, "citation").replace(r"\n", "\n")
         description = self.find(RE_DESCR, "description")
         print(f"{name}:{category}\n {citation}\n {description}")
         g = self.graph
@@ -214,9 +214,11 @@ class CommandLoader:
 
         help = ""
         for m in RE_HELP.finditer(self.cpptext):
-            help += m.group(1)+"\n"
-        # self.help = help.replace(r"\n", r"|||")  # FIXME
+            help += m.group(1)+r"\n"
+        help = help.replace(r"\n\n", r"\n")
+        help = help.replace(r"\n", "\n")
         self.help = help
+        #self.help = help
         # print("HELP->", self.help)
         help = self.help = self.help.strip()
         if help:
