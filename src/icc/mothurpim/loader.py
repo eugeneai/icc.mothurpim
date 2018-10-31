@@ -112,6 +112,7 @@ def COMPAR(name="",
 
     opts = options
     if type == "Multiple":
+        optionsOrig = options
         options = options.split("-")
 
     outputTypes = outputTypes.strip()
@@ -131,6 +132,9 @@ def COMPAR(name="",
          "multipleSelectionAllowed": Literal(multipleSelectionAllowed, datatype=xsdbool),
          "required": Literal(required, datatype=xsdbool),
          "important": Literal(important, datatype=xsdbool)}
+
+    if type == 'Multiple':
+        d['optionsOrig'] = optionsOrig
 
     if outputTypes:
         d["outputTypes"] = types
@@ -208,9 +212,9 @@ class CommandLoader:
         res = self.command
 
         self.params = {}
-        for m in RE_COMPAR.finditer(self.cpptext):
+        for index, m in enumerate(RE_COMPAR.finditer(self.cpptext)):
             pname, params = m.groups()
-            self.processparams(pname, params)
+            self.processparams(pname, params, index)
 
         help = ""
         for m in RE_HELP.finditer(self.cpptext):
@@ -243,7 +247,7 @@ class CommandLoader:
         else:
             print("WARNING: getOutputPattern not found")
 
-    def processparams(self, pname, defs):
+    def processparams(self, pname, defs, index):
         s = "compar("+defs+")"
         # print(s)
         defs = eval(s, CTX)
@@ -254,6 +258,7 @@ class CommandLoader:
         p = CUR["{}-{}-parameter".format(self.commandname, name)]
         g.add((p, RDF.type, NGSP["Parameter"]))
         g.add((self.command, NGSP.parameter, p))
+        g.add((p, SCHEMA.sku, Literal(index)))  # Stock Keeping Unit
         for k, v in defs.items():
             ko = k
             if type(k) == str:
