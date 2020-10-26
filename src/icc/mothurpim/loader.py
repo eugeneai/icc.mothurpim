@@ -90,7 +90,7 @@ RE_GOP = re.compile(
 RE_GOP_NAME = re.compile(
     r'getOutputPattern\s*\(\s*string\s+(\w+)\s*\)')
 RE_GOP_RECORD = re.compile(
-    r'if.+?==\s+"((\w|-)+)".+?pattern\s*=\s*"(.+?)"', re.MULTILINE | re.DOTALL)
+    r'if.+?==\s+"((\w|-)+)".+?pattern\s*=\s*"(.*?)"', re.DOTALL) # re.MULTILINE
 
 RE_MOTUR_WIKI = re.compile(
     r'((https?|ftp)://www\.mothur\.org/wiki/(\w|\.|-)*)')
