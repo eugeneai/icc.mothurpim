@@ -7,7 +7,519 @@
 [] a gal:Suite ;
     ngsp:module [ a gal:Module,
                 ngsp:Module ;
+            dc:title "parse.list" ;
+            schema:sku 102 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "mantel" ;
+            schema:sku 33 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "pcoa" ;
+            schema:sku 48 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "pairwise.seqs" ;
+            schema:sku 114 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "sens.spec" ;
+            schema:sku 1 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "dist.shared" ;
+            schema:sku 120 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "anosim" ;
+            schema:sku 53 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "classify.otu" ;
+            schema:sku 24 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "otu.hierarchy" ;
+            schema:sku 17 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "cluster.split" ;
+            schema:sku 46 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "bin.seqs" ;
+            schema:sku 20 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.sharedseqs" ;
+            schema:sku 42 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.mimarkspackage" ;
+            schema:sku 100 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "rarefaction.shared" ;
+            schema:sku 82 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.otus" ;
+            schema:sku 91 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "deunique.tree" ;
+            schema:sku 59 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "corr.axes" ;
+            schema:sku 86 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "classify.tree" ;
+            schema:sku 126 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.group" ;
+            schema:sku 124 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "align.seqs" ;
+            schema:sku 106 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "merge.sfffiles" ;
+            schema:sku 5 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.lookup" ;
+            schema:sku 99 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.label" ;
+            schema:sku 8 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "screen.seqs" ;
+            schema:sku 73 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "split.abund" ;
+            schema:sku 76 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "heatmap.bin" ;
+            schema:sku 113 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "merge.groups" ;
+            schema:sku 54 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.coremicrobiome" ;
+            schema:sku 47 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "merge.taxsummary" ;
+            schema:sku 105 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "merge.count" ;
+            schema:sku 116 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "amova" ;
+            schema:sku 10 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "sffinfo" ;
+            schema:sku 40 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "dist.seqs" ;
+            schema:sku 36 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "summary.qual" ;
+            schema:sku 38 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "sub.sample" ;
+            schema:sku 16 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "cluster.fragments" ;
+            schema:sku 11 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "libshuff" ;
+            schema:sku 101 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chop.seqs" ;
+            schema:sku 90 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "list.otulabels" ;
+            schema:sku 125 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "count.groups" ;
+            schema:sku 15 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "clearcut" ;
+            schema:sku 70 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "filter.shared" ;
+            schema:sku 74 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "remove.rare" ;
+            schema:sku 75 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.sra" ;
+            schema:sku 23 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "lefse" ;
+            schema:sku 85 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "biom.info" ;
+            schema:sku 107 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.seqs" ;
+            schema:sku 110 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "nmds" ;
+            schema:sku 35 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.vsearch" ;
+            schema:sku 62 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "remove.lineage" ;
+            schema:sku 3 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "taxonomy.to.krona" ;
+            schema:sku 83 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "remove.otulabels" ;
+            schema:sku 60 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "metastats" ;
+            schema:sku 68 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "remove.otus" ;
+            schema:sku 13 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.fastq" ;
+            schema:sku 4 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "mimarks.attributes" ;
+            schema:sku 25 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.rabund" ;
+            schema:sku 12 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "remove.seqs" ;
+            schema:sku 71 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "normalize.shared" ;
+            schema:sku 32 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "create.database" ;
+            schema:sku 127 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "parsimony" ;
+            schema:sku 50 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.oturep" ;
+            schema:sku 78 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "pre.cluster" ;
+            schema:sku 22 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "trim.flows" ;
+            schema:sku 65 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "summary.seqs" ;
+            schema:sku 18 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "summary.single" ;
+            schema:sku 81 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "tree.shared" ;
+            schema:sku 6 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "collect.single" ;
+            schema:sku 119 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "heatmap.sim" ;
+            schema:sku 7 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "seq.error" ;
+            schema:sku 77 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "shhh.seqs" ;
+            schema:sku 9 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.perseus" ;
+            schema:sku 109 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "unique.seqs" ;
+            schema:sku 37 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "pca" ;
+            schema:sku 63 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "cluster" ;
+            schema:sku 21 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.lineage" ;
+            schema:sku 61 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "degap.seqs" ;
+            schema:sku 43 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.otulabels" ;
+            schema:sku 97 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "filter.seqs" ;
+            schema:sku 118 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "phylotype" ;
+            schema:sku 34 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "pcr.seqs" ;
+            schema:sku 51 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "align.check" ;
+            schema:sku 117 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.pintail" ;
+            schema:sku 122 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.shared" ;
+            schema:sku 128 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.bellerophon" ;
+            schema:sku 58 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.communitytype" ;
+            schema:sku 72 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.relabund" ;
+            schema:sku 52 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.uchime" ;
+            schema:sku 57 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "classify.seqs" ;
+            schema:sku 45 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "list.seqs" ;
+            schema:sku 44 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "otu.association" ;
+            schema:sku 112 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.biom" ;
+            schema:sku 69 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "indicator" ;
+            schema:sku 123 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.dists" ;
+            schema:sku 103 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "unifrac.unweighted" ;
+            schema:sku 87 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "phylo.diversity" ;
+            schema:sku 95 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "trim.seqs" ;
+            schema:sku 30 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.check" ;
+            schema:sku 79 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "consensus.seqs" ;
+            schema:sku 111 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "remove.dists" ;
+            schema:sku 96 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "merge.files" ;
+            schema:sku 64 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "primer.design" ;
+            schema:sku 55 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "unifrac.weighted" ;
+            schema:sku 19 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "deunique.seqs" ;
+            schema:sku 89 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "collect.shared" ;
+            schema:sku 26 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "summary.shared" ;
+            schema:sku 67 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.group" ;
+            schema:sku 121 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "shhh.flows" ;
+            schema:sku 41 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "split.groups" ;
+            schema:sku 28 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.lefse" ;
+            schema:sku 39 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.groups" ;
+            schema:sku 31 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "venn" ;
+            schema:sku 88 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "fastq.info" ;
+            schema:sku 84 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.sabund" ;
+            schema:sku 92 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "get.otulist" ;
+            schema:sku 115 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "rarefaction.single" ;
+            schema:sku 49 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.ccode" ;
+            schema:sku 66 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "sort.seqs" ;
+            schema:sku 14 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "rename.seqs" ;
+            schema:sku 27 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "cluster.classic" ;
+            schema:sku 104 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.design" ;
+            schema:sku 93 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "summary.tax" ;
+            schema:sku 98 ],
+        [ a gal:Module,
+                ngsp:Module ;
             dc:title "make.contigs" ;
-            schema:sku 0 ] ;
+            schema:sku 0 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "chimera.slayer" ;
+            schema:sku 80 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "cooccurrence" ;
+            schema:sku 94 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "reverse.seqs" ;
+            schema:sku 2 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "count.seqs" ;
+            schema:sku 29 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "remove.groups" ;
+            schema:sku 56 ],
+        [ a gal:Module,
+                ngsp:Module ;
+            dc:title "homova" ;
+            schema:sku 108 ] ;
     dc:title "Mothur" .
 
