@@ -89,8 +89,18 @@ INDEX = 0
 
 def process_shed(shed, root=None):
     global INDEX
+    INDEX += 1
     assert(root)
     hg_clone(shed.name)
+    real_name = shed.name.replace("mothur_", "").replace("_", ".")
+    HG = os.path.join(TMP, shed.name)
+    try:
+        with open(os.path.join(HG, real_name+'.xml')) as i:
+            xml = etree.parse(i)
+            print("# ROOT: {}".format(root))
+    except FileNotFoundError:
+        print("#### Not found: {}".format(real_name))
+        return
     m = BNode()
     r = root
     G.add((r, NGSP.module, m))
@@ -98,8 +108,6 @@ def process_shed(shed, root=None):
     G.add((m, RDF.type, NGSP["Module"]))
     G.add((m, RDF.type, GAL["Module"]))
     G.add((m, SCHEMA.sku, Literal(INDEX)))  # Stock Keeping Unit
-    INDEX += 1
-    real_name = shed.name.replace("mothur_", "").replace("_", ".")
     G.add((m, DC.title, Literal(real_name)))
 
 
