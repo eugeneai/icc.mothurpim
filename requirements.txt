@@ -1,2 +1,5 @@
 rdflib
+# mercurial
+python-hglib
+lxml
 # icc.ngs

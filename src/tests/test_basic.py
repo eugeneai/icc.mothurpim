@@ -23,7 +23,12 @@ class TestBasic:
     def tearDown(self):
         pass
 
+    @SkipTest
     def test_loader(self):
         l = Loader(SRCDIR)
         l.load()
         l.save("result.ttl", format="ttl")
+
+    def test_suite_loader(self):
+        from icc.mothurpim.suite import main
+        main()

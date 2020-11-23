@@ -1,12 +1,10 @@
 from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS
 from rdflib.namespace import DC, DCTERMS, FOAF, XSD
-from icc.ngs.namespace import NGS, NGSP, SCHEMA, V, OSLC, CNT, NCO
+from icc.ngs.namespace import NGS, NGSP, NGSS, SCHEMA, V, OSLC, CNT, NCO, CUR
 from pkg_resources import resource_dir
 import re
 import glob
 import os.path
-
-CUR = Namespace("http://icc.ru/ontologies/NGS/mothur/")
 
 # URL: https://github.com/eugeneai/icc.mothurpim
 
@@ -32,6 +30,7 @@ class Loader:
         g.bind('oslc', OSLC)
         g.bind('ngs', NGS)
         g.bind('ngsp', NGSP)
+        g.bind('ngss', NGSS)
         g.bind('schema', SCHEMA)
         g.bind('dc', DC)
         g.bind('dcterms', DCTERMS)
@@ -90,7 +89,7 @@ RE_GOP = re.compile(
 RE_GOP_NAME = re.compile(
     r'getOutputPattern\s*\(\s*string\s+(\w+)\s*\)')
 RE_GOP_RECORD = re.compile(
-    r'if.+?==\s+"((\w|-)+)".+?pattern\s*=\s*"(.*?)"', re.DOTALL) # re.MULTILINE
+    r'if.+?==\s+"((\w|-)+)".+?pattern\s*=\s*"(.*?)"', re.DOTALL)  # re.MULTILINE
 
 RE_MOTUR_WIKI = re.compile(
     r'((https?|ftp)://www\.mothur\.org/wiki/(\w|\.|-)*)')
