@@ -1,0 +1,13 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix gal: <http://galaxyproject.org/ontologies/shed/> .
+@prefix ngsp: <http://icc.ru/ontologies/NGS/processing/> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a gal:Suite ;
+    ngsp:module [ a gal:Module,
+                ngsp:Module ;
+            dc:title "make.contigs" ;
+            schema:sku 0 ] ;
+    dc:title "Mothur" .
+
