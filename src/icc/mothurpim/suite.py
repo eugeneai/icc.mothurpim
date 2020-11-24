@@ -15,9 +15,9 @@ GAL = Namespace("http://galaxyproject.org/ontologies/shed/")
 REPOS = "https://toolshed.g2.bx.psu.edu/repos/"
 USER = "iuc"
 SUITE = "suite_mothur"
-TMP = os.path.abspath(pkg_resources.resource_filename(
+HGROOT = os.path.abspath(pkg_resources.resource_filename(
     "icc.mothurpim", "../../../tmp"))
-OUTDIR = os.path.abspath(os.path.join(TMP, "../output"))
+OUTDIR = os.path.abspath(os.path.join(HGROOT, "../output"))
 
 G = Graph()
 
@@ -53,7 +53,7 @@ def hg_url(name):
 
 def hg_clone(name):
     # remove all first
-    TARGET = os.path.join(TMP, name)
+    TARGET = os.path.join(HGROOT, name)
     branch = os.path.join(TARGET, '.hg', 'branch')
     if not os.path.exists(branch):
         print("# Clearing dir: {}".format(TARGET))
@@ -73,7 +73,7 @@ Suite = namedtuple('Suite', ("owner", "name", "shed", "rev"))
 
 
 def enumerate_suites(repo):
-    with open(os.path.join(TMP, SUITE, 'repository_dependencies.xml')) as i:
+    with open(os.path.join(HGROOT, SUITE, 'repository_dependencies.xml')) as i:
         xml = etree.parse(i)
         # print(etree.tostring(xml))
         for el in xml.xpath("//repository"):
@@ -93,11 +93,14 @@ def process_shed(shed, root=None):
     assert(root)
     hg_clone(shed.name)
     real_name = shed.name.replace("mothur_", "").replace("_", ".")
-    HG = os.path.join(TMP, shed.name)
+    HG = os.path.join(HGROOT, shed.name)
     try:
         with open(os.path.join(HG, real_name+'.xml')) as i:
             xml = etree.parse(i)
-            print("# ROOT: {}".format(root))
+            mc = open(os.path.join(HG, 'macros.xml'))
+            macros = etree.parse(mc)
+            print("# ROOT: {}".format(xml))
+            print("# MACROS: {}".format(macros))
     except FileNotFoundError:
         print("#### Not found: {}".format(real_name))
         return
@@ -113,9 +116,9 @@ def process_shed(shed, root=None):
 
 def main():
     namespaces()
-    print("# Tmp dir:{}".format(TMP))
+    print("# Tmp dir:{}".format(HGROOT))
     root = hg_clone(SUITE)
-    # client = hglib.open(TMP)
+    # client = hglib.open(HGROOT)
     # print("## {}".format(list(client.manifest())))
     r = BNode()
     G.add((r, RDF.type, GAL["Suite"]))
