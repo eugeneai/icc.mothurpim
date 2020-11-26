@@ -86,6 +86,16 @@ def enumerate_suites(repo):
 
 INDEX = 0
 
+REPL = {
+    GAL['name']: DC['title'],
+    GAL['id']: DC['identifier'],
+    GAL['description']: DC['description'],
+}
+
+
+def q(URI):
+    return REPL.get(URI, URI)
+
 
 def process_shed(shed, root=None):
     global INDEX
@@ -104,6 +114,14 @@ def process_shed(shed, root=None):
     except FileNotFoundError:
         print("#### Not found: {}".format(real_name))
         return
+    tk = {}
+    mc = {}
+    for xel in macros.xpath("/macros/xml"):
+        k = xel.attrib["name"]
+        mc[k] = xel
+    for t in macros.xpath("/macros/token"):
+        k = t.attrib['name']
+        tk[k] = t
     m = BNode()
     r = root
     G.add((r, NGSP.module, m))
@@ -113,11 +131,38 @@ def process_shed(shed, root=None):
     G.add((m, SCHEMA.sku, Literal(INDEX)))  # Stock Keeping Unit
     G.add((m, DC.title, Literal(real_name)))
 
-    def indepth(parent, element):
-        for ak, av in element.attrib.iteritems():
-            G.add((parent, GAL[ak], Literal(av)))
+    ob = object()
 
-        if element.text:
+    def texttest(t):
+        t1 = t
+        if isinstance(t, str):
+            t1 = t.replace("\n", '').replace('\r', '').strip()
+            # print('`{}`'.format(t1))
+            if t1:
+                for k, v in tk.items():
+                    t1 = t1.replace(k, v.text)
+        return t1
+
+    def indepth(parent, element):
+        if element.tag in ['macros']:
+            return ob
+        if element.tag == "expand":
+            name = element.attrib["macro"]
+            m = mc[name]
+            for child in m:
+                print(">>>", child.tag)
+                eb = BNode()
+                indepth(eb, child)
+                G.add((parent, q(GAL[child.tag]), eb))
+            return ob
+        if 'text' in element.attrib and len(element.attrib) == 1:
+            t = texttest(element.attrib['text'])
+            return t
+
+        for ak, av in element.attrib.iteritems():
+            G.add((parent, q(GAL[ak]), Literal(texttest(av))))
+
+        if element.text and texttest(element.text):
             if element.attrib or len(element) > 0:
                 G.add((parent, DC["description"], Literal(element.text)))
             else:
@@ -128,10 +173,12 @@ def process_shed(shed, root=None):
             # print(element.tail)
             eb = BNode()
             t = indepth(eb, child)
-            if t:
-                G.add((parent, GAL[child.tag], Literal(t)))
+            if t is ob:
+                continue
+            if texttest(t):
+                G.add((parent, q(GAL[child.tag]), Literal(t)))
             else:
-                G.add((parent, GAL[child.tag], eb))
+                G.add((parent, q(GAL[child.tag]), eb))
 
     indepth(m, xml.getroot())
     # for element in xml.iter():
@@ -151,7 +198,9 @@ def main():
         print("# Toolshed: {} rev {}".format(shed.name, shed.rev))
         process_shed(shed, root=r)
         # break
-    graph_save(OUTDIR+"/suite_mothur.ttl", format='ttl')
+    graph_save(OUTDIR+"/suite_mothur.ttl", format='n3')
+    # graph_save(OUTDIR+"/suite_mothur.ttl", format='ntriples')
+    # graph_save(OUTDIR+"/suite_mothur.ttl", format='ttl')
 
 
 if __name__ == "__main__":
