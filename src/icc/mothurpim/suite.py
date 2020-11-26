@@ -113,6 +113,30 @@ def process_shed(shed, root=None):
     G.add((m, SCHEMA.sku, Literal(INDEX)))  # Stock Keeping Unit
     G.add((m, DC.title, Literal(real_name)))
 
+    def indepth(parent, element):
+        for ak, av in element.attrib.iteritems():
+            G.add((parent, GAL[ak], Literal(av)))
+
+        if element.text:
+            if element.attrib or len(element) > 0:
+                G.add((parent, DC["description"], Literal(element.text)))
+            else:
+                return element.text
+
+        for child in element:
+            # print("<%s %s %s>" % (parent, child.tag, child.attrib))
+            # print(element.tail)
+            eb = BNode()
+            t = indepth(eb, child)
+            if t:
+                G.add((parent, GAL[child.tag], Literal(t)))
+            else:
+                G.add((parent, GAL[child.tag], eb))
+
+    indepth(m, xml.getroot())
+    # for element in xml.iter():
+    #     print(element.text)
+
 
 def main():
     namespaces()
