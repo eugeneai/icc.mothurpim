@@ -131,56 +131,64 @@ def process_shed(shed, root=None):
     G.add((m, SCHEMA.sku, Literal(INDEX)))  # Stock Keeping Unit
     G.add((m, DC.title, Literal(real_name)))
 
-    ob = object()
+    def macroexp(t):
+        if t:
+            for k, v in tk.items():
+                t = t.replace(k, v.text)
+        return t
 
     def texttest(t):
         t1 = t
         if isinstance(t, str):
             t1 = t.replace("\n", '').replace('\r', '').strip()
             # print('`{}`'.format(t1))
-            if t1:
-                for k, v in tk.items():
-                    t1 = t1.replace(k, v.text)
+            t1 = macroexp(t1)
         return t1
 
-    def indepth(parent, element):
-        if element.tag in ['macros']:
-            return ob
+    def indepth(curr, element, parent=None):
+        if parent is None:
+            parent = curr
+        if element.tag in ['macros', 'tests']:  # TODO: Tests might useful
+            return
         if element.tag == "expand":
             name = element.attrib["macro"]
             m = mc[name]
             for child in m:
-                print(">>>", child.tag)
-                eb = BNode()
-                indepth(eb, child)
-                G.add((parent, q(GAL[child.tag]), eb))
-            return ob
-        if 'text' in element.attrib and len(element.attrib) == 1:
+                # print(">>>", child.tag)
+                indepth(parent, child, parent=parent)
+            return
+        if 'text' in element.attrib and len(element.attrib) == 1 and len(element) == 0:
             t = texttest(element.attrib['text'])
-            return t
+            G.add((parent, q(GAL[element.tag]), Literal(t)))
+            return
 
         for ak, av in element.attrib.iteritems():
-            G.add((parent, q(GAL[ak]), Literal(texttest(av))))
+            G.add((curr, q(GAL[ak]), Literal(texttest(av))))
 
-        if element.text and texttest(element.text):
-            if element.attrib or len(element) > 0:
-                G.add((parent, DC["description"], Literal(element.text)))
+        tt = texttest(element.text)
+        if tt:
+            if len(element.attrib) == 0 and len(element) == 0:
+                G.add((parent, q(GAL[element.tag]),
+                       Literal(macroexp(element.text))))
+                return
             else:
-                return element.text
+                G.add((curr, DC["description"],
+                       Literal(macroexp(element.text))))
 
         for child in element:
-            # print("<%s %s %s>" % (parent, child.tag, child.attrib))
+            # print("<%s %s %s>" % (curr, child.tag, child.attrib))
             # print(element.tail)
             eb = BNode()
-            t = indepth(eb, child)
-            if t is ob:
-                continue
-            if texttest(t):
-                G.add((parent, q(GAL[child.tag]), Literal(t)))
-            else:
-                G.add((parent, q(GAL[child.tag]), eb))
+            indepth(eb, child, parent=curr)
+            ll = list(G.predicate_objects(subject=eb))
+            # if child.tag == 'expand':
+            #     print("----", ll)
+            if len(ll) > 0:  # If any relations with eb constructed
+                G.add((curr, q(GAL[child.tag]), eb))
 
-    indepth(m, xml.getroot())
+    xroot = xml.getroot()
+    print(">>R>>", xroot.tag)
+    indepth(m, xroot)
     # for element in xml.iter():
     #     print(element.text)
 
@@ -199,7 +207,7 @@ def main():
         process_shed(shed, root=r)
         # break
     graph_save(OUTDIR+"/suite_mothur.ttl", format='n3')
-    # graph_save(OUTDIR+"/suite_mothur.ttl", format='ntriples')
+    graph_save(OUTDIR+"/suite_mothur-ntr.ttl", format='ntriples')
     # graph_save(OUTDIR+"/suite_mothur.ttl", format='ttl')
 
 
