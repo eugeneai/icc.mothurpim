@@ -4,29 +4,40 @@
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[] gal:output [ gal:assert_contents [ gal:has_text "1.39.5",
-                        "mothur" ] ;
-            gal:ftype "txt" ;
-            dc:title "logfile" ] .
+[] gal:assert_contents [ gal:has_text "1.39.5",
+                "mothur" ] ;
+    gal:ftype "txt" ;
+    dc:title "logfile" .
 
-[] gal:param [ gal:checked "false" ;
-            gal:label "Output logfile?" ;
-            gal:type "boolean" ;
-            dc:title "savelog" ] .
+[] gal:checked "false" ;
+    gal:label "Output logfile?" ;
+    gal:type "boolean" ;
+    dc:title "savelog" .
 
-[] gal:citations [ gal:citation [ gal:type "doi" ;
-                    dc:description "10.1128/AEM.01541-09" ] ;
-            gal:yield [ ] ] .
+[] gal:assert_contents [ gal:has_text "1.39.5",
+                "mothur" ] ;
+    gal:ftype "txt" ;
+    dc:title "logfile" .
 
-[] gal:output [ gal:assert_contents [ gal:has_text "1.39.5",
-                        "mothur" ] ;
-            gal:ftype "txt" ;
-            dc:title "logfile" ] .
+[] gal:exit_code [ gal:level "fatal" ;
+            gal:range "1:" ] ;
+    gal:regex [ gal:level "fatal" ;
+            gal:match "\\[ERROR\\]" ;
+            gal:source "stdout" ] .
 
-[] gal:output [ gal:assert_contents [ gal:has_text "1.39.5",
-                        "mothur" ] ;
-            gal:ftype "txt" ;
-            dc:title "logfile" ] .
+[] gal:assert_contents [ gal:has_text "1.39.5",
+                "mothur" ] ;
+    gal:ftype "txt" ;
+    dc:title "logfile" .
+
+[] gal:citation [ gal:type "doi" ;
+            dc:description "10.1128/AEM.01541-09" ] ;
+    gal:yield [ ] .
+
+[] gal:requirement [ gal:type "package" ;
+            gal:version "1.39.5" ;
+            dc:description "mothur" ] ;
+    gal:yield [ ] .
 
 [] a gal:Suite ;
     ngsp:module [ a gal:Module,
@@ -100,59 +111,24 @@ v.1.27.0: Updated to use Mothur 1.33. Added findex and rindex parmaeters, option
 
     """ ;
             gal:inputs [ gal:conditional [ gal:param [ gal:help "" ;
-                                    gal:label "Trim with an oligos file?" ;
-                                    gal:option [ gal:value "no" ;
-                                            dc:description "no" ],
-                                        [ gal:value "yes" ;
-                                            dc:description "yes" ] ;
-                                    gal:type "select" ;
-                                    dc:title "add" ] ;
-                            gal:when [ gal:param [ gal:format "fastq" ;
-                                            gal:label "forward index file (fastq)" ;
-                                            gal:optional "true" ;
-                                            gal:type "data" ;
-                                            dc:title "findex" ],
-                                        [ gal:label "bdiffs - number of differences to allow in the barcode (default 0)" ;
-                                            gal:min "0" ;
-                                            gal:type "integer" ;
-                                            gal:value "0" ;
-                                            dc:title "bdiffs" ],
-                                        [ gal:label "tdiffs - total number of differences to allow in primer and barcode (default 0)" ;
-                                            gal:min "0" ;
-                                            gal:type "integer" ;
-                                            gal:value "0" ;
-                                            dc:title "tdiffs" ],
-                                        [ gal:format "mothur.oligos" ;
-                                            gal:help "a file that can contain the sequences of the forward and reverse primers and barcodes and their sample identifier. Each line of the oligos file can start with the key words \"forward\", \"reverse\" and \"barcode\" or it can start with a \"#\" to tell mothur to ignore that line of the oligos file" ;
-                                            gal:label "oligos - barcodes and primers" ;
-                                            gal:optional "true" ;
-                                            gal:type "data" ;
-                                            dc:title "oligos" ],
-                                        [ gal:label "pdiffs - number of differences to allow in the primer (default 0)" ;
-                                            gal:min "0" ;
-                                            gal:type "integer" ;
-                                            gal:value "0" ;
-                                            dc:title "pdiffs" ],
-                                        [ gal:format "fastq" ;
-                                            gal:label "revese index file (fastq)" ;
-                                            gal:optional "true" ;
-                                            gal:type "data" ;
-                                            dc:title "rindex" ] ;
-                                    gal:value "yes" ],
-                                [ gal:value "no" ] ;
-                            dc:title "oligo" ],
-                        [ gal:param [ gal:help "" ;
                                     gal:label "Select a way to provide forward and reverse fastq files ?" ;
-                                    gal:option [ gal:value "list_collection" ;
+                                    gal:option [ gal:value "simple_collection" ;
+                                            dc:description "One pair (paired collection)" ],
+                                        [ gal:value "list_collection" ;
                                             dc:description "Multiple pairs - Combo mode (list:paired collection)" ],
                                         [ gal:selected "true" ;
                                             gal:value "regular" ;
-                                            dc:description "Two simple fastq files (forward and reverse)" ],
-                                        [ gal:value "simple_collection" ;
-                                            dc:description "One pair (paired collection)" ] ;
+                                            dc:description "Two simple fastq files (forward and reverse)" ] ;
                                     gal:type "select" ;
                                     dc:title "type" ] ;
-                            gal:when [ gal:param [ gal:format "fastq" ;
+                            gal:when [ gal:param [ gal:collection_type "paired" ;
+                                            gal:format "fastq" ;
+                                            gal:help "Dataset collection made from a single pair of fastq files (forward + reverse)" ;
+                                            gal:label "Fastq pair (collection)" ;
+                                            gal:type "data_collection" ;
+                                            dc:title "paired_collection" ] ;
+                                    gal:value "simple_collection" ],
+                                [ gal:param [ gal:format "fastq" ;
                                             gal:label "Forward reads" ;
                                             gal:type "data" ;
                                             dc:title "forward_fastq" ],
@@ -161,13 +137,6 @@ v.1.27.0: Updated to use Mothur 1.33. Added findex and rindex parmaeters, option
                                             gal:type "data" ;
                                             dc:title "reverse_fastq" ] ;
                                     gal:value "regular" ],
-                                [ gal:param [ gal:collection_type "paired" ;
-                                            gal:format "fastq" ;
-                                            gal:help "Dataset collection made from a single pair of fastq files (forward + reverse)" ;
-                                            gal:label "Fastq pair (collection)" ;
-                                            gal:type "data_collection" ;
-                                            dc:title "paired_collection" ] ;
-                                    gal:value "simple_collection" ],
                                 [ gal:param [ gal:collection_type "list:paired" ;
                                             gal:format "fastq" ;
                                             gal:help "Dataset collection made from multiple pairs of fastq files" ;
@@ -175,92 +144,114 @@ v.1.27.0: Updated to use Mothur 1.33. Added findex and rindex parmaeters, option
                                             gal:type "data_collection" ;
                                             dc:title "list_paired_collection" ] ;
                                     gal:value "list_collection" ] ;
-                            dc:title "input_type" ] ;
-                    gal:param [ gal:checked "true" ;
+                            dc:title "input_type" ],
+                        [ gal:param [ gal:help "" ;
+                                    gal:label "Trim with an oligos file?" ;
+                                    gal:option [ gal:value "no" ;
+                                            dc:description "no" ],
+                                        [ gal:value "yes" ;
+                                            dc:description "yes" ] ;
+                                    gal:type "select" ;
+                                    dc:title "add" ] ;
+                            gal:when [ gal:param [ gal:format "fastq" ;
+                                            gal:label "revese index file (fastq)" ;
+                                            gal:optional "true" ;
+                                            gal:type "data" ;
+                                            dc:title "rindex" ],
+                                        [ gal:label "bdiffs - number of differences to allow in the barcode (default 0)" ;
+                                            gal:min "0" ;
+                                            gal:type "integer" ;
+                                            gal:value "0" ;
+                                            dc:title "bdiffs" ],
+                                        [ gal:format "fastq" ;
+                                            gal:label "forward index file (fastq)" ;
+                                            gal:optional "true" ;
+                                            gal:type "data" ;
+                                            dc:title "findex" ],
+                                        [ gal:label "pdiffs - number of differences to allow in the primer (default 0)" ;
+                                            gal:min "0" ;
+                                            gal:type "integer" ;
+                                            gal:value "0" ;
+                                            dc:title "pdiffs" ],
+                                        [ gal:format "mothur.oligos" ;
+                                            gal:help "a file that can contain the sequences of the forward and reverse primers and barcodes and their sample identifier. Each line of the oligos file can start with the key words \"forward\", \"reverse\" and \"barcode\" or it can start with a \"#\" to tell mothur to ignore that line of the oligos file" ;
+                                            gal:label "oligos - barcodes and primers" ;
+                                            gal:optional "true" ;
+                                            gal:type "data" ;
+                                            dc:title "oligos" ],
+                                        [ gal:label "tdiffs - total number of differences to allow in primer and barcode (default 0)" ;
+                                            gal:min "0" ;
+                                            gal:type "integer" ;
+                                            gal:value "0" ;
+                                            dc:title "tdiffs" ] ;
+                                    gal:value "yes" ],
+                                [ gal:value "no" ] ;
+                            dc:title "oligo" ] ;
+                    gal:param [ gal:label "gapextend - Pairwise alignment penalty for extending a gap" ;
+                            gal:type "integer" ;
+                            gal:value "-1" ;
+                            dc:title "gapextend" ],
+                        [ gal:label "mismatch - Pairwise alignment penalty for a mismatch" ;
+                            gal:type "integer" ;
+                            gal:value "-1" ;
+                            dc:title "mismatch" ],
+                        [ gal:checked "true" ;
                             gal:falsevalue "False" ;
                             gal:help "reduce file sizes and greatly reduce the size of the column formatted distance matrix downstream.             Uses the rename.seqs command to rename which creates a map file so you can revert to original names at any time" ;
                             gal:label "Renames sequences" ;
                             gal:truevalue "True" ;
                             gal:type "boolean" ;
                             dc:title "rename" ],
-                        [ gal:label "mismatch - Pairwise alignment penalty for a mismatch" ;
-                            gal:type "integer" ;
-                            gal:value "-1" ;
-                            dc:title "mismatch" ],
+                        [ gal:help "" ;
+                            gal:label "align - Select a pairwise alignment method" ;
+                            gal:option [ gal:value "gotoh" ;
+                                    dc:description "gotoh" ],
+                                [ gal:value "kmer" ;
+                                    dc:description "kmer" ],
+                                [ gal:selected "true" ;
+                                    gal:value "needleman" ;
+                                    dc:description "needleman (default) " ] ;
+                            gal:type "select" ;
+                            dc:title "align" ],
                         [ gal:label "gapopen - Pairwise alignment penalty for opening a gap" ;
                             gal:type "integer" ;
                             gal:value "-2" ;
                             dc:title "gapopen" ],
-                        [ gal:help "" ;
-                            gal:label "align - Select a pairwise alignment method" ;
-                            gal:option [ gal:value "kmer" ;
-                                    dc:description "kmer" ],
-                                [ gal:selected "true" ;
-                                    gal:value "needleman" ;
-                                    dc:description "needleman (default) " ],
-                                [ gal:value "gotoh" ;
-                                    dc:description "gotoh" ] ;
-                            gal:type "select" ;
-                            dc:title "align" ],
                         [ gal:label "match - Pairwise alignment reward for a match" ;
                             gal:type "integer" ;
                             gal:value "1" ;
-                            dc:title "match" ],
-                        [ gal:label "gapextend - Pairwise alignment penalty for extending a gap" ;
-                            gal:type "integer" ;
-                            gal:value "-1" ;
-                            dc:title "gapextend" ] ] ;
-            gal:outputs [ gal:data [ gal:format "qual" ;
-                            gal:from_work_dir "*fastq*.trim.*.qual" ;
-                            gal:label "${tool.name} on ${on_string}: trim.contigs.qual" ;
-                            dc:title "qual" ],
-                        [ gal:format "fasta" ;
-                            gal:from_work_dir "*fastq.trim.*.fasta" ;
-                            gal:label "${tool.name} on ${on_string}: trim.contigs.fasta" ;
-                            dc:title "fasta" ],
-                        [ gal:format "fasta" ;
+                            dc:title "match" ] ] ;
+            gal:outputs [ gal:data [ gal:format "fasta" ;
                             gal:from_work_dir "*fastq*.scrap.*.fasta" ;
                             gal:label "${tool.name} on ${on_string}: scrap.contigs.fasta" ;
                             dc:title "scrapfasta" ],
                         [ gal:format "qual" ;
-                            gal:from_work_dir "*fastq*.scrap.*.qual" ;
-                            gal:label "${tool.name} on ${on_string}: scrap.contigs.qual" ;
-                            dc:title "scrapqual" ],
+                            gal:from_work_dir "*fastq*.trim.*.qual" ;
+                            gal:label "${tool.name} on ${on_string}: trim.contigs.qual" ;
+                            dc:title "qual" ],
+                        [ gal:format "txt" ;
+                            gal:from_work_dir "*fastq*.contigs.report" ;
+                            gal:label "${tool.name} on ${on_string}: report" ;
+                            dc:title "report" ],
                         [ gal:filter "input_type['type'] == 'list_collection'" ;
                             gal:format "mothur.groups" ;
                             gal:from_work_dir "*fastq*.groups" ;
                             gal:label "${tool.name} on ${on_string}: group file" ;
                             dc:title "group" ],
-                        [ gal:format "txt" ;
-                            gal:from_work_dir "*fastq*.contigs.report" ;
-                            gal:label "${tool.name} on ${on_string}: report" ;
-                            dc:title "report" ] ] ;
+                        [ gal:format "fasta" ;
+                            gal:from_work_dir "*fastq.trim.*.fasta" ;
+                            gal:label "${tool.name} on ${on_string}: trim.contigs.fasta" ;
+                            dc:title "fasta" ],
+                        [ gal:format "qual" ;
+                            gal:from_work_dir "*fastq*.scrap.*.qual" ;
+                            gal:label "${tool.name} on ${on_string}: scrap.contigs.qual" ;
+                            dc:title "scrapqual" ] ] ;
             gal:profile "16.07" ;
             gal:tests [ gal: " Test with a list:paired collection as input ",
                         " Test with a simple paired collection as input ",
                         " Test with a simple paired collection as input + extra parameters specified ",
                         " Test with two regular files as input " ;
-                    gal:test [ gal:conditional [ gal:param [ gal:ftype "fastq" ;
-                                            gal:value "Mock_S280_L001_R2_001_small.fastq" ;
-                                            dc:title "reverse_fastq" ],
-                                        [ gal:ftype "fastq" ;
-                                            gal:value "Mock_S280_L001_R1_001_small.fastq" ;
-                                            dc:title "forward_fastq" ],
-                                        [ gal:value "regular" ;
-                                            dc:title "type" ] ;
-                                    dc:title "input_type" ] ;
-                            gal:output [ gal:file "Mock_S280_L001_R1_001_small.contigs.report" ;
-                                    gal:ftype "txt" ;
-                                    dc:title "report" ],
-                                [ gal:file "Mock_S280_L001_R1_001_small.trim.contigs.qual" ;
-                                    gal:ftype "qual" ;
-                                    dc:title "qual" ],
-                                [ gal:file "Mock_S280_L001_R1_001_small.trim.contigs.fasta" ;
-                                    gal:ftype "fasta" ;
-                                    dc:title "fasta" ] ;
-                            gal:param [ gal:value "true" ;
-                                    dc:title "savelog" ] ],
-                        [ gal:conditional [ gal:param [ gal:collection [ gal:element [ gal:value "Mock_S280_L001_R1_001_small.fastq" ;
+                    gal:test [ gal:conditional [ gal:param [ gal:collection [ gal:element [ gal:value "Mock_S280_L001_R1_001_small.fastq" ;
                                                             dc:title "forward" ],
                                                         [ gal:value "Mock_S280_L001_R2_001_small.fastq" ;
                                                             dc:title "reverse" ] ;
@@ -280,37 +271,6 @@ v.1.27.0: Updated to use Mothur 1.33. Added findex and rindex parmaeters, option
                                     dc:title "report" ] ;
                             gal:param [ gal:value "true" ;
                                     dc:title "savelog" ] ],
-                        [ gal:conditional [ gal:param [ gal:collection [ gal:element [ gal:collection [ gal:element [ gal:value "test_forward.fastq" ;
-                                                                            dc:title "forward" ],
-                                                                        [ gal:value "test_reverse.fastq" ;
-                                                                            dc:title "reverse" ] ;
-                                                                    gal:type "paired" ] ;
-                                                            dc:title "Pair2" ],
-                                                        [ gal:collection [ gal:element [ gal:value "Mock_S280_L001_R2_001_small.fastq" ;
-                                                                            dc:title "reverse" ],
-                                                                        [ gal:value "Mock_S280_L001_R1_001_small.fastq" ;
-                                                                            dc:title "forward" ] ;
-                                                                    gal:type "paired" ] ;
-                                                            dc:title "Pair1" ] ;
-                                                    gal:type "list:paired" ] ;
-                                            dc:title "list_paired_collection" ],
-                                        [ gal:value "list_collection" ;
-                                            dc:title "type" ] ;
-                                    dc:title "input_type" ] ;
-                            gal:output [ gal:ftype "mothur.groups" ;
-                                    gal:md5 "ef83b393be4103f0b61a021234905210" ;
-                                    dc:title "group" ],
-                                [ gal:ftype "qual" ;
-                                    gal:md5 "7094d1ac82a40e9f89cc6cdf5e214da7" ;
-                                    dc:title "qual" ],
-                                [ gal:ftype "fasta" ;
-                                    gal:md5 "91bd3b91adc6559182ad118b767f0a07" ;
-                                    dc:title "fasta" ],
-                                [ gal:ftype "txt" ;
-                                    gal:md5 "96a07f664105e4ddcb645c7cd9f5d692" ;
-                                    dc:title "report" ] ;
-                            gal:param [ gal:value "true" ;
-                                    dc:title "savelog" ] ],
                         [ gal:conditional [ gal:param [ gal:collection [ gal:element [ gal:value "Mock_S280_L001_R1_001_small.fastq" ;
                                                             dc:title "forward" ],
                                                         [ gal:value "Mock_S280_L001_R2_001_small.fastq" ;
@@ -320,27 +280,78 @@ v.1.27.0: Updated to use Mothur 1.33. Added findex and rindex parmaeters, option
                                         [ gal:value "simple_collection" ;
                                             dc:title "type" ] ;
                                     dc:title "input_type" ] ;
-                            gal:output [ gal:ftype "qual" ;
-                                    gal:md5 "1e7778cee0d86bfa2759a07bb4356165" ;
-                                    dc:title "qual" ],
-                                [ gal:ftype "txt" ;
+                            gal:output [ gal:ftype "txt" ;
                                     gal:md5 "5274725ef45890fd6da4650d5d536173" ;
                                     dc:title "report" ],
                                 [ gal:ftype "fasta" ;
                                     gal:md5 "48e32c65bd9f064c5c0b4ea7695cabe9" ;
-                                    dc:title "fasta" ] ;
-                            gal:param [ gal:value "2" ;
-                                    dc:title "match" ],
-                                [ gal:value "-3" ;
-                                    dc:title "gapopen" ],
-                                [ gal:value "-2" ;
+                                    dc:title "fasta" ],
+                                [ gal:ftype "qual" ;
+                                    gal:md5 "1e7778cee0d86bfa2759a07bb4356165" ;
+                                    dc:title "qual" ] ;
+                            gal:param [ gal:value "-2" ;
                                     dc:title "gapextend" ],
-                                [ gal:value "true" ;
-                                    dc:title "savelog" ],
+                                [ gal:value "2" ;
+                                    dc:title "match" ],
+                                [ gal:value "-2" ;
+                                    dc:title "mismatch" ],
                                 [ gal:value "gotoh" ;
                                     dc:title "align" ],
-                                [ gal:value "-2" ;
-                                    dc:title "mismatch" ] ] ] ;
+                                [ gal:value "-3" ;
+                                    dc:title "gapopen" ],
+                                [ gal:value "true" ;
+                                    dc:title "savelog" ] ],
+                        [ gal:conditional [ gal:param [ gal:value "list_collection" ;
+                                            dc:title "type" ],
+                                        [ gal:collection [ gal:element [ gal:collection [ gal:element [ gal:value "Mock_S280_L001_R2_001_small.fastq" ;
+                                                                            dc:title "reverse" ],
+                                                                        [ gal:value "Mock_S280_L001_R1_001_small.fastq" ;
+                                                                            dc:title "forward" ] ;
+                                                                    gal:type "paired" ] ;
+                                                            dc:title "Pair1" ],
+                                                        [ gal:collection [ gal:element [ gal:value "test_forward.fastq" ;
+                                                                            dc:title "forward" ],
+                                                                        [ gal:value "test_reverse.fastq" ;
+                                                                            dc:title "reverse" ] ;
+                                                                    gal:type "paired" ] ;
+                                                            dc:title "Pair2" ] ;
+                                                    gal:type "list:paired" ] ;
+                                            dc:title "list_paired_collection" ] ;
+                                    dc:title "input_type" ] ;
+                            gal:output [ gal:ftype "mothur.groups" ;
+                                    gal:md5 "ef83b393be4103f0b61a021234905210" ;
+                                    dc:title "group" ],
+                                [ gal:ftype "fasta" ;
+                                    gal:md5 "91bd3b91adc6559182ad118b767f0a07" ;
+                                    dc:title "fasta" ],
+                                [ gal:ftype "txt" ;
+                                    gal:md5 "96a07f664105e4ddcb645c7cd9f5d692" ;
+                                    dc:title "report" ],
+                                [ gal:ftype "qual" ;
+                                    gal:md5 "7094d1ac82a40e9f89cc6cdf5e214da7" ;
+                                    dc:title "qual" ] ;
+                            gal:param [ gal:value "true" ;
+                                    dc:title "savelog" ] ],
+                        [ gal:conditional [ gal:param [ gal:ftype "fastq" ;
+                                            gal:value "Mock_S280_L001_R1_001_small.fastq" ;
+                                            dc:title "forward_fastq" ],
+                                        [ gal:value "regular" ;
+                                            dc:title "type" ],
+                                        [ gal:ftype "fastq" ;
+                                            gal:value "Mock_S280_L001_R2_001_small.fastq" ;
+                                            dc:title "reverse_fastq" ] ;
+                                    dc:title "input_type" ] ;
+                            gal:output [ gal:file "Mock_S280_L001_R1_001_small.trim.contigs.qual" ;
+                                    gal:ftype "qual" ;
+                                    dc:title "qual" ],
+                                [ gal:file "Mock_S280_L001_R1_001_small.contigs.report" ;
+                                    gal:ftype "txt" ;
+                                    dc:title "report" ],
+                                [ gal:file "Mock_S280_L001_R1_001_small.trim.contigs.fasta" ;
+                                    gal:ftype "fasta" ;
+                                    dc:title "fasta" ] ;
+                            gal:param [ gal:value "true" ;
+                                    dc:title "savelog" ] ] ] ;
             gal:version "1.39.5.0" ;
             dc:description "Aligns paired forward and reverse fastq files to contigs as fasta and quality" ;
             dc:identifier "mothur_make_contigs" ;
@@ -349,27 +360,14 @@ v.1.27.0: Updated to use Mothur 1.33. Added findex and rindex parmaeters, option
             schema:sku 1 ] ;
     dc:title "Mothur" .
 
-[] gal:output [ gal:assert_contents [ gal:has_text "1.39.5",
-                        "mothur" ] ;
-            gal:ftype "txt" ;
-            dc:title "logfile" ] .
+[] gal:assert_contents [ gal:has_text "1.39.5",
+                "mothur" ] ;
+    gal:ftype "txt" ;
+    dc:title "logfile" .
 
-[] gal:stdio [ gal:exit_code [ gal:level "fatal" ;
-                    gal:range "1:" ] ;
-            gal:regex [ gal:level "fatal" ;
-                    gal:match "\\[ERROR\\]" ;
-                    gal:source "stdout" ] ] .
-
-[] gal:version_command [ ] .
-
-[] gal:requirements [ gal:requirement [ gal:type "package" ;
-                    gal:version "1.39.5" ;
-                    dc:description "mothur" ] ;
-            gal:yield [ ] ] .
-
-[] gal:data [ gal:filter "savelog" ;
-            gal:format "txt" ;
-            gal:from_work_dir "mothur.out.log" ;
-            gal:label "${tool.name} on ${on_string}: logfile" ;
-            dc:title "logfile" ] .
+[] gal:filter "savelog" ;
+    gal:format "txt" ;
+    gal:from_work_dir "mothur.out.log" ;
+    gal:label "${tool.name} on ${on_string}: logfile" ;
+    dc:title "logfile" .
 
