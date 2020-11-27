@@ -45,6 +45,10 @@ def namespaces():
     g.bind('mothur', CUR)
     g.bind('nco', NCO)
     g.bind('gal', GAL)
+    g.bind('rdfs', RDFS)
+
+
+DT = DCTERMS
 
 
 def hg_url(name):
@@ -90,6 +94,11 @@ REPL = {
     GAL['name']: DC['title'],
     GAL['id']: DC['identifier'],
     GAL['description']: DC['description'],
+
+    GAL['type']: RDFS['range'],
+    GAL['label']: DC['description'],
+    GAL['format']: DT['format'],
+    GAL['source']: DC['source'],
 }
 
 
